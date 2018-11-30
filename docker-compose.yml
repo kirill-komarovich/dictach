@@ -1,13 +1,26 @@
-version: '3'
+version: '3.7'
 services:
-  db:
-    image: postgres
   web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - .:/dictionach
+    build:
+      context: .
+      args:
+        user: ${USER}
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
     ports:
       - '3000:3000'
-    depends_on:
+    links:
       - db
+    volumes:
+      - .:/dictionach
+      - ./vendor:/dictionach/vendor
+      - ./tmp:/dictionach/tmp
+    env_file:
+      - .env.development
+    # user: ${USER}
+  db:
+    image: postgres:10.5
+    volumes:
+      - ./db/data/pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    user: ${USER}
