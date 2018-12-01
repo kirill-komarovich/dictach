@@ -4,23 +4,22 @@ services:
     build:
       context: .
       args:
-        user: ${USER}
+        uid: ${UID}
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     ports:
       - '3000:3000'
     links:
       - db
     volumes:
-      - .:/dictionach
-      - ./vendor:/dictionach/vendor
-      - ./tmp:/dictionach/tmp
+      - .:/home/user/dictach/
+      - ./vendor/:/home/user/dictach/vendor/
+      - ./tmp:/home/user/dictach/tmp/
     env_file:
       - .env.development
-    # user: ${USER}
+    user: user
   db:
     image: postgres:10.5
     volumes:
       - ./db/data/pgdata:/var/lib/postgresql/data/pgdata
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-    user: ${USER}
