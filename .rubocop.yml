@@ -1,0 +1,37 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.5
+  DisplayCopNames: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - bin/setup
+    - bin/update
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - context
+    - describe
+    - feature
+    - it
+    - namespace
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 17
