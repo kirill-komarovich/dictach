@@ -8,3 +8,10 @@
 // layout file, like app/views/layouts/application.html.erb
 
 console.log('Hello World from Webpacker')
+
+import Hello from 'hello_react'
+import WebpackerReact from 'webpacker-react'
+import Turbolinks from 'turbolinks'
+
+Turbolinks.start()
+WebpackerReact.setup({Hello})
