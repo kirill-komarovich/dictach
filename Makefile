@@ -20,4 +20,4 @@ bash:
 	docker-compose run --rm web bash
 
 build:
-	UID=$(shell id -u) docker-compose build
+	docker-compose build
