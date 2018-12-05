@@ -5,9 +5,11 @@
     "@babel/preset-react": "^7.0.0",
     "@rails/webpacker": "https://github.com/rails/webpacker",
     "babel-preset-react": "^6.24.1",
+    "materialize-social": "^1.0.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-materialize": "^2.5.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
