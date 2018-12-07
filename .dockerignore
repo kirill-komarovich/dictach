@@ -1,7 +1,0 @@
-.git/
-log/
-db/data/
-vendor/*
-node_modules/
-
-.env.development

@@ -1,24 +1,12 @@
-# README
+# Dictach
+A simple dictionary for storing new words that you didn't know
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Server
+[Ruby on Rails API application](./server)
+## Client
+[React application](./client)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Installation
+1. Clone repository
+2. Install [docker-compose](https://docs.docker.com/compose/install/)
+3. Run in the terminal `make up`
