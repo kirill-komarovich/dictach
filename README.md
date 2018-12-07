@@ -8,5 +8,5 @@ A simple dictionary for storing new words that you didn't know
 
 ## Installation
 1. Clone repository
-2. Install docker-compose
-3. Run in the terminal `make build`
+2. Install [docker-compose](https://docs.docker.com/compose/install/)
+3. Run in the terminal `make up`
