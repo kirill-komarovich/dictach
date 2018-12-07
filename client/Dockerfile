@@ -9,6 +9,7 @@ ADD yarn.lock /yarn.lock
 ADD package.json /package.json
 
 RUN npm install yarn
+RUN yarn add create-react-app
 WORKDIR $APP_ROOT
 COPY . .
 

@@ -22,6 +22,12 @@ backend-bash:
 frontend:
 	docker-compose run --rm --service-ports client
 
+heroku-push:
+	heroku container:push --recursive
+
+heroku-release:
+	heroku container:release server client
+
 build:
 	docker-compose build
 

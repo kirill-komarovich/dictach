@@ -1,0 +1,9 @@
+build:
+  docker:
+    server: server/Dockerfile
+    web: client/Dockerfile
+  config:
+    RAILS_ENV: development
+run:
+  server: bundle exec rails s -p 3000
+  client: yarn start
