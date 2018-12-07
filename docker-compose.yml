@@ -1,18 +1,18 @@
 version: '3.7'
 services:
   server:
-    build: .
+    build: ./server
     command: /bin/sh -c "rm -f /dictach/tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
     ports:
       - '3001:3000'
     depends_on:
       - db
     volumes:
-      - ./:/dictach/
-      - ./vendor:/dictach/vendor/
-      - ./tmp:/dictach/tmp/
+      - ./server/:/dictach/
+      - ./server/vendor:/dictach/vendor/
+      - ./server/tmp:/dictach/tmp/
     env_file:
-      - .env.development
+      - ./server/.env.development
   client:
     build: ./client
     ports:
