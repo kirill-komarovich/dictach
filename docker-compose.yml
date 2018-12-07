@@ -13,6 +13,8 @@ services:
       - ./server/tmp:/dictach/tmp/
     env_file:
       - ./server/.env.development
+    networks:
+      - dictach
   client:
     build: ./client
     ports:
@@ -23,9 +25,15 @@ services:
     command: yarn start
     environment:
       - NODE_ENV=development
+    networks:
+      - dictach
   db:
     image: postgres:10.5
     volumes:
       - ./server/db/data/pgdata:/var/lib/postgresql/data/pgdata
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
+    networks:
+      - dictach
+networks:
+  dictach:
