@@ -1,21 +1,31 @@
 version: '3.7'
 services:
-  web:
+  server:
     build: .
-    command: bundle exec rails s -p 3000 -b 0.0.0.0
+    command: /bin/sh -c "rm -f /dictach/tmp/pids/server.pid && bundle exec rails s -p 3000 -b 0.0.0.0"
     ports:
-      - '3000:3000'
+      - '3001:3000'
     depends_on:
       - db
     volumes:
-      - .:/dictach/
-      - ./vendor/:/dictach/vendor/
+      - ./:/dictach/
+      - ./vendor:/dictach/vendor/
       - ./tmp:/dictach/tmp/
     env_file:
       - .env.development
+  client:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/dictach_client/
+      - ./client/node_modules:/dictach_client/node_modules
+    command: yarn start
+    environment:
+      - NODE_ENV=development
   db:
     image: postgres:10.5
     volumes:
-      - ./db/data/pgdata:/var/lib/postgresql/data/pgdata
+      - ./server/db/data/pgdata:/var/lib/postgresql/data/pgdata
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata

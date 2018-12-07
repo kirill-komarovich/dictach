@@ -1,23 +1,26 @@
 setup:
 	docker-compose run --rm web bin/setup
 
-start:
-	docker-compose run --rm --service-ports web
+server:
+	docker-compose run --rm --service-ports server
 
-test:
-	docker-compose run --rm web bundle exec rake
+server-test:
+	docker-compose run --rm server bundle exec rake
 
-install-deps:
-	docker-compose run --rm web bundle install
+server-install-deps:
+	docker-compose run --rm server bundle install
 
-db-migrate:
-	docker-compose run --rm web bundle exec rake db:migrate
+server-db-migrate:
+	docker-compose run --rm server bundle exec rake db:migrate
 
-bootstrap-db:
-	docker-compose run --rm web bundle exec rails db:setup
+server-bootstrap-db:
+	docker-compose run --rm server bundle exec rails db:setup
 
-bash:
-	docker-compose run --rm web bash
+server-bash:
+	docker-compose run --rm server bash
+
+app-client:
+	docker-compose run --rm --service-ports client
 
 build:
 	docker-compose build
