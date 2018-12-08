@@ -13,5 +13,5 @@ RUN yarn add create-react-app
 WORKDIR $APP_ROOT
 COPY . .
 
-EXPOSE $PORT
-CMD ["yarn", "start"]
+# EXPOSE $PORT
+CMD ["yarn", "build"]
