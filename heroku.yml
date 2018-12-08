@@ -6,4 +6,4 @@ build:
     RAILS_ENV: development
 run:
   server: bundle exec rails s -p 3000
-  web: yarn start
+  web: yarn build
