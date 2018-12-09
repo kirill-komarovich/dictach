@@ -28,7 +28,4 @@ COPY . .
 # Install node dependencies
 RUN cd client && yarn add create-react-app && yarn install
 
-RUN ls
-RUN ls ${APP_ROOT}/client
-
 EXPOSE $PORT
