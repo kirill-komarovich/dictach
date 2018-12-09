@@ -28,4 +28,5 @@ COPY . .
 # Install node dependencies
 RUN cd client && yarn add create-react-app && yarn install
 
-EXPOSE $PORT
+# EXPOSE $PORT
+CMD ["bundle exec rails", "s", "-p ${PORT}"]
