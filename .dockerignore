@@ -3,9 +3,12 @@ log/
 db/data/
 vendor/*
 Dockerfile
-client/
 Makefile
 docker-compose.yml
 README.md
 .env.development
 .gitignore
+
+client/README.md
+client/.gitignore
+client/node_modules/
