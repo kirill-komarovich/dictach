@@ -4,4 +4,4 @@ build:
   config:
     RAILS_ENV: development
 run:
-  web: foreman start -f Procfile.dev
+  web: bundle exec foreman start -f Procfile.dev
