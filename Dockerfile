@@ -1,6 +1,6 @@
 FROM ruby:2.5.3
 
-ENV APP_ROOT='/dictach'
+ENV APP_ROOT=/dictach
 ENV BUNDLE_PATH=${APP_ROOT}/vendor/bundle
 ENV PORT=3000
 ENV NODE_VERSION=v10.13.0
@@ -27,7 +27,8 @@ RUN bundle install --path $BUNDLE_PATH --jobs 4
 COPY . .
 
 # Install node dependencies
-RUN cd client && yarn add create-react-app && yarn install
+# RUN cd client && yarn add create-react-app && yarn install
+RUN npm install
 
 EXPOSE $PORT
-CMD ["bundle exec rails", "s", "-p ${PORT}"]
+CMD 'bundle exec rails s'
