@@ -7,6 +7,7 @@ ENV NODE_VERSION=v11.4.0
 ENV NODE_DIST_FILENAME=node-$NODE_VERSION-linux-x64.tar.xz
 ENV NODE_PATH=${APP_ROOT}/client/node_modules
 ENV PATH=$PATH:/node_modules/.bin
+ENV REACT_BUILD_PATH=${APP_ROOT}/public
 
 WORKDIR ${APP_ROOT}
 
@@ -24,8 +25,7 @@ RUN bundle install --path $BUNDLE_PATH --jobs 4
 COPY . .
 
 # Build react
-RUN cd client && yarn add create-react-app && yarn install && yarn build && cd ..
-RUN cp -a client/build/. public/
+RUN cd client && yarn install && yarn build && cd ..
 
 EXPOSE $PORT
 CMD ["bundle", "exec", "rails", "s"]
