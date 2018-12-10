@@ -27,8 +27,8 @@ RUN bundle install --path $BUNDLE_PATH --jobs 4
 COPY . .
 
 # Install node dependencies
-# RUN cd client && yarn add create-react-app && yarn install
-RUN npm install
+RUN cd client && yarn add create-react-app && yarn install && yarn build && cd ..
+RUN cp -a client/build/. public/
 
 EXPOSE $PORT
-CMD 'bundle exec rails s'
+CMD ["bundle", "exec", "rails", "s"]
