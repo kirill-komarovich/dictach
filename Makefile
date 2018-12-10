@@ -1,29 +1,35 @@
 setup:
 	docker-compose run --rm web bin/setup
 
-backend:
-	docker-compose run --rm --service-ports server
+start:
+	docker-compose run --rm --service-ports web
 
 backend-test:
-	docker-compose run --rm server bundle exec rake
+	docker-compose run --rm web bundle exec rake
 
 backend-install-deps:
-	docker-compose run --rm server bundle install
+	docker-compose run --rm web bundle install
 
 backend-db-migrate:
-	docker-compose run --rm server bundle exec rake db:migrate
+	docker-compose run --rm web bundle exec rake db:migrate
 
 backend-bootstrap-db:
-	docker-compose run --rm server bundle exec rails db:setup
+	docker-compose run --rm web bundle exec rails db:setup
 
-backend-bash:
-	docker-compose run --rm server bash
+frontend-install-deps:
+	docker-compose run --rm web /bin/sh -c "cd client && yarn install"
 
-frontend:
-	docker-compose run --rm --service-ports client
+heroku-push:
+	heroku container:push --recursive
+
+heroku-release:
+	heroku container:release web
 
 build:
 	docker-compose build
 
 up:
 	docker-compose up
+
+bash:
+	docker-compose run --rm web bash
