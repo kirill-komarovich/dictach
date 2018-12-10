@@ -3,7 +3,7 @@ FROM ruby:2.5.3
 ENV APP_ROOT=/dictach
 ENV BUNDLE_PATH=${APP_ROOT}/vendor/bundle
 ENV PORT=3000
-ENV NODE_VERSION=v10.13.0
+ENV NODE_VERSION=v11.4.0
 ENV NODE_DIST_FILENAME=node-$NODE_VERSION-linux-x64.tar.xz
 ENV NODE_PATH=${APP_ROOT}/client/node_modules
 ENV PATH=$PATH:/node_modules/.bin
@@ -19,13 +19,11 @@ RUN npm i -g yarn
 # Install ruby dependencies
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler
-# Without this line raises exception connected with nokogiri build
-RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle install --path $BUNDLE_PATH --jobs 4
 
 COPY . .
 
-# Install node dependencies
+# Build react
 RUN cd client && yarn add create-react-app && yarn install && yarn build && cd ..
 RUN cp -a client/build/. public/
 
