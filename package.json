@@ -1,5 +1,8 @@
 {
   "name": "dictach",
+  "engines": {
+    "node": "10.13.0"
+  },
   "scripts": {
     "build": "cd client && yarn install && yarn run build && cd ..",
     "deploy": "cp -a client/build/. public/",
