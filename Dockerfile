@@ -7,6 +7,7 @@ ENV NODE_VERSION=v10.13.0
 ENV NODE_DIST_FILENAME=node-$NODE_VERSION-linux-x64.tar.xz
 ENV NODE_PATH=${APP_ROOT}/client/node_modules
 ENV PATH=$PATH:/node_modules/.bin
+ENV PORT=3000
 
 WORKDIR ${APP_ROOT}
 
@@ -28,5 +29,5 @@ COPY . .
 # Install node dependencies
 RUN cd client && yarn add create-react-app && yarn install
 
-# EXPOSE $PORT
+EXPOSE $PORT
 CMD ["bundle exec rails", "s", "-p ${PORT}"]
