@@ -30,5 +30,6 @@ COPY . .
 RUN cd client && yarn add create-react-app && yarn install && yarn build && cd ..
 RUN cp -a client/build/. public/
 
+
 EXPOSE $PORT
 CMD ["bundle", "exec", "rails", "s"]
