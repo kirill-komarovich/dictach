@@ -1,17 +1,11 @@
 class User < ApplicationRecord
-  include Devise::JWT::RevocationStrategies::Whitelist
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: self
+  devise :doorkeeper, :database_authenticatable, :registerable,
+         :recoverable, :validatable, :trackable
 
-  def jwt_payload
-    {
-      'id' => id,
-      'email' => email
-    }
-  end
-
+  has_many :access_tokens,
+           class_name: 'Doorkeeper::AccessToken',
+           foreign_key: :resource_owner_id,
+           dependent: :delete_all
 end
