@@ -123,6 +123,7 @@ Doorkeeper.configure do
   # for more information on customization
   #
   # client_credentials :from_basic, :from_params
+  client_credentials :from_basic
 
   # Change the way access token is authenticated from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then

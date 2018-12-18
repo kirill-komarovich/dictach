@@ -165,7 +165,7 @@ Devise.setup do |config|
   # ==> Configuration for :validatable
   config.password_length = 6..128
 
-  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  config.email_regexp = /\A[^@\s]+@[^@\s]+\.[^@\s]{2,}\z/
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
@@ -263,4 +263,8 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+
+  config.warden do |manager|
+    manager.failure_app = Devise::ApiFailureApp
+  end
 end
