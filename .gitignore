@@ -34,3 +34,4 @@ yarn-debug.log*
 
 /db/data
 .env.development.local
+coverage
