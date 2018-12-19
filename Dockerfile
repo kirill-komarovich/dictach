@@ -28,4 +28,5 @@ COPY . .
 RUN cd client && yarn install && yarn build && cd ..
 
 EXPOSE $PORT
+RUN bundle exec rails db:migrate
 CMD ["bundle", "exec", "rails", "s"]
