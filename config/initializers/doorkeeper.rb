@@ -12,7 +12,6 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |_routes|
-    p params.to_h
     user = User.find_for_database_authentication(email: params[:email])
 
     user if user&.valid_for_authentication? { user.valid_password?(params[:password]) }
@@ -53,6 +52,7 @@ Doorkeeper.configure do
   # If you want to disable expiration, set this to nil.
   #
   # access_token_expires_in 2.hours
+  access_token_expires_in 30.seconds
 
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. `context` has the following properties available
@@ -75,15 +75,6 @@ Doorkeeper.configure do
   # See https://github.com/doorkeeper-gem/doorkeeper#custom-base-controller
   #
   # base_controller 'ApplicationController'
-
-  # Reuse access token for the same resource owner within an application (disabled by default).
-  #
-  # This option protects your application from creating new tokens before old valid one becomes
-  # expired so your database doesn't bloat. Keep in mind that when this option is `on` Doorkeeper
-  # doesn't updates existing token expiration time, it will create a new token instead.
-  # Rationale: https://github.com/doorkeeper-gem/doorkeeper/issues/383
-  #
-  # reuse_access_token
 
   # Issue access tokens with refresh token (disabled by default), you may also
   # pass a block which accepts `context` to customize when to give a refresh
@@ -192,7 +183,7 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
   # grant_flows %w[authorization_code client_credentials]
-  grant_flows %w[password]
+  grant_flows %w[password refresh_token]
 
   # Hook into the strategies' request & response life-cycle in case your
   # application needs advanced customization or logging:
@@ -200,10 +191,18 @@ Doorkeeper.configure do
   # before_successful_strategy_response do |request|
   #   puts "BEFORE HOOK FIRED! #{request}"
   # end
-  #
-  # after_successful_strategy_response do |request, response|
-  #   puts "AFTER HOOK FIRED! #{request}, #{response}"
-  # end
+
+  after_successful_strategy_response do |request, response|
+    puts 'after_successful_strategy_response'
+    new_token = response.token
+    if new_token.previous_refresh_token.present?
+      previous_token = Doorkeeper::AccessToken.find_by(
+        refresh_token: new_token.previous_refresh_token
+      )
+      previous_token&.destroy
+    end
+    puts "AFTER HOOK FIRED! #{request}, #{response}"
+  end
 
   # Hook into Authorization flow in order to implement Single Sign Out
   # or add ny other functionality.
@@ -211,7 +210,7 @@ Doorkeeper.configure do
   # before_successful_authorization do |controller|
   #   Rails.logger.info(params.inspect)
   # end
-  #
+
   # after_successful_authorization do |controller|
   #   controller.session[:logout_urls] <<
   #     Doorkeeper::Application
