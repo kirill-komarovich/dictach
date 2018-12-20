@@ -12,6 +12,7 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |_routes|
+    # TODO: validate client?
     user = User.find_for_database_authentication(email: params[:email])
 
     user if user&.valid_for_authentication? { user.valid_password?(params[:password]) }
