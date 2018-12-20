@@ -12,7 +12,6 @@ Doorkeeper.configure do
   end
 
   resource_owner_from_credentials do |_routes|
-    # TODO: validate client?
     user = User.find_for_database_authentication(email: params[:email])
 
     user if user&.valid_for_authentication? { user.valid_password?(params[:password]) }
@@ -190,14 +189,21 @@ Doorkeeper.configure do
   # application needs advanced customization or logging:
   #
   before_successful_strategy_response do |request|
-    pp request.methods.sort
     p request.access_token
     new_token = request.access_token
     if new_token.previous_refresh_token.present?
       previous_token = Doorkeeper::AccessToken.find_by(
         refresh_token: new_token.previous_refresh_token
       )
-      previous_token&.destroy
+      RefreshTokenInfo.transaction do
+        refresh_token_info = RefreshTokenInfo.find_by(refresh_token_id: previous_token.id)
+        p refresh_token_info
+        refresh_token_info.update(refresh_token_id: new_token.id)
+        previous_token&.destroy
+        refresh_token_info.destroy if refresh_token_info.expired?
+      end
+    else
+      RefreshTokenInfo.create(refresh_token_id: new_token.id)
     end
     puts "BEFORE HOOK FIRED! #{request}"
   end

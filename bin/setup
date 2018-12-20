@@ -30,10 +30,6 @@ chdir APP_ROOT do
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
 
-  puts "\n== Adding oauth2 application to client =="
-  system! 'bin/rake oauth2:create_frontend_application'
-
   puts "\n== Restarting application server =="
   system! 'bin/rails restart'
-  system! 'bin/rake restart'
 end
