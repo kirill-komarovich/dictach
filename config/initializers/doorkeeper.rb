@@ -17,26 +17,6 @@ Doorkeeper.configure do
     user if user&.valid_for_authentication? { user.valid_password?(params[:password]) }
   end
 
-  # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
-  # file then you need to declare this block in order to restrict access to the web interface for
-  # adding oauth authorized applications. In other case it will return 403 Forbidden response
-  # every time somebody will try to access the admin web interface.
-  #
-  # admin_authenticator do
-  #   # Put your admin authentication logic here.
-  #   # Example implementation:
-  #
-  #   if current_user
-  #     head :forbidden unless current_user.admin?
-  #   else
-  #     redirect_to sign_in_url
-  #   end
-  # end
-
-  # If you are planning to use Doorkeeper in Rails 5 API-only application, then you might
-  # want to use API mode that will skip all the views management and change the way how
-  # Doorkeeper responds to a requests.
-  #
   api_only
 
   # Enforce token request content type to application/x-www-form-urlencoded.
@@ -52,7 +32,6 @@ Doorkeeper.configure do
   # If you want to disable expiration, set this to nil.
   #
   # access_token_expires_in 2.hours
-  access_token_expires_in 30.seconds
 
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. `context` has the following properties available
@@ -70,21 +49,6 @@ Doorkeeper.configure do
   #
   # access_token_generator '::Doorkeeper::JWT'
 
-  # The controller Doorkeeper::ApplicationController inherits from.
-  # Defaults to ActionController::Base.
-  # See https://github.com/doorkeeper-gem/doorkeeper#custom-base-controller
-  #
-  # base_controller 'ApplicationController'
-
-  # Issue access tokens with refresh token (disabled by default), you may also
-  # pass a block which accepts `context` to customize when to give a refresh
-  # token or not. Similar to `custom_access_token_expires_in`, `context` has
-  # the properties:
-  #
-  # `client` - the OAuth client application (see Doorkeeper::OAuth::Client)
-  # `grant_type` - the grant type of the request (see Doorkeeper::OAuth)
-  # `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
-  #
   use_refresh_token
 
   # Forbids creating/updating applications with arbitrary scopes that are
@@ -166,77 +130,7 @@ Doorkeeper.configure do
   #
   # handle_auth_errors :raise
 
-  # Specify what grant flows are enabled in array of Strings. The valid
-  # strings and the flows they enable are:
-  #
-  # "authorization_code" => Authorization Code Grant Flow
-  # "implicit"           => Implicit Grant Flow
-  # "password"           => Resource Owner Password Credentials Grant Flow
-  # "client_credentials" => Client Credentials Grant Flow
-  #
-  # If not specified, Doorkeeper enables authorization_code and
-  # client_credentials.
-  #
-  # implicit and password grant flows have risks that you should understand
-  # before enabling:
-  #   http://tools.ietf.org/html/rfc6819#section-4.4.2
-  #   http://tools.ietf.org/html/rfc6819#section-4.4.3
-  #
-  # grant_flows %w[authorization_code client_credentials]
-  grant_flows %w[password refresh_token]
-
-  # Hook into the strategies' request & response life-cycle in case your
-  # application needs advanced customization or logging:
-  #
-  before_successful_strategy_response do |request|
-    p request.access_token
-    new_token = request.access_token
-    if new_token.previous_refresh_token.present?
-      previous_token = Doorkeeper::AccessToken.find_by(
-        refresh_token: new_token.previous_refresh_token
-      )
-      RefreshTokenInfo.transaction do
-        refresh_token_info = RefreshTokenInfo.find_by(refresh_token_id: previous_token.id)
-        p refresh_token_info
-        refresh_token_info.update(refresh_token_id: new_token.id)
-        previous_token&.destroy
-        refresh_token_info.destroy if refresh_token_info.expired?
-      end
-    else
-      RefreshTokenInfo.create(refresh_token_id: new_token.id)
-    end
-    puts "BEFORE HOOK FIRED! #{request}"
-  end
-
-  # after_successful_strategy_response do |_request, response|
-
-  # end
-
-  # Hook into Authorization flow in order to implement Single Sign Out
-  # or add ny other functionality.
-  #
-  # before_successful_authorization do |controller|
-  #   Rails.logger.info(params.inspect)
-  # end
-
-  # after_successful_authorization do |controller|
-  #   controller.session[:logout_urls] <<
-  #     Doorkeeper::Application
-  #       .find_by(controller.request.params.slice(:redirect_uri))
-  #       .logout_uri
-  # end
-
-  # Under some circumstances you might want to have applications auto-approved,
-  # so that the user skips the authorization step.
-  # For example if dealing with a trusted application.
-  #
-  # skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
-  # end
+  grant_flows %w[password]
 
   skip_authorization { true }
-
-  # WWW-Authenticate Realm (default "Doorkeeper").
-  #
-  # realm "Doorkeeper"
 end
