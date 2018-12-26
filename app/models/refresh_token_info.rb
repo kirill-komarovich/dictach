@@ -2,7 +2,7 @@
 
 class RefreshTokenInfo < ApplicationRecord
   EXPIRES_IN = 30.days
-  belongs_to :refresh_token,
+  belongs_to :refresh_token, # rubocop:disable Rails/InverseOf
              class_name: 'Doorkeeper::AccessToken',
              foreign_key: :refresh_token_id,
              dependent: :destroy

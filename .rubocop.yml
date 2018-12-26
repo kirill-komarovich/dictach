@@ -29,9 +29,15 @@ Metrics/BlockLength:
     - feature
     - it
     - namespace
+  Exclude:
+    - db/schema.rb
 
 Metrics/MethodLength:
   Max: 15
+  ExcludedMethods:
+    - change
 
 Metrics/AbcSize:
   Max: 17
+  Exclude:
+    - db/migrate/*
