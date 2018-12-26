@@ -30,7 +30,7 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails', '~> 4.11'
+  gem 'factory_bot', '~> 4.11'
   gem 'ffaker', '~> 2.2'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop', '~> 0.61'

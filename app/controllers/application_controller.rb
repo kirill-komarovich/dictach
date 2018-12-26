@@ -3,7 +3,6 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
 
   respond_to :json
@@ -12,13 +11,5 @@ class ApplicationController < ActionController::API
     respond_to do |format|
       format.html { render body: Rails.root.join('public', 'index.html').read }
     end
-  end
-
-  protected
-
-  def configure_permitted_parameters
-    added_attrs = %i[email]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 end

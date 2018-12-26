@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :refresh_token_info do
-    refresh_token { nil }
+    association :refresh_token, factory: :access_token
   end
 end

@@ -14,7 +14,7 @@ RSpec.describe 'Doorkeeper sign in', type: :request do
       }
     end
 
-    it 'authenticates user', :aggregate_issues do
+    it 'authenticates user', :aggregate_failures do
       post oauth_token_path, params: sign_in_params
 
       body = JSON.parse(response.body, symbolize_names: true)
@@ -32,7 +32,7 @@ RSpec.describe 'Doorkeeper sign in', type: :request do
       }
     end
 
-    it 'does not authenticate user', :aggregate_issues do
+    it 'does not authenticate user', :aggregate_failures do
       post oauth_token_path, params: sign_in_params
 
       body = JSON.parse(response.body, symbolize_names: true)
