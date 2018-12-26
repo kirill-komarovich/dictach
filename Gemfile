@@ -44,7 +44,8 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'devise-doorkeeper', '~> 1.1'
+gem 'doorkeeper-i18n', '~> 5.0'
 gem 'dotenv-rails', '~> 2.5'
 gem 'foreman', '~> 0.82'
-gem 'devise-doorkeeper', '~> 1.1'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

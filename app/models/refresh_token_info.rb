@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RefreshTokenInfo < ApplicationRecord
   EXPIRES_IN = 30.days
   belongs_to :refresh_token,

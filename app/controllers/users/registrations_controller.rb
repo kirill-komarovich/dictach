@@ -4,32 +4,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
   def create
     build_resource(sign_up_params)
     resource.save
     if resource.persisted?
-      if resource.active_for_authentication?
-        render json: resource
-      else
-        expire_data_after_sign_in!
-        render json: resource
-      end
+      expire_data_after_sign_in! unless resource.active_for_authentication?
+      render json: resource
     else
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource
     end
   end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
 
   # PUT /resource
   # def update

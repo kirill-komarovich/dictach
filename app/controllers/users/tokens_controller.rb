@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Users
   class TokensController < Doorkeeper::TokensController
     def create
       response = authorize_response
-      update_refresh_token_info(response.token)
+      update_refresh_token_info(response.token) if response.respond_to?(:token)
       headers.merge! response.headers
       self.response_body = response.body.to_json
       self.status = response.status
