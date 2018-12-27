@@ -1,6 +1,8 @@
 # Dictach
 A simple dictionary for storing new words that you didn't know
 
+[See it here](https://dictach.herokuapp.com/)
+
 ## Server
 This README would normally document whatever steps are necessary to get the
 application up and running.

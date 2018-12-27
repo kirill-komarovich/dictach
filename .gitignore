@@ -33,3 +33,5 @@ yarn-debug.log*
 .yarn-integrity
 
 /db/data
+/**/.env.development.local
+coverage
