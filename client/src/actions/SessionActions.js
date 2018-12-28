@@ -2,16 +2,20 @@ import * as types from '../types/session';
 import SessionApi from '../api/SessionApi';
 import history from '../history';
 
-export function loginBegin() {
-  return {type: types.LOG_IN_BEGIN}
+export function signInBegin() {
+  return {type: types.SIGN_IN_BEGIN}
 }
 
-export function loginSuccess() {
-  return {type: types.LOG_IN_SUCCESS}
+export function signInSuccess() {
+  return {type: types.SIGN_IN_SUCCESS}
 }
 
-export function loginFailure(errors) {
-  return {type: types.LOG_IN_FAILURE, errors}
+export function signInFailure(errors) {
+  return {type: types.SIGN_IN_FAILURE, errors}
+}
+
+export function freeSessionErrorsSuccess() {
+  return {type: types.FREE_SESSION_ERRORS}
 }
 
 // export function signUpBegin() {
@@ -46,20 +50,21 @@ export function loginFailure(errors) {
 //     return {type: types.TOKEN_REFRESH_FAILURE, errors}
 // }
 
-export function logInUser(credentials) {
+export function signInUser(credentials) {
   return async function(dispatch) {
-    dispatch(loginBegin());
-    const response = await SessionApi.login(credentials);
+    dispatch(signInBegin());
+    const response = await SessionApi.signin(credentials);
     console.log(response);
     if (!response.error) {
       localStorage.setItem('access_token', response.access_token);
       localStorage.setItem('refresh_token', response.refresh_token);
       const expiration_time = response.created_at + response.expires_in;
       localStorage.setItem('access_token_expires_at', expiration_time);
-      dispatch(loginSuccess());
+      dispatch(signInSuccess());
       history.push('/');
     }
     else {
+      dispatch(signInFailure([response.error]));
     }
   };
 }
@@ -88,11 +93,11 @@ export function logInUser(credentials) {
 //   };
 // }
 
-// export function freeSessionErrors() {
-//   return function(dispatch) {
-//     dispatch(freeSessionErrorsSuccess());
-//   };
-// }
+export function freeSessionErrors() {
+  return function(dispatch) {
+    dispatch(freeSessionErrorsSuccess());
+  };
+}
 
 // export function verifyToken() {
 //   return function(dispatch) {

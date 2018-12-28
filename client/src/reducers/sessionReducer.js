@@ -3,19 +3,19 @@ import initialState from './initialState';
 
 export default function sessionReducer(state = initialState.session, action) {
   switch(action.type) {
-    case types.LOG_IN_BEGIN:
+    case types.SIGN_IN_BEGIN:
       return {
         ...state,
         authenticated: false,
         loading: true,
       };
-    case types.LOG_IN_SUCCESS:
+    case types.SIGN_IN_SUCCESS:
       return {
         ...state,
         authenticated: true,
         loading: false,
       };
-    case types.LOG_IN_FAILURE:
+    case types.SIGN_IN_FAILURE:
       return {
         ...state,
         errors: action.errors,
@@ -53,11 +53,11 @@ export default function sessionReducer(state = initialState.session, action) {
     //     authenticated: false,
     //     loading: false,
     //   };
-    // case types.FREE_SESSION_ERRORS:
-    //   return {
-    //     ...state,
-    //     errors: null,
-    //   };
+    case types.FREE_SESSION_ERRORS:
+      return {
+        ...state,
+        errors: null,
+      };
     // case types.TOKEN_VERIFY_SUCCESS:
     //   return{
     //     ...state,

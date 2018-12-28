@@ -1,7 +1,7 @@
 import urls from '../urls';
 
 class SessionApi {
-  static async login(credentials) {
+  static async signin(credentials) {
     const request = new Request(urls.session.signin, {
       method: 'POST',
       headers: new Headers({
