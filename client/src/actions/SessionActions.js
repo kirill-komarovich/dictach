@@ -38,14 +38,6 @@ export function loginFailure(errors) {
 //   return {type: types.FREE_SESSION_ERRORS}
 // }
 
-// export function tokenVerifySuccess() {
-//     return {type: types.TOKEN_VERIFY_SUCCESS}
-// }
-
-// export function tokenVerifyFailure(errors) {
-//     return {type: types.TOKEN_VERIFY_FAILURE, errors}
-// }
-
 // export function tokenRefreshSuccess() {
 //     return {type: types.TOKEN_REFRESH_SUCCESS}
 // }
@@ -55,10 +47,20 @@ export function loginFailure(errors) {
 // }
 
 export function logInUser(credentials) {
-  return function(dispatch) {
+  return async function(dispatch) {
     dispatch(loginBegin());
-    return SessionApi.login(credentials).then(response => {
-    });
+    const response = await SessionApi.login(credentials);
+    console.log(response);
+    if (!response.error) {
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('refresh_token', response.refresh_token);
+      const expiration_time = response.created_at + response.expires_in;
+      localStorage.setItem('access_token_expires_at', expiration_time);
+      dispatch(loginSuccess());
+      history.push('/');
+    }
+    else {
+    }
   };
 }
 

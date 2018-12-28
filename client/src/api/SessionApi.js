@@ -1,20 +1,26 @@
 import urls from '../urls';
 
 class SessionApi {
-  static login(credentials) {
-    const request = new Request(urls.session.login, {
+  static async login(credentials) {
+    const request = new Request(urls.session.signin, {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
-      body: JSON.stringify({user: credentials})
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+        grant_type: 'password',
+      })
     });
 
-    return fetch(request).then(response => {
+    try {
+      const response = await fetch(request);
       return response.json();
-    }).catch(error => {
+    }
+    catch (error) {
       throw error;
-    });
+    }
   }
 
   static signup(credentials) {

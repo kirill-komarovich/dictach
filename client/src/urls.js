@@ -2,7 +2,7 @@ const version = "v1";
 
 const urls = {
   session: {
-    login: "/login",
+    signin: '/oauth/token',
     signup: "/sign_up",
   },
 };

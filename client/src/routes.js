@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import store from './store'
 import { Provider } from 'react-redux'
 import App from './App';
-import SignInPage from './containers/SignInPage';
+import SignInForm from './components/signInForm';
 import history from './history';
 
 export const makeRoutes = () => {
@@ -12,7 +12,7 @@ export const makeRoutes = () => {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/sign_in" component={SignInPage} />
+          <Route path="/sign_in" component={SignInForm} />
         </Switch>
       </Router>
     </Provider>

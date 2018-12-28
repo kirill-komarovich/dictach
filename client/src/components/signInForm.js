@@ -5,13 +5,12 @@ import { Button, Row, Col,  Input, Card} from 'react-materialize';
 import {bindActionCreators} from 'redux';
 import * as sessionActions from '../actions/SessionActions';
 
-
 class SignInForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       credentials: {
-        username: '',
+        email: '',
         password: ''
       }
     };
@@ -34,19 +33,17 @@ class SignInForm extends Component {
   render() {
     return (
       <div className={'sign-form'}>
-        <form>
-          <Row>
-            <Col m={4} s={12} offset={'m4'}>
-              <Card title='Sign In' className={'grey lighten-5'}>
-                <Input type="text" name="username" label="Username" s={12} onChange={this.onChange} value={this.state.credentials.username}/>
-                <Input type="password" name="password" label="Password" s={12} onChange={this.onChange} value={this.state.credentials.password}/>
-                <Button waves={"light"} type={"submit"} onClick={this.onSave}>Sign In</Button>
-                <span>Or</span>
-                <Link to={'/sign_up'}>Sign Up</Link>
-              </Card>
-            </Col>
-          </Row>
-        </form>
+        <Row>
+          <Col m={4} s={12} offset={'m4'}>
+            <Card title='Sign In' className={'grey lighten-5'}>
+              <Input type="email" name="email" label="Email" s={12} onChange={this.onChange} value={this.state.credentials.username}/>
+              <Input type="password" name="password" label="Password" s={12} onChange={this.onChange} value={this.state.credentials.password}/>
+              <Button waves={"light"} type={"submit"} onClick={this.onSave}>Sign In</Button>
+              <span>Or</span>
+              <Link to={'/sign_up'}>Sign Up</Link>
+            </Card>
+          </Col>
+        </Row>
       </div>
     );
   }
