@@ -3,7 +3,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  Devise::Doorkeeper.configure_devise(config)
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -36,8 +35,7 @@ Devise.setup do |config|
 
   config.strip_whitespace_keys = [:email]
 
-  config.skip_session_storage = %i[http_auth params_auth doorkeeper]
-
+  config.skip_session_storage = %i[http_auth]
   config.stretches = Rails.env.test? ? 1 : 11
 
   # ==> Configuration for :confirmable

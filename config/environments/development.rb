@@ -15,8 +15,10 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Using redis cache store
+  config.action_controller.perform_caching = true
   config.cache_store = :redis_cache_store, {
-    host: ENV.fetch('REDIS_URL')
+    host: ENV.fetch('REDIS_HOST'),
+    driver: :hiredis
   }
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
