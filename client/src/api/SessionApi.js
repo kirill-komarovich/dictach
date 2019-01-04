@@ -1,4 +1,4 @@
-import urls from '../urls';
+import urls from './apiUrls';
 
 class SessionApi {
   static async signin(credentials) {

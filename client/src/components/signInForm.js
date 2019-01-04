@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom'
 import { Button, Row, Col,  Input, Card} from 'react-materialize';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import * as sessionActions from '../actions/SessionActions';
 import { capitalize } from '../utils/str'
 
@@ -33,7 +33,6 @@ class SignInForm extends Component {
   }
 
   componentDidMount() {
-    console.log(this.emailInput.current);
     document.getElementById(this.emailInput.current._id).focus();
   }
 
@@ -98,5 +97,5 @@ function mapStateToProps(state, ownProps) {
     session: state.session
   };
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignInForm));
 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignInForm));

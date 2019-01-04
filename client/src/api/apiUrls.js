@@ -1,7 +1,8 @@
+const version = "v1";
+
 const urls = {
-  root: '/',
   session: {
-    signin: '/sign_in',
+    signin: '/oauth/token',
     signup: "/sign_up",
   },
 };
