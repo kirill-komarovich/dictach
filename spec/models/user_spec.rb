@@ -14,12 +14,4 @@ RSpec.describe User, type: :model do
     ]
     expect(subject.devise_modules).to include(*expected_devise_modules)
   end
-
-  it do
-    is_expected.to have_many(:access_tokens)
-      .class_name('Doorkeeper::AccessToken')
-      .with_foreign_key(:resource_owner_id)
-      .dependent(:delete_all)
-      .inverse_of(:user)
-  end
 end
