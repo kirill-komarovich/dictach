@@ -22,7 +22,8 @@ Rails.application.configure do
 
   # Using redis cache store
   config.cache_store = :redis_cache_store, {
-    host: ENV.fetch('REDIS_URL')
+    host: ENV.fetch('REDIS_HOST'),
+    driver: :hiredis
   }
 
   # Show full error reports and disable caching.

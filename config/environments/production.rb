@@ -51,7 +51,8 @@ Rails.application.configure do
 
   # Using redis cache store
   config.cache_store = :redis_cache_store, {
-    host: ENV.fetch('REDIS_URL')
+    url: ENV.fetch('REDIS_URL'),
+    driver: :hiredis
   }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)

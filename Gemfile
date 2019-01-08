@@ -14,13 +14,11 @@ gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
+gem 'hiredis', '~> 0.6.3'
 gem 'redis', '~> 4.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-gem 'rack-cors', '~> 1.0.2', require: 'rack/cors'
 
 group :test do
   gem 'rails-controller-testing', '~> 1.0'
@@ -44,8 +42,7 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'devise-doorkeeper', '~> 1.1'
-gem 'doorkeeper-i18n', '~> 5.0'
+gem 'devise', '~> 4.5'
 gem 'dotenv-rails', '~> 2.5'
 gem 'foreman', '~> 0.82'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
