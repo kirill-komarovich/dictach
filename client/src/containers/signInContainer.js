@@ -21,11 +21,13 @@ const styles = theme => ({
 function SignInContainer(props) {
   const { classes } = props;
   return (
-    <Paper className={classes.signInContainer} elevation={1}>
-      <Grid item xs={12} sm container>
-        <SignInForm/>
-      </Grid>
-    </Paper>
+    <Grid item alignItems={'center'}>
+      <Paper className={classes.signInContainer} elevation={1}>
+        <Grid item xs={12} sm container>
+          <SignInForm/>
+        </Grid>
+      </Paper>
+    </Grid>
   );
 }
 
