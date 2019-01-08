@@ -1,11 +1,16 @@
 import { createStore, applyMiddleware } from 'redux'
+import { persistStore } from 'redux-persist'
 import rootReducer from './reducers/rootReducer'
+import persistedReducer from './reducers/persistedReducer'
 import thunkMiddleware from 'redux-thunk'
 import loggerMiddleware from 'redux-logger'
 
-// const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore);
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, loggerMiddleware)(createStore);
-const store = createStoreWithMiddleware(rootReducer);
-// const store = createStoreWithMiddleware(dictionaryApp);
 
-export default store
+const store = createStoreWithMiddleware(persistedReducer)
+const persistor = persistStore(store)
+
+export {
+  store,
+  persistor
+}

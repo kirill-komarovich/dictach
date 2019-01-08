@@ -28,6 +28,9 @@ heroku-release:
 build:
 	docker-compose build
 
+install-deps:
+	docker-compose run --rm web /bin/sh -c "bundle install && cd client && yarn install"
+
 up:
 	docker-compose up
 

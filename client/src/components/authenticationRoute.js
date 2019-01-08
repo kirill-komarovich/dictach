@@ -5,19 +5,19 @@ import {bindActionCreators} from 'redux';
 import * as sessionActions from '../actions/SessionActions';
 import urls from '../urls'
 
-function AuthenticationRoute ({component: Component, ...rest}) {
-  const access_token_expired = localStorage.access_token_expires_at
-    ? Date.now() > localStorage.access_token_expires_at : true
-  const has_tokens = localStorage.access_token && localStorage.refresh_token
-  // TODO: check if token expired
+function AuthenticationRoute ({component: Component, ...props}) {
   return (
     <Route
-      {...rest}
-      render={(props) => !has_tokens
-        ? <Component {...props} />
-        : <Redirect to={{pathname: urls.root, state: {from: props.location}}} />}
+      {...props}
+      render={() => renderAuthenticationComponent(Component, props)}
     />
   )
+}
+
+function renderAuthenticationComponent(Component, props) {
+  return props.session.authenticated
+        ? <Redirect to={{pathname: urls.root, state: {from: props.location}}} />
+        : <Component {...props} />
 }
 
 function mapStateToProps(state, ownProps) {
@@ -32,4 +32,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect({}, mapDispatchToProps)(AuthenticationRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationRoute);
