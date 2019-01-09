@@ -1,11 +1,30 @@
 import urls from './apiUrls';
 
+const requestMethods = {
+  get: 'GET',
+  post: 'POST',
+  delete: 'DELETE'
+}
+
+const headers = {
+  contentType: {
+    json: {
+      'Content-Type': 'application/json',
+    }
+  },
+  accept: {
+    json: {
+      'Accept': 'application/json,'
+    }
+  }
+}
+
 class SessionApi {
   static async signin(credentials) {
     const request = new Request(urls.session.signin, {
-      method: 'POST',
+      method: requestMethods.post,
       headers: new Headers({
-        'Content-Type': 'application/json'
+        ...headers.contentType.json,
       }),
       body: JSON.stringify({
         user: {
@@ -18,6 +37,41 @@ class SessionApi {
     try {
       const response = await fetch(request);
       return response.json();
+    }
+    catch (error) {
+      throw error;
+    }
+  }
+
+  static async signout() {
+    const request = new Request(urls.session.signout, {
+      method: requestMethods.delete,
+      headers: new Headers({
+        ...headers.accept.json,
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response;
+    }
+    catch (error) {
+      throw error;
+    }
+  }
+
+  static async checkAuthentication() {
+    const request = new Request(urls.session.check, {
+      method: requestMethods.get,
+      headers: new Headers({
+        ...headers.accept.json,
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      const authenticated = response.status === 401 ? false : true;
+      return authenticated;
     }
     catch (error) {
       throw error;

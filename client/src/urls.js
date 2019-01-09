@@ -2,8 +2,8 @@ const urls = {
   root: '/',
   session: {
     signin: '/sign_in',
-    signup: "/sign_up",
   },
+  registration: '/sign_up'
 };
 
 export default urls;

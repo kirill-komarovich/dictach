@@ -1,4 +1,4 @@
-import * as types from '../types/session';
+import * as types from '../actionTypes/registration';
 import initialState from './initialState';
 
 export default function sessionReducer(state = initialState.session, action) {

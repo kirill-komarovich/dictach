@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 import * as sessionActions from '../../actions/SessionActions';
-import { capitalize } from '../../utils/str'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import './index.scss'
+import { withSnackbar } from 'notistack';
+import './index.scss';
+import urls from '../../urls';
 
 const styles = theme => ({
   textField: {
@@ -49,13 +50,17 @@ class SignInForm extends Component {
   }
 
   handleErrorMessages(){
-    if (!this.props.session.errors) return null;
+    if (!this.props.session.errors) return undefined;
     const errors = this.props.session.errors;
+    console.log(errors)
     errors.forEach((error) => {
-      window.M.toast({
-        html: capitalize(error),
-        displayLength: 3000,
-        classes: 'red lighten-2'
+      this.props.enqueueSnackbar(error, {
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right',
+        },
+        variant: 'error',
+        autoHideDuration: 3000,
       });
     });
     this.props.actions.freeSessionErrors();
@@ -68,9 +73,6 @@ class SignInForm extends Component {
       <div className={'signin-form'}>
         <form onSubmit={this.onSubmit}>
           <Grid item xs={12} container direction="column" spacing={16}>
-            <Typography className={'title'} variant="headline" component="headline">
-              Sign In
-            </Typography>
             <FormControl fullWidth={true}>
               <TextField
                 label="Email"
@@ -98,19 +100,11 @@ class SignInForm extends Component {
                 onChange={this.onChange}
                 />
             </FormControl>
-            <Grid item container spacing={16} alignItems={'center'} className={'buttons'}>
-              <Grid item className={'far-left'}>
+            <Grid item container className={'buttons'}>
+              <Grid item xs={6}>
                 <Button variant="contained" color="primary" className={classes.button} type={'submit'}>
                   Sign in
                 </Button>
-              </Grid>
-              <Grid item>
-                <Typography variant="body">Or</Typography>
-              </Grid>
-              <Grid item className={'far-right'}>
-                <Link to={'/sign_up'}>
-                  <Typography variant="body">Sign Up</Typography>
-                </Link>
               </Grid>
             </Grid>
           </Grid>
@@ -122,6 +116,7 @@ class SignInForm extends Component {
 
 SignInForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -136,4 +131,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignInForm)));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(SignInForm)));
