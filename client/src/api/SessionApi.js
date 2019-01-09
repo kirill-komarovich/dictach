@@ -12,11 +12,6 @@ const headers = {
       'Content-Type': 'application/json',
     }
   },
-  accept: {
-    json: {
-      'Accept': 'application/json,'
-    }
-  }
 }
 
 class SessionApi {
@@ -46,9 +41,6 @@ class SessionApi {
   static async signout() {
     const request = new Request(urls.session.signout, {
       method: requestMethods.delete,
-      headers: new Headers({
-        ...headers.accept.json,
-      }),
     });
 
     try {
@@ -63,9 +55,6 @@ class SessionApi {
   static async checkAuthentication() {
     const request = new Request(urls.session.check, {
       method: requestMethods.get,
-      headers: new Headers({
-        ...headers.accept.json,
-      }),
     });
 
     try {
