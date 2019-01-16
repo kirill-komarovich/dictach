@@ -1,5 +1,8 @@
 build:
   docker:
     web: Dockerfile
+release:
+  command:
+    - bundle exec rails db:migrate
 run:
   web: bundle exec rails s
