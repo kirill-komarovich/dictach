@@ -2,6 +2,7 @@ export default {
   session: {
     errors: null,
     loading: false,
-    authenticated: !!localStorage.token,
+    authenticated: false,
   },
+  locale: navigator.language.split(/[-_]/)[0],
 }

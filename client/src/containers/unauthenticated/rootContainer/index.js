@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import SignInContainer from '../../signInContainer';
+import Hidden from '@material-ui/core/Hidden';
 import './index.scss';
 
 const styles = theme => ({
@@ -31,10 +32,12 @@ function RootContainer (props) {
               alignItems="center"
               spacing={40}
             >
-              <Grid item xs={3}>
-                Placeholder
-              </Grid>
-              <Grid item>
+              <Hidden smDown>
+                <Grid item xs={3}>
+                  Placeholder
+                </Grid>
+              </Hidden>
+              <Grid item >
                 <SignInContainer />
               </Grid>
             </Grid>

@@ -25,6 +25,7 @@ class AuthenticationRoute extends Component {
   };
 
   componentDidMount() {
+    if (this.props.authenticated) return;
     this.props.actions.checkAuthentication();
   }
 }
