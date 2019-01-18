@@ -14,5 +14,4 @@ const messages = {
 
 export {
   messages,
-  language
 };
