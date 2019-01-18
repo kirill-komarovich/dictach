@@ -11,7 +11,7 @@ class Header extends Component {
     return (
       <AppBar className={'header'} position="static">
         <Toolbar>
-          <Logo/>
+          <Logo className={'logo'} />
           {this.props.session.authenticated && (<HeaderMenu />)}
         </Toolbar>
       </AppBar>
