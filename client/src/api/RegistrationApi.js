@@ -19,4 +19,4 @@ class RegistrationApi {
   }
 }
 
-export default SessionApi;
+export default RegistrationApi;

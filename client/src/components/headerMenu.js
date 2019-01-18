@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import * as sessionActions from '../actions/SessionActions';
+import * as sessionActions from 'actions/SessionActions';
 
 class HeaderMenu extends Component {
   constructor(props) {
@@ -14,22 +13,19 @@ class HeaderMenu extends Component {
     this.state = {
       anchorEl: null,
     }
-    this.handleMenu = this.handleMenu.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
-  handleMenu(event) {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
-  };
+  }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ anchorEl: null });
-  };
+  }
 
-  handleSignOut () {
+  handleSignOut =  () => {
     this.props.actions.signOutUser();
-  };
+  }
 
   render() {
     const { anchorEl } = this.state;
@@ -67,8 +63,6 @@ class HeaderMenu extends Component {
   };
 };
 
-HeaderMenu.propTypes = {
-};
 
 function mapDispatchToProps(dispatch) {
   return {

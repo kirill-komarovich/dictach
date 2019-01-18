@@ -1,5 +1,3 @@
-const version = 'v1';
-
 const urls = {
   session: {
     signin: '/users/sign_in',

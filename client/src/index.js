@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import 'typeface-roboto';
 import './index.scss';
-import { makeRoutes } from './routes'
+import { makeRoutes } from './routes';
 import * as serviceWorker from './serviceWorker';
 
 const routes = makeRoutes();

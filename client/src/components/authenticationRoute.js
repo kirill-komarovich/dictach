@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as sessionActions from '../actions/SessionActions';
+import * as sessionActions from 'actions/SessionActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import urls from '../urls'
+import urls from 'urls';
 
 class AuthenticationRoute extends Component {
   render () {

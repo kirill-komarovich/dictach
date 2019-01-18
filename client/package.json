@@ -135,8 +135,11 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
+    "presets": ["react-app"],
+    "plugins": [
+      ["react-intl", {
+          "messagesDir": "./src/messages/"
+      }]
     ]
   }
 }

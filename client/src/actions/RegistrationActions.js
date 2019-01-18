@@ -1,6 +1,5 @@
 import * as types from '../actionTypes/registration';
 
-
 export function signUpBegin() {
   return {type: types.SIGN_UP_BEGIN}
 }

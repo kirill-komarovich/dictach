@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
-import * as sessionActions from '../../actions/SessionActions';
+import * as sessionActions from 'actions/SessionActions';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
 import './index.scss';
-import urls from '../../urls';
 
 const styles = theme => ({
   textField: {

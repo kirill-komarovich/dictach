@@ -1,7 +1,5 @@
 import * as types from '../actionTypes/session';
 import SessionApi from '../api/SessionApi';
-import history from '../history';
-import urls from '../urls'
 
 export function signInBegin() {
   return {type: types.SIGN_IN_BEGIN}
