@@ -10,23 +10,27 @@ import RootContainer from 'containers/unauthenticated/rootContainer';
 import history from './history';
 import urls from './urls';
 import ConnectedIntlProvider from 'components/connectedIntrlProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 export const makeRoutes = () => {
   return (
     <Provider store={store}>
-      <ConnectedIntlProvider >
-        <PersistGate loading={null} persistor={persistor}>
-          <Router history={history}>
-            <DefaultLayout>
-              <Switch>
-                <Route exact path={urls.root} component={App} />
-                {/* <Route path="/sign_in" component={SignInForm} /> */}
-                <AuthenticationRoute exact path={urls.session.signin} component={RootContainer} />
-              </Switch>
-            </DefaultLayout>
-          </Router>
-        </PersistGate>
-      </ConnectedIntlProvider>
+      <MuiThemeProvider theme={theme} >
+        <ConnectedIntlProvider >
+          <PersistGate loading={null} persistor={persistor}>
+            <Router history={history}>
+              <DefaultLayout>
+                <Switch>
+                  <Route exact path={urls.root} component={App} />
+                  {/* <Route path="/sign_in" component={SignInForm} /> */}
+                  <AuthenticationRoute exact path={urls.session.signin} component={RootContainer} />
+                </Switch>
+              </DefaultLayout>
+            </Router>
+          </PersistGate>
+        </ConnectedIntlProvider>
+      </MuiThemeProvider>
     </Provider>
   );
 };

@@ -138,7 +138,7 @@
     "presets": ["react-app"],
     "plugins": [
       ["react-intl", {
-          "messagesDir": "./src/messages/"
+          "messagesDir": "./src/translations/"
       }]
     ]
   }
