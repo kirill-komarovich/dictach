@@ -21,7 +21,7 @@ export const makeRoutes = () => {
               <Switch>
                 <Route exact path={urls.root} component={App} />
                 {/* <Route path="/sign_in" component={SignInForm} /> */}
-                <AuthenticationRoute path={urls.session.signin} component={RootContainer} />
+                <AuthenticationRoute exact path={urls.session.signin} component={RootContainer} />
               </Switch>
             </DefaultLayout>
           </Router>
