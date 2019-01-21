@@ -42,7 +42,9 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'cancancan', '~> 2.3'
 gem 'devise', '~> 4.5'
 gem 'dotenv-rails', '~> 2.5'
+gem 'enumerize', '~> 2.2', '>= 2.2.2'
 gem 'foreman', '~> 0.82'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
