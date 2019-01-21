@@ -228,6 +228,7 @@ module.exports = {
       'containers': path.resolve('src/containers'),
       'actions': path.resolve('src/actions'),
       'urls': path.resolve('src/urls'),
+      'utils': path.resolve('src/utils'),
     },
     plugins: [
       // Adds support for installing with Plug'n'Play, leading to faster installs and adding

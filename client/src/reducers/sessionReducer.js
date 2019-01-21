@@ -20,7 +20,7 @@ function sessionReducer(state = initialState.session, action) {
         loading: true,
       };
     case types.SIGN_IN_SUCCESS:
-      history.push(urls.root);
+      history.push(urls.dictioanries);
 
       return {
         ...state,

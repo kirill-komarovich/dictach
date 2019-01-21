@@ -22,9 +22,8 @@ export const makeRoutes = () => {
             <Router history={history}>
               <DefaultLayout>
                 <Switch>
-                  <Route exact path={urls.root} component={App} />
-                  {/* <Route path="/sign_in" component={SignInForm} /> */}
-                  <AuthenticationRoute exact path={urls.session.signin} component={RootContainer} />
+                  <AuthenticationRoute exact path={urls.dictioanries} authenticated component={App} />
+                  <AuthenticationRoute exact path={urls.root} unauthorizedRedirectTo={urls.dictioanries} component={RootContainer} />
                 </Switch>
               </DefaultLayout>
             </Router>

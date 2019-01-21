@@ -3,7 +3,6 @@ import Header from 'containers/header';
 import { SnackbarProvider } from 'notistack';
 
 function DefaultLayout (props) {
-  console.log(props);
   return (
     <div className={'default-layout'}>
       <SnackbarProvider maxSnack={5}>

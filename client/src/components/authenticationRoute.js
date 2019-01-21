@@ -15,7 +15,7 @@ class AuthenticationRoute extends Component {
       )
     } else if (this.props.authenticated !== this.props.session.authenticated) {
       return (
-        <Redirect to={{pathname: urls.root, state: {from: this.props.location}}} />
+        <Redirect to={{pathname: this.props.unauthorizedRedirectTo, state: {from: this.props.location}}} />
       )
     } else {
       return (
@@ -25,7 +25,7 @@ class AuthenticationRoute extends Component {
   };
 
   componentDidMount() {
-    if (this.props.authenticated) return;
+    if (this.props.authenticated === false) return;
     this.props.actions.checkAuthentication();
   }
 }
@@ -42,9 +42,11 @@ AuthenticationRoute.propTypes = {
     PropTypes.func,
   ]).isRequired,
   authenticated: PropTypes.bool.isRequired,
+  unauthorizedRedirectTo: PropTypes.string.isRequired,
 }
 
 AuthenticationRoute.defaultProps = {
   authenticated: false,
+  unauthorizedRedirectTo: urls.root,
 };
 export default connect(state => state, mapDispatchToProps)(AuthenticationRoute);

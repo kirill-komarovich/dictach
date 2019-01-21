@@ -22,7 +22,6 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <Link to={'/sign_in'}>Sign In</Link>
       </div>
     );
   }

@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
+import { injectIntl, intlShape } from 'react-intl';
+import { capitalize } from 'utils/str';
 import './index.scss';
 
 const styles = theme => ({
@@ -30,26 +32,23 @@ class SignInForm extends Component {
         password: ''
       }
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(event) {
+  onChange = (event) => {
     const field = event.target.name;
     const credentials = this.state.credentials;
     credentials[field] = event.target.value;
     return this.setState({credentials: credentials});
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
     this.props.actions.signInUser(this.state.credentials);
   }
 
-  handleErrorMessages(){
+  handleErrorMessages = () => {
     if (!this.props.session.errors) return undefined;
     const errors = this.props.session.errors;
-    console.log(errors)
     errors.forEach((error) => {
       this.props.enqueueSnackbar(error, {
         anchorOrigin: {
@@ -64,7 +63,10 @@ class SignInForm extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, intl } = this.props;
+    const emailLabel = capitalize(intl.formatMessage({id: 'user.attributes.email'}));
+    const passwordLabel = capitalize(intl.formatMessage({id: 'user.attributes.password'}));
+    const signInLabel = intl.formatMessage({id: 'session.sign_in'})
     this.handleErrorMessages();
     return (
       <div className={'signin-form'}>
@@ -72,7 +74,7 @@ class SignInForm extends Component {
           <Grid item xs={12} container direction="column" spacing={16}>
             <FormControl fullWidth={true}>
               <TextField
-                label="Email"
+                label={emailLabel}
                 className={classes.textField}
                 type="email"
                 name="email"
@@ -86,7 +88,7 @@ class SignInForm extends Component {
             </FormControl>
             <FormControl fullWidth={true}>
               <TextField
-                label="Password"
+                label={passwordLabel}
                 className={classes.textField}
                 type="password"
                 autoComplete="current-password"
@@ -100,7 +102,7 @@ class SignInForm extends Component {
             <Grid item container className={'buttons'}>
               <Grid item xs={6}>
                 <Button variant="contained" color="primary" className={classes.button} type={'submit'}>
-                  Sign in
+                  {signInLabel}
                 </Button>
               </Grid>
             </Grid>
@@ -114,6 +116,7 @@ class SignInForm extends Component {
 SignInForm.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -128,4 +131,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withSnackbar(SignInForm)));
+const SignInFormWithIntl = injectIntl(SignInForm);
+const SignInFormWithSnackbar = withSnackbar(SignInFormWithIntl)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignInFormWithSnackbar));

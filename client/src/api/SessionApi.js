@@ -59,8 +59,7 @@ class SessionApi {
 
     try {
       const response = await fetch(request);
-      const authenticated = response.status === 401 ? false : true;
-      return authenticated;
+      return response.json();
     }
     catch (error) {
       throw error;

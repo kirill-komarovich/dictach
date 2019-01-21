@@ -63,7 +63,8 @@ export function freeSessionErrors() {
 export function checkAuthentication() {
   return async function(dispatch) {
     dispatch(authenticationCheckBegin());
-    const status = await SessionApi.checkAuthentication();
+    const response = await SessionApi.checkAuthentication();
+    const status = response.ok;
     dispatch(authenticationCheckEnd(status));
   };
 }
