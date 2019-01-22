@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :word do
-    title { FFaker::Lorem.word }
+    title { FFaker::Lorem.characters(10) }
     dictionary
   end
 end

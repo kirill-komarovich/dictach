@@ -6,4 +6,5 @@ class Description < ApplicationRecord
   belongs_to :word
 
   validates :body, presence: true
+  # TODO: part of speech in enum
 end

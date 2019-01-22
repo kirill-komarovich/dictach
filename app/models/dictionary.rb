@@ -6,7 +6,6 @@ class Dictionary < ApplicationRecord
 
   delegate :user, to: :namespace
 
-  # TODO: message
   validates :title,
             uniqueness: {
               scope: :namespace_id,

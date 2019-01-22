@@ -4,7 +4,6 @@ class Namespace < ApplicationRecord
   belongs_to :user
   has_many :dictionaries, dependent: :destroy
 
-  # TODO: messages
   validates :title,
             uniqueness: {
               scope: :user_id,

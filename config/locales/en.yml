@@ -30,7 +30,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  attributes:
+  models:
     user:
-      email: email
-      password: password
+      one: user
+      other: users
+      attributes:
+        email: email
+        password: password
