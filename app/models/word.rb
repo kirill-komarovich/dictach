@@ -4,7 +4,6 @@ class Word < ApplicationRecord
   belongs_to :dictionary
   has_many :descriptions, dependent: :destroy
 
-  # TODO: validate presence of descriptions (has many)
   validates :title,
             uniqueness: {
               scope: :dictionary_id,

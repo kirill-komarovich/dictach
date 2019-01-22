@@ -19,5 +19,4 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:namespaces).dependent(:destroy) }
     it { is_expected.to have_many(:dictionaries).through(:namespaces) }
   end
-
 end
