@@ -37,3 +37,7 @@ en:
       attributes:
         email: email
         password: password
+    dictionary:
+      languages:
+        en: English
+        ru: Russian
