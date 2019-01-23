@@ -4,6 +4,8 @@ class Word < ApplicationRecord
   belongs_to :dictionary
   has_many :descriptions, dependent: :destroy
 
+  delegate :language, to: :dictionary
+
   validates :title,
             uniqueness: {
               scope: :dictionary_id,

@@ -39,5 +39,30 @@ en:
         password: password
     dictionary:
       languages:
-        en: English
-        ru: Russian
+        en: english
+        ru: russian
+    parts_of_speech:
+      en:
+        noun: noun
+        verb: verb
+        adjective: adjective
+        numeral: numeral
+        pronoun: pronoun
+        adverb: adverb
+        article: article
+        preposition: preposition
+        conjunction: conjunction
+        interjection: interjection
+      ru:
+        noun: noun
+        verb: verb
+        adjective: adjective
+        numeral: numeral
+        pronoun: pronoun
+        participle: participle
+        verbal_adverb: verbal adverb
+        adverb: adverb
+        preposition: preposition
+        conjunction: conjunction
+        particle: particle
+        interjection: interjection
