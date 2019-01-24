@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import { Provider } from 'react-redux';
@@ -13,7 +13,7 @@ import ConnectedIntlProvider from 'components/connectedIntrlProvider';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 
-export const makeRoutes = () => {
+const Routes = () => {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme} >
@@ -33,3 +33,6 @@ export const makeRoutes = () => {
     </Provider>
   );
 };
+
+
+export default Routes;

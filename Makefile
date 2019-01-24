@@ -19,6 +19,12 @@ backend-bootstrap-db:
 frontend-install-deps:
 	docker-compose run --rm web /bin/sh -c "cd client && yarn install"
 
+frontend-test:
+	docker-compose run --rm web /bin/sh -c "cd client && yarn test"
+
+frontend-test-coverage:
+	docker-compose run --rm web /bin/sh -c "cd client && yarn test --coverage"
+
 heroku-push:
 	heroku container:push --recursive
 

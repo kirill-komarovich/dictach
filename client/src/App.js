@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import logo from './logo.svg';
-import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import { FormattedHTMLMessage } from 'react-intl';
 import './App.css';
 
 class App extends Component {
