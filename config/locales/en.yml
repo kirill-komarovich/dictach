@@ -43,7 +43,7 @@ en:
         ru: russian
     description:
       validations:
-        invalid_part_of_speech: '%{language} does not contain %{part_of_speech}'
+        invalid_part_of_speech: '%{part_of_speech} is not contained in the %{language} language'
     parts_of_speech:
       en:
         noun: noun

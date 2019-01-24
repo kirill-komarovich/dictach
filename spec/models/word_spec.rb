@@ -10,6 +10,7 @@ RSpec.describe Word, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:dictionary) }
     it { is_expected.to have_many(:descriptions).dependent(:destroy) }
+    it { is_expected.to delegate_method(:language).to(:dictionary) }
   end
 
   describe 'validations' do

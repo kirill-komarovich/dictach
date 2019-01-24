@@ -2,7 +2,7 @@
 
 class Description < ApplicationRecord
   PARTS_OF_SPEECH = {
-    en: %i[
+    en: %w[
       noun
       verb
       adjective
@@ -14,7 +14,7 @@ class Description < ApplicationRecord
       conjunction
       interjection
     ].freeze,
-    ru: %i[
+    ru: %w[
       noun
       verb
       adjective
@@ -28,7 +28,7 @@ class Description < ApplicationRecord
       particle
       interjection
     ].freeze
-  }.freeze
+  }.with_indifferent_access.freeze
 
   belongs_to :word
 
@@ -39,13 +39,14 @@ class Description < ApplicationRecord
   validate :part_of_speech_belongs_to_language
 
   def part_of_speech_belongs_to_language
+    return if word.blank?
     return if PARTS_OF_SPEECH[language].include?(part_of_speech)
 
     errors.add(
       :part_of_speech,
       I18n.t(
-        'users.validations.invalid_part_of_speech',
-        language: language,
+        'models.description.validations.invalid_part_of_speech',
+        language: I18n.t("models.dictionary.languages.#{language}").capitalize,
         part_of_speech: part_of_speech
       )
     )
