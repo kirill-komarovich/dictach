@@ -41,6 +41,9 @@ en:
       languages:
         en: english
         ru: russian
+    description:
+      validations:
+        invalid_part_of_speech: '%{language} does not contain %{part_of_speech}'
     parts_of_speech:
       en:
         noun: noun

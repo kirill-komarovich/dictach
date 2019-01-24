@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class Description < ApplicationRecord
-  extend Enumerize
-
-  PARTS_OF_SPEECH = [
-    EN = %i[
+  PARTS_OF_SPEECH = {
+    en: %i[
       noun
       verb
       adjective
@@ -16,7 +14,7 @@ class Description < ApplicationRecord
       conjunction
       interjection
     ].freeze,
-    RU = %i[
+    ru: %i[
       noun
       verb
       adjective
@@ -30,7 +28,7 @@ class Description < ApplicationRecord
       particle
       interjection
     ].freeze
-  ]
+  }.freeze
 
   belongs_to :word
 
@@ -38,5 +36,18 @@ class Description < ApplicationRecord
 
   delegate :language, to: :word
 
-  # TODO: part of speech in enum
+  validate :part_of_speech_belongs_to_language
+
+  def part_of_speech_belongs_to_language
+    return if PARTS_OF_SPEECH[language].include?(part_of_speech)
+
+    errors.add(
+      :part_of_speech,
+      I18n.t(
+        'users.validations.invalid_part_of_speech',
+        language: language,
+        part_of_speech: part_of_speech
+      )
+    )
+  end
 end
