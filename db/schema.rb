@@ -12,9 +12,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_130812) do
+ActiveRecord::Schema.define(version: 2019_01_21_143327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'descriptions', force: :cascade do |t|
+    t.bigint 'word_id'
+    t.text 'body'
+    t.string 'part_of_speech'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['word_id'], name: 'index_descriptions_on_word_id'
+  end
+
+  create_table 'dictionaries', force: :cascade do |t|
+    t.bigint 'namespace_id'
+    t.string 'title'
+    t.string 'language'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['namespace_id'], name: 'index_dictionaries_on_namespace_id'
+    t.index ['title'], name: 'index_dictionaries_on_title'
+  end
+
+  create_table 'namespaces', force: :cascade do |t|
+    t.string 'title'
+    t.bigint 'user_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['title'], name: 'index_namespaces_on_title'
+    t.index ['user_id'], name: 'index_namespaces_on_user_id'
+  end
 
   create_table 'users', force: :cascade do |t|
     t.string 'email', default: '', null: false
@@ -31,4 +59,18 @@ ActiveRecord::Schema.define(version: 2018_12_16_130812) do
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
+
+  create_table 'words', force: :cascade do |t|
+    t.bigint 'dictionary_id'
+    t.string 'title'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['dictionary_id'], name: 'index_words_on_dictionary_id'
+    t.index ['title'], name: 'index_words_on_title'
+  end
+
+  add_foreign_key 'descriptions', 'words'
+  add_foreign_key 'dictionaries', 'namespaces'
+  add_foreign_key 'namespaces', 'users'
+  add_foreign_key 'words', 'dictionaries'
 end

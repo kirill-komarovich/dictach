@@ -1,9 +1,15 @@
+inherit_mode:
+  merge:
+    - Exclude
+
 Rails:
   Enabled: true
 
 AllCops:
   TargetRubyVersion: 2.5
   DisplayCopNames: true
+  Exclude:
+    - client/**/*
 
 Style/Documentation:
   Enabled: false

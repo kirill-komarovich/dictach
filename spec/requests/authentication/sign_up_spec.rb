@@ -68,7 +68,7 @@ RSpec.describe 'Sign up', type: :request do
             password_confirmation: [
               I18n.t(
                 'errors.messages.confirmation',
-                attribute: I18n.t('attributes.user.password').capitalize
+                attribute: I18n.t('models.user.attributes.password').capitalize
               )
             ]
           }
@@ -91,7 +91,7 @@ RSpec.describe 'Sign up', type: :request do
             email: [
               I18n.t(
                 'errors.messages.invalid',
-                attribute: I18n.t('attributes.user.email').capitalize
+                attribute: I18n.t('models.user.attributes.email').capitalize
               )
             ]
           }
