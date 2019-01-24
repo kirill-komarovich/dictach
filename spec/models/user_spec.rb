@@ -14,4 +14,9 @@ RSpec.describe User, type: :model do
     ]
     expect(subject.devise_modules).to include(*expected_devise_modules)
   end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:namespaces).dependent(:destroy) }
+    it { is_expected.to have_many(:dictionaries).through(:namespaces) }
+  end
 end

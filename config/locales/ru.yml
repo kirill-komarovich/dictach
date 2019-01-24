@@ -1,0 +1,37 @@
+ru:
+  models:
+    user:
+      one: пользователь
+      other: пользователи
+      attributes:
+        email: электронная почта
+        password: пароль
+    dictionary:
+      languages:
+        en: английский
+        ru: русский
+    parts_of_speech:
+      en:
+        noun: существительное
+        verb: глагол
+        adjective: прилагательное
+        numeral: числительное
+        pronoun: местоимение
+        adverb: наречие
+        article: артикль
+        preposition: предлог
+        conjunction: союз
+        interjection: междометие
+      ru:
+        noun: существительное
+        verb: глагол
+        adjective: прилагательное
+        numeral: числительное
+        pronoun: местоимение
+        participle: причастие
+        verbal_adverb: деепричастие
+        adverb: наречие
+        preposition: предлог
+        conjunction: союз
+        particle: частица
+        interjection: междометие

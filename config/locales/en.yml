@@ -30,7 +30,42 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  attributes:
+  models:
     user:
-      email: email
-      password: password
+      one: user
+      other: users
+      attributes:
+        email: email
+        password: password
+    dictionary:
+      languages:
+        en: english
+        ru: russian
+    description:
+      validations:
+        invalid_part_of_speech: '%{part_of_speech} is not contained in the %{language} language'
+    parts_of_speech:
+      en:
+        noun: noun
+        verb: verb
+        adjective: adjective
+        numeral: numeral
+        pronoun: pronoun
+        adverb: adverb
+        article: article
+        preposition: preposition
+        conjunction: conjunction
+        interjection: interjection
+      ru:
+        noun: noun
+        verb: verb
+        adjective: adjective
+        numeral: numeral
+        pronoun: pronoun
+        participle: participle
+        verbal_adverb: verbal adverb
+        adverb: adverb
+        preposition: preposition
+        conjunction: conjunction
+        particle: particle
+        interjection: interjection
