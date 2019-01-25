@@ -23,7 +23,12 @@ const Routes = () => {
               <DefaultLayout>
                 <Switch>
                   <AuthenticationRoute exact path={urls.dictioanries} authenticated component={App} />
-                  <AuthenticationRoute exact path={urls.root} unauthorizedRedirectTo={urls.dictioanries} component={RootContainer} />
+                  <AuthenticationRoute
+                    exact
+                    path={urls.root}
+                    unauthorizedRedirectTo={urls.dictioanries}
+                    component={RootContainer}
+                  />
                 </Switch>
               </DefaultLayout>
             </Router>

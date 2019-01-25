@@ -6,10 +6,10 @@ import SignInContainer from 'containers/signInContainer';
 import Hidden from '@material-ui/core/Hidden';
 import './index.scss';
 
-function RootContainer (props) {
+function RootContainer () {
   return (
     <SnackbarProvider maxSnack={3}>
-      <Grid container className={'root-container'} >
+      <Grid container className="root-container" >
         <Grid item xs={12} >
           <Grid
             container
@@ -19,7 +19,7 @@ function RootContainer (props) {
             spacing={40}
           >
             <Hidden smDown>
-              <Grid item xs={3}>
+              <Grid item xs={4} >
                 Placeholder
               </Grid>
             </Hidden>
