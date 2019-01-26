@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import AuthenticationRoute from 'components/authenticationRoute';
 import DefaultLayout from 'containers/defaultLayout';
-import RootContainer from 'containers/unauthenticated/rootContainer';
+import RootContainer from 'containers/rootContainer';
 import history from './history';
 import urls from './urls';
 import ConnectedIntlProvider from 'components/connectedIntrlProvider';
