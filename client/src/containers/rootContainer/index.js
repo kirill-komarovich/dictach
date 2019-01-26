@@ -16,7 +16,6 @@ function RootContainer () {
             direction="row"
             justify="center"
             alignItems="center"
-            spacing={40}
           >
             <Hidden smDown>
               <Grid item xs={4} >

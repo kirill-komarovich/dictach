@@ -4,7 +4,7 @@ import { SnackbarProvider } from 'notistack';
 
 function DefaultLayout (props) {
   return (
-    <div className={'default-layout'}>
+    <div className="default-layout">
       <SnackbarProvider maxSnack={5}>
         <div>
           <Header/>
