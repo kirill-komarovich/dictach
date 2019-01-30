@@ -53,4 +53,20 @@ RSpec.describe 'Namespaces API' do
       end
     end
   end
+
+  describe 'POST /namespaces' do
+
+  end
+
+  describe 'GET /namespaces/:id/' do
+
+  end
+
+  describe 'PUT /namespaces/:id/' do
+
+  end
+
+  describe 'DELETE /namespaces/:id/' do
+
+  end
 end
