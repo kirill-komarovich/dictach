@@ -2,26 +2,27 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Namespaces API', type: :request do
-  let(:user) { create(:user) }
+RSpec.describe 'Namespaces API' do
+  let!(:user) { create(:user) }
 
-  before { sign_in(user) }
+  before do
+    api_sign_in(user)
+  end
 
-  describe '/namespaces' do
-    let(:namespaces) { create_list(:namespace, 3, user: user) }
-    let(:expected_response) do
-      namespaces.map do |namespace|
-        {
-          id: namespace.id,
-          title: namespace.title
-        }
+  describe 'GET /namespaces' do
+    let!(:namespaces) { create_list(:namespace, 3, user: user) }
+
+    context 'without dicitionaries' do
+      let(:expected_response) do
+        namespaces.map do |namespace|
+          {
+            id: namespace.id,
+            title: namespace.title
+          }
+        end
       end
-    end
 
-    context 'without "with_dicitionaries" parameter' do
       it 'returns namespaces owned by current user', :aggregate_failures do
-        p namespaces_path
-        byebug
         get namespaces_path
 
         expect(response).to have_http_status 200
@@ -29,7 +30,22 @@ RSpec.describe 'Namespaces API', type: :request do
       end
     end
 
-    context 'with "with_dicitionaries" parameter' do
+    context 'with dicitionaries parameter' do
+      let(:expected_response) do
+        namespaces.map do |namespace|
+          {
+            id: namespace.id,
+            title: namespace.title,
+            dictionaries: namespace.dicitionaries.map do |dictionary|
+              {
+                id: dictionary.id,
+                title: dictionary.title
+              }
+            end
+          }
+        end
+      end
+
       it 'returns namespaces owned by current user', :aggregate_failures do
         get namespaces_path, params: { with_dicitionaries: 1 }
 

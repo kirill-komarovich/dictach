@@ -3,9 +3,7 @@ class NamespacesController < ApplicationController
 
   load_and_authorize_resource
 
-  def index
-    byebug
-  end
+  def index; end
 
   private
 

@@ -1,4 +1,3 @@
-byebug
 json.array! @namespaces do |namespace|
   json.id namespace.id
   json.title namespace.title
