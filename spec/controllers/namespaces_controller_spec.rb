@@ -21,16 +21,27 @@ RSpec.describe NamespacesController, type: :controller do
     context 'with valid params' do
       let(:namespace_params) { attributes_for(:namespace, user: user) }
 
-      it 'creates new namespace' do
+      it 'creates new namespace', :aggregate_failures do
+        post :create, format: :json, params: { namespace: namespace_params }
 
+        new_namespace = Namespace.last
+        expect(response).to have_http_status 201
+        expect(response).to render_template :create
+        expect(new_namespace.title).to eq namespace_params[:title]
+        expect(new_namespace.user_id).to eq user.id
       end
     end
 
     context 'with invalid params' do
-      let(:namespace_params) { attributes_for(:namespace, user: user) }
+      let(:namespace_params) { attributes_for(:namespace, user: user, title: 'a') }
 
-      it 'does not create new namespace' do
+      it 'does not create new namespace', :aggregate_failures do
+        expect do
+          post :create, format: :json, params: { namespace: namespace_params }
+        end.to change{Namespace.count}.by(0)
 
+        expect(response).to have_http_status 422
+        expect(response).to render_template :errors
       end
     end
   end
@@ -39,7 +50,7 @@ RSpec.describe NamespacesController, type: :controller do
     let!(:namespace) { create(:namespace, user: user) }
 
     it 'renders show template', :aggregate_failures do
-      get :show, params: { id: namespace.id }
+      get :show, params: { id: namespace.id }, format: :json
 
       expect(response).to have_http_status 200
       expect(response).to render_template :show
@@ -48,19 +59,29 @@ RSpec.describe NamespacesController, type: :controller do
   end
 
   describe '#update' do
+    let!(:namespace) { create(:namespace, user: user) }
+
     context 'with valid params' do
-      let!(:namespace) { create(:namespace, user: user) }
+      let(:namespace_params) { attributes_for(:namespace, user: user) }
 
-      it 'updates namespace' do
+      it 'updates namespace', :aggregate_failures do
+        put :update, params: { id: namespace.id, namespace: namespace_params }, format: :json
 
+        expect(response).to have_http_status 200
+        expect(response).to render_template :update
+        expect(namespace.reload.title).to eq namespace_params[:title]
       end
     end
 
     context 'with invalid params' do
-      let!(:namespace) { create(:namespace, user: user) }
+      let(:namespace_params) { attributes_for(:namespace, user: user, title: 'a') }
 
-      it 'does not update namespace' do
+      it 'does not update namespace', :aggregate_failures do
+        put :update, params: { id: namespace.id, namespace: namespace_params }, format: :json
 
+        expect(response).to have_http_status 422
+        expect(response).to render_template :errors
+        expect(namespace.reload.title).not_to eq namespace_params[:title]
       end
     end
   end
@@ -68,9 +89,11 @@ RSpec.describe NamespacesController, type: :controller do
   describe '#destroy' do
     let!(:namespace) { create(:namespace, user: user) }
 
-    it 'deletes namespace' do
-      delete :destroy, params: { id: namespace.id }
-      
+    it 'deletes namespace', :aggregate_failures do
+      delete :destroy, params: { id: namespace.id }, format: :json
+
+      expect(Namespace.find_by(id: namespace.id)).to be_nil
+      expect(response).to have_http_status 200
     end
   end
 end

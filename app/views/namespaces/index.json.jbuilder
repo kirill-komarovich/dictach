@@ -1,6 +1,4 @@
 json.array! @namespaces do |namespace|
-  json.id namespace.id
-  json.title namespace.title
-
-  render('dictionaries', namespace: namespace) if with_dictionaries?
+  json.partial!('namespace', namespace: namespace)
+  json.partial!('dictionaries', namespace: namespace) if with_dictionaries?
 end

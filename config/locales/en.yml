@@ -37,6 +37,9 @@ en:
       attributes:
         email: email
         password: password
+    namespace:
+      attributes:
+        title: title
     dictionary:
       languages:
         en: english
