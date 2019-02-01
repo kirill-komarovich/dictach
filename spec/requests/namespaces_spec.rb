@@ -65,7 +65,6 @@ RSpec.describe 'Namespaces API' do
     context 'with valid params' do
       let(:namespace_params) { attributes_for(:namespace, user: user) }
 
-
       it 'returns created namespace', :aggregate_failures do
         post namespaces_path, params: { namespace: namespace_params }
 

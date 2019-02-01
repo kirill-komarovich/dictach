@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe NamespacesController, type: :controller do
@@ -38,7 +40,7 @@ RSpec.describe NamespacesController, type: :controller do
       it 'does not create new namespace', :aggregate_failures do
         expect do
           post :create, format: :json, params: { namespace: namespace_params }
-        end.to change{Namespace.count}.by(0)
+        end.to change { Namespace.count }.by(0)
 
         expect(response).to have_http_status 422
         expect(response).to render_template :errors

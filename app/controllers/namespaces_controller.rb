@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NamespacesController < ApplicationController
   helper_method :with_dictionaries?
 
