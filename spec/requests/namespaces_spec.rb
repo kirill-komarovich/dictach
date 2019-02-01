@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Namespaces API' do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
 
   before do
     api_sign_in(user)
@@ -121,7 +121,7 @@ RSpec.describe 'Namespaces API' do
   end
 
   describe 'PUT | PATCH /namespaces/:id/' do
-    let!(:namespace) { create(:namespace, user: user) }
+    let(:namespace) { create(:namespace, user: user) }
 
     context 'with valid params' do
       let(:namespace_params) { attributes_for(:namespace, user: user) }
