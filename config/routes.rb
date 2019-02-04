@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
 
   resources :namespaces, defaults: { format: :json } do
-    resources :dictionaries, defaults: { format: :json }, module: :namespaces
+    resources :dictionaries, defaults: { format: :json }, module: :namespaces do
+      resources :words, defaults: { format: :json }, module: :dictionaries
+    end
   end
 end

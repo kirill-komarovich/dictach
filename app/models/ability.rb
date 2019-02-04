@@ -10,5 +10,6 @@ class Ability
 
     can :manage, Namespace, user_id: user.id
     can :manage, Dictionary, namespace: { user_id: user.id }
+    can :manage, Word, dictionary: { namespace: { user_id: user.id } }
   end
 end

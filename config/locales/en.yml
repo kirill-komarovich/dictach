@@ -74,3 +74,8 @@ en:
         conjunction: conjunction
         particle: particle
         interjection: interjection
+  controllers:
+    words:
+      params:
+        by_letter:
+          error: by_letter parameter must be 1 character long

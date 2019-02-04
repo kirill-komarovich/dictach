@@ -99,7 +99,7 @@ RSpec.describe Namespaces::DictionariesController, type: :controller do
 
         expect(response).to have_http_status 422
         expect(response).to render_template 'shared/errors'
-        expect(namespace.reload.title).not_to eq dictionary_params[:title]
+        expect(dictionary.reload.title).not_to eq dictionary_params[:title]
       end
     end
   end

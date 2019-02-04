@@ -29,10 +29,12 @@ RSpec.describe User, type: :model do
       let(:user) { create(:user) }
       let(:namespace) { create(:namespace, user: user) }
       let(:dictionary) { create(:dictionary, namespace: namespace) }
+      let(:word) { create(:word, dictionary: dictionary) }
 
       it 'can manage all owned resources', :aggregate_failures do
         is_expected.to be_able_to(:manage, namespace)
         is_expected.to be_able_to(:manage, dictionary)
+        is_expected.to be_able_to(:manage, word)
       end
     end
   end
