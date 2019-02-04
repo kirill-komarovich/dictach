@@ -43,7 +43,7 @@ RSpec.describe NamespacesController, type: :controller do
         end.to change { Namespace.count }.by(0)
 
         expect(response).to have_http_status 422
-        expect(response).to render_template :errors
+        expect(response).to render_template 'shared/errors'
       end
     end
   end
@@ -82,7 +82,7 @@ RSpec.describe NamespacesController, type: :controller do
         put :update, params: { id: namespace.id, namespace: namespace_params }, format: :json
 
         expect(response).to have_http_status 422
-        expect(response).to render_template :errors
+        expect(response).to render_template 'shared/errors'
         expect(namespace.reload.title).not_to eq namespace_params[:title]
       end
     end

@@ -11,7 +11,7 @@ class NamespacesController < ApplicationController
     if @namespace.save
       render :create, status: :created
     else
-      render :errors, status: :unprocessable_entity
+      render 'shared/errors', locals: { model: @namespace }, status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class NamespacesController < ApplicationController
     if @namespace.update(namespace_params)
       render :update, status: :ok
     else
-      render :errors, status: :unprocessable_entity
+      render 'shared/errors', locals: { model: @namespace }, status: :unprocessable_entity
     end
   end
 

@@ -41,6 +41,8 @@ en:
       attributes:
         title: title
     dictionary:
+      attributes:
+        title: title
       languages:
         en: english
         ru: russian

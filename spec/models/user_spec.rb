@@ -27,9 +27,13 @@ RSpec.describe User, type: :model do
 
     context 'when is signed in' do
       let(:user) { create(:user) }
-      let(:namespace) { build(:namespace, user: user) }
+      let(:namespace) { create(:namespace, user: user) }
+      let(:dictionary) { create(:dictionary, namespace: namespace) }
 
-      it { is_expected.to be_able_to(:manage, namespace) }
+      it 'can manage all owned resources', :aggregate_failures do
+        is_expected.to be_able_to(:manage, namespace)
+        is_expected.to be_able_to(:manage, dictionary)
+      end
     end
   end
 end

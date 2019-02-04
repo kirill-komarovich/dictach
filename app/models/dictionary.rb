@@ -27,4 +27,8 @@ class Dictionary < ApplicationRecord
             i18n_scope: 'models.dictionary.languages',
             predicates: true,
             scope: true
+
+  def alphabeth
+    words.pluck(:title).map(&:first).uniq
+  end
 end

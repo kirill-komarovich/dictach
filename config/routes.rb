@@ -6,6 +6,7 @@ Rails.application.routes.draw do
              skip: %i[password]
   get 'home', to: 'home#index'
 
-  resources :namespaces, defaults: { format: :json }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :namespaces, defaults: { format: :json } do
+    resources :dictionaries, defaults: { format: :json }, module: :namespaces
+  end
 end
