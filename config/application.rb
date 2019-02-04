@@ -25,7 +25,7 @@ module Dictach
     config.load_defaults 5.2
 
     # Use :cache_store for sessions everywhere
-    config.session_store :cache_store
+    config.session_store :cache_store, key: '_dictach_session_id'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

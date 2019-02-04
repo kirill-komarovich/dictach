@@ -37,7 +37,12 @@ en:
       attributes:
         email: email
         password: password
+    namespace:
+      attributes:
+        title: title
     dictionary:
+      attributes:
+        title: title
       languages:
         en: english
         ru: russian
