@@ -29,6 +29,6 @@ class Dictionary < ApplicationRecord
             scope: true
 
   def alphabeth
-    words.pluck('DISTINCT LEFT(title, 1)').sort
+    words.pluck(:title).map(&:first).uniq
   end
 end

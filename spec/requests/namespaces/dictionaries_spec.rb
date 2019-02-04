@@ -78,7 +78,8 @@ RSpec.describe 'Dictionary API' do
         id: dictionary.id,
         title: dictionary.title,
         language: dictionary.language,
-        namespace_id: namespace.id
+        namespace_id: namespace.id,
+        alphabeth: dictionary.alphabeth
       }
     end
 
