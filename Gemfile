@@ -27,6 +27,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'bundler-audit', '~> 0.6.1'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot', '~> 4.11'
   gem 'ffaker', '~> 2.2'
