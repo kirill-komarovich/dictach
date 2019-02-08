@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import logo from './logo.svg';
+import { FormattedHTMLMessage } from 'react-intl';
 import './App.css';
 
 class App extends Component {
@@ -9,7 +11,7 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            <FormattedHTMLMessage id="app.intro" />
           </p>
           <a
             className="App-link"
@@ -25,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

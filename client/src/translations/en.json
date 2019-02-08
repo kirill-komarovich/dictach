@@ -1,0 +1,7 @@
+{
+    "app.intro": "To get started, edit <code>src/App.js</code> and save to reload.",
+    "session.sign_in": "sign in",
+    "session.sign_out": "sign out",
+    "user.attributes.email": "email",
+    "user.attributes.password": "password"
+}
