@@ -9,8 +9,10 @@ Rails.application.load_tasks
 
 if %w[development test].include? Rails.env
   require 'rubocop/rake_task'
+  require 'bundler/audit/task'
+  Bundler::Audit::Task.new
   RuboCop::RakeTask.new
 
   task(:default).clear
-  task default: %i[rubocop spec]
+  task default: %i[bundle:audit rubocop spec]
 end
