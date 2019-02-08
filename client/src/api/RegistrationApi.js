@@ -1,7 +1,7 @@
 import urls from './apiUrls';
 
 class RegistrationApi {
-  static async signup(credentials) {
+  async signup(credentials) {
     const request = new Request(urls.session.signup, {
       method: 'POST',
       headers: new Headers({

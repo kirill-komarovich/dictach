@@ -2,10 +2,12 @@ import React from 'react';
 import Header from 'containers/header';
 import { SnackbarProvider } from 'notistack';
 
+const containerMaxSnack = 5;
+
 function DefaultLayout (props) {
   return (
     <div className="default-layout">
-      <SnackbarProvider maxSnack={5}>
+      <SnackbarProvider maxSnack={containerMaxSnack}>
         <div>
           <Header/>
           {props.children}

@@ -34,9 +34,10 @@ export function authenticationCheckEnd(status) {
 }
 
 export function signInUser(credentials) {
+  const sessionApi = new SessionApi();
   return async function(dispatch) {
     dispatch(signInBegin());
-    const response = await SessionApi.signin(credentials);
+    const response = await sessionApi.signin(credentials)
     if (!response.error) {
       dispatch(signInSuccess());
     }
@@ -47,9 +48,10 @@ export function signInUser(credentials) {
 }
 
 export function signOutUser() {
+  const sessionApi = new SessionApi();
   return async function(dispatch) {
     dispatch(signOutBegin());
-    const response = await SessionApi.signout();
+    await sessionApi.signout();
     dispatch(signOutSuccess());
   };
 }
@@ -61,9 +63,10 @@ export function freeSessionErrors() {
 }
 
 export function checkAuthentication() {
+  const sessionApi = new SessionApi();
   return async function(dispatch) {
     dispatch(authenticationCheckBegin());
-    const response = await SessionApi.checkAuthentication();
+    const response = await sessionApi.checkAuthentication();
     const status = response.ok;
     dispatch(authenticationCheckEnd(status));
   };

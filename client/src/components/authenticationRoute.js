@@ -7,11 +7,13 @@ import * as sessionActions from 'actions/SessionActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import urls from 'urls';
 
+const loaderSize = 100;
+
 class AuthenticationRoute extends Component {
   render () {
     if (this.props.session.loading) {
       return (
-        <CircularProgress className={'screen-loader'} size={100} />
+        <CircularProgress className="screen-loader" size={loaderSize} />
       )
     } else if (this.props.authenticated !== this.props.session.authenticated) {
       return (

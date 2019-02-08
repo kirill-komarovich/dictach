@@ -45,7 +45,7 @@ class HeaderMenu extends Component {
           <AccountCircle />
         </IconButton>
         <Menu
-          id={'menu-appbar'}
+          id="menu-appbar"
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'top',

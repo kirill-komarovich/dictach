@@ -23,6 +23,10 @@ const styles = theme => ({
   },
 });
 
+const formXs = 12;
+const submitButtonXs = 6;
+const snackbarHideDuration = 3000;
+
 class SignInForm extends Component {
   constructor(props) {
     super(props);
@@ -56,22 +60,26 @@ class SignInForm extends Component {
           horizontal: 'right',
         },
         variant: 'error',
-        autoHideDuration: 3000,
+        autoHideDuration: snackbarHideDuration,
       });
     });
     this.props.actions.freeSessionErrors();
   }
 
+  locales = {
+    emailLabel: capitalize(this.props.intl.formatMessage({id: 'user.attributes.email'})),
+    passwordLabel: capitalize(this.props.intl.formatMessage({id: 'user.attributes.password'})),
+    signInLabel: this.props.intl.formatMessage({id: 'session.sign_in'})
+  }
+
   render() {
-    const { classes, intl } = this.props;
-    const emailLabel = capitalize(intl.formatMessage({id: 'user.attributes.email'}));
-    const passwordLabel = capitalize(intl.formatMessage({id: 'user.attributes.password'}));
-    const signInLabel = intl.formatMessage({id: 'session.sign_in'})
+    const { classes } = this.props;
+    const { emailLabel, passwordLabel, signInLabel } = this.locales;
     this.handleErrorMessages();
     return (
-      <div className={'signin-form'}>
+      <div className="signin-form">
         <form onSubmit={this.onSubmit}>
-          <Grid item xs={12} container direction="column" spacing={16}>
+          <Grid item xs={formXs} container direction="column">
             <FormControl fullWidth={true}>
               <TextField
                 label={emailLabel}
@@ -99,9 +107,9 @@ class SignInForm extends Component {
                 onChange={this.onChange}
                 />
             </FormControl>
-            <Grid item container className={'buttons'}>
-              <Grid item xs={6}>
-                <Button variant="contained" color="primary" className={classes.button} type={'submit'}>
+            <Grid item container className="buttons">
+              <Grid item xs={submitButtonXs}>
+                <Button variant="contained" color="primary" className={classes.button} type="submit">
                   {signInLabel}
                 </Button>
               </Grid>

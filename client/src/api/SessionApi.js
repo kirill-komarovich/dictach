@@ -15,7 +15,7 @@ const headers = {
 }
 
 class SessionApi {
-  static async signin(credentials) {
+  async signin(credentials) {
     const request = new Request(urls.session.signin, {
       method: requestMethods.post,
       headers: new Headers({
@@ -38,7 +38,7 @@ class SessionApi {
     }
   }
 
-  static async signout() {
+  async signout() {
     const request = new Request(urls.session.signout, {
       method: requestMethods.delete,
     });
@@ -52,7 +52,7 @@ class SessionApi {
     }
   }
 
-  static async checkAuthentication() {
+  async checkAuthentication() {
     const request = new Request(urls.session.check, {
       method: requestMethods.get,
     });
