@@ -17,5 +17,19 @@ RSpec.describe Word, type: :model do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_length_of(:title).is_at_least(3).is_at_most(255) }
     it { is_expected.to validate_uniqueness_of(:title).scoped_to(:dictionary_id) }
+    it { is_expected.to allow_value('without_spacing').for(:title) }
+    it { is_expected.not_to allow_value('with spacing').for(:title) }
+  end
+
+  describe 'scopes' do
+    describe '.starts_with' do
+      let(:letter) { 'a' }
+      let!(:expected_word) { create(:word, title: "#{letter}_word") }
+      let(:unexpected_word) { create(:word, title: 'unexpected_word') }
+
+      it 'returns words that starts with requested letter' do
+        expect(described_class.starts_with(letter)).to eq [expected_word]
+      end
+    end
   end
 end

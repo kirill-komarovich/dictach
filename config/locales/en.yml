@@ -46,6 +46,9 @@ en:
       languages:
         en: english
         ru: russian
+    word:
+      attributes:
+        title: title
     description:
       validations:
         invalid_part_of_speech: '%{part_of_speech} is not contained in the %{language} language'
@@ -74,3 +77,8 @@ en:
         conjunction: conjunction
         particle: particle
         interjection: interjection
+  controllers:
+    words:
+      params:
+        letter:
+          error: letter parameter must be 1 character long

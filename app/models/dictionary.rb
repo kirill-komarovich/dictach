@@ -29,6 +29,12 @@ class Dictionary < ApplicationRecord
             scope: true
 
   def alphabeth
-    words.pluck(:title).map(&:first).uniq
+    words.pluck(unique_words_first_letters_sql)
+  end
+
+  private
+
+  def unique_words_first_letters_sql
+    Arel.sql('DISTINCT LEFT(title, 1)')
   end
 end
