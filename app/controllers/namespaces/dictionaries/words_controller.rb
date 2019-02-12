@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Namespaces
   module Dictionaries
     class WordsController < ApplicationController
@@ -23,7 +25,7 @@ module Namespaces
       def show; end
 
       def update
-        if @word.update(words_params)
+        if @word.update(word_params)
           render :update, status: :ok
         else
           render 'shared/errors', locals: { model: @word }, status: :unprocessable_entity
@@ -37,7 +39,7 @@ module Namespaces
 
       private
 
-      def words_params
+      def word_params
         params.require(:word).permit(:title, :dictionary_id)
       end
 
@@ -54,7 +56,7 @@ module Namespaces
 
         render json: {
           errors: [
-            I18n.t('controllers.words.params.by_letter.error')
+            I18n.t('controllers.words.params.letter.error')
           ]
         }, status: :bad_request
       end

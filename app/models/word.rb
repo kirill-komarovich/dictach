@@ -17,9 +17,8 @@ class Word < ApplicationRecord
               minimum: 3,
               maximum: 255
             },
-            presence: true
-
-  private
+            presence: true,
+            format: { without: /\s/ }
 
   def self.words
     Word.arel_table

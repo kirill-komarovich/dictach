@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
@@ -28,7 +30,7 @@ RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
   describe '#create' do
     let(:params) do
       {
-        word: word_params,
+        word: word_params
       }.merge(route_params)
     end
 
@@ -41,7 +43,7 @@ RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
         new_word = Word.last
         expect(response).to have_http_status 201
         expect(response).to render_template :create
-        expect(new_word.title).to eq dictionary_params[:title]
+        expect(new_word.title).to eq word_params[:title]
         expect(new_word.dictionary_id).to eq dictionary.id
       end
     end
@@ -61,7 +63,7 @@ RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
   end
 
   describe '#show' do
-    let!(:word) { create(:word, dictionary: dictionary) }
+    let(:word) { create(:word, dictionary: dictionary) }
 
     it 'renders show template', :aggregate_failures do
       get :show, params: route_params.merge(id: word.id), format: :json
@@ -77,7 +79,7 @@ RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
     let(:params) do
       {
         id: word.id,
-        word: word_params,
+        word: word_params
       }.merge(route_params)
     end
 

@@ -23,7 +23,7 @@ RSpec.describe 'Dictionary API' do
       end
     end
 
-    it 'returns dictionaries owned by current user', :aggregate_failures do
+    it 'returns dictionaries in selected namespace', :aggregate_failures do
       get namespace_dictionaries_path(namespace_id: namespace.id)
 
       expect(response).to have_http_status 200
