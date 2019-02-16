@@ -3,12 +3,12 @@ import { Router, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import { Provider } from 'react-redux';
-import App from './App';
+import TagsContainer from 'containers/tagsContainer';
 import AuthenticationRoute from 'components/authenticationRoute';
 import DefaultLayout from 'containers/defaultLayout';
 import RootContainer from 'containers/rootContainer';
 import history from './history';
-import urls from './urls';
+import paths from './paths';
 import ConnectedIntlProvider from 'components/connectedIntrlProvider';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
@@ -16,25 +16,26 @@ import theme from './theme';
 const Routes = () => {
   return (
     <Provider store={store}>
-      <MuiThemeProvider theme={theme} >
-        <ConnectedIntlProvider >
-          <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor} >
+        <MuiThemeProvider theme={theme} >
+          <ConnectedIntlProvider >
             <Router history={history}>
               <DefaultLayout>
                 <Switch>
-                  <AuthenticationRoute exact path={urls.dictioanries} authenticated component={App} />
+                  <AuthenticationRoute exact path={paths.dictioanries} authenticated component={TagsContainer} />
                   <AuthenticationRoute
                     exact
-                    path={urls.root}
-                    unauthorizedRedirectTo={urls.dictioanries}
+                    path={paths.root}
+                    unauthorizedRedirectTo={paths.dictioanries}
                     component={RootContainer}
                   />
+
                 </Switch>
               </DefaultLayout>
             </Router>
-          </PersistGate>
-        </ConnectedIntlProvider>
-      </MuiThemeProvider>
+          </ConnectedIntlProvider>
+        </MuiThemeProvider>
+      </PersistGate>
     </Provider>
   );
 };

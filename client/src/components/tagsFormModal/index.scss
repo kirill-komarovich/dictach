@@ -1,0 +1,96 @@
+.centered-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tags-modal {
+    @extend .centered-modal;
+
+    width: 300px;
+    outline: none;
+    padding: 0 1px 15px 0;
+    border-radius: 0 !important;
+
+    &__content {
+        overflow-y: auto;
+        max-height: 392px;
+    }
+
+    &__title {
+        padding-top: 15px;
+        padding-left: 15px;
+        font-weight: 500 !important;
+        font-size: 1rem !important;
+    }
+
+    &__button-done {
+        text-transform: none !important;
+    }
+
+    &__input {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+    }
+
+    &__input-group {
+        display: flex;
+        outline: 0px none;
+
+        .done-icon > .icon {
+            display: none;
+        }
+
+        &:focus, &:focus-within {
+            .done-icon > .icon {
+                display: inherit;
+            }
+        }
+    }
+
+    .editable {
+        .edit-icon > div > .icon {
+            display: none;
+        }
+
+        .edit-icon > div > .icon + .icon,
+        .done-icon > .icon {
+            display: inherit;
+        }
+    }
+
+    &__list-item {
+        .icon + .icon,
+        .new-icon + .new-icon {
+            display: none;
+        }
+
+        &:hover, &:focus-within {
+            .list-icon > .icon {
+                display: none;
+            }
+            .list-icon > .icon + .icon {
+                display: inherit;
+            }
+        }
+
+        &:focus-within {
+            .list-icon > .new-icon {
+                display: none;
+            }
+            .list-icon > .new-icon + .new-icon {
+                display: inherit;
+            }
+        }
+    }
+
+    .action-icon {
+        cursor: pointer;
+    }
+
+    .edit-icon, .done-icon {
+        margin-left: auto;
+        margin-right: 0 !important;
+    }
+}

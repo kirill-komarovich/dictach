@@ -8,7 +8,7 @@ import './index.scss';
 
 function Header(props) {
   return (
-    <AppBar className="header" position="static">
+    <AppBar className="header" position="fixed">
       <Toolbar>
         <Logo className="logo" />
         {props.session.authenticated && (<HeaderMenu />)}

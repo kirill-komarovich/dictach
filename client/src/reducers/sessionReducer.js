@@ -2,7 +2,7 @@ import * as types from '../actionTypes/session';
 import initialState from './initialState';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
 import { persistReducer } from 'redux-persist';
-import urls from '../urls';
+import paths from '../paths';
 import history from '../history';
 
 const sessionPersistConfig = {
@@ -20,7 +20,7 @@ function sessionReducer(state = initialState.session, action) {
         loading: true,
       };
     case types.SIGN_IN_SUCCESS:
-      history.push(urls.dictioanries);
+      history.push(paths.dictioanries);
 
       return {
         ...state,
@@ -41,7 +41,7 @@ function sessionReducer(state = initialState.session, action) {
         loading: true,
       };
     case types.SIGN_OUT_SUCCESS:
-      history.push(urls.root);
+      history.push(paths.root);
 
       return {
         ...state,

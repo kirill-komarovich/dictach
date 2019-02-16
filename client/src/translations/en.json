@@ -3,5 +3,12 @@
     "session.sign_in": "sign in",
     "session.sign_out": "sign out",
     "user.attributes.email": "email",
-    "user.attributes.password": "password"
+    "user.attributes.password": "password",
+    "tags.list.title": "tags",
+    "tags.list.edit": "Edit tags",
+    "buttons.done": "Done",
+    "tooltip.cancel": "Cancel",
+    "tooltip.tag.create": "Create tag",
+    "tooltip.tag.delete": "Delete tag",
+    "tooltip.tag.edit": "Rename tag"
 }

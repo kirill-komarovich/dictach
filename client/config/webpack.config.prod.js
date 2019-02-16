@@ -227,7 +227,7 @@ module.exports = {
       'components': path.resolve('src/components'),
       'containers': path.resolve('src/containers'),
       'actions': path.resolve('src/actions'),
-      'urls': path.resolve('src/urls'),
+      'paths': path.resolve('src/paths'),
       'utils': path.resolve('src/utils'),
     },
     plugins: [
