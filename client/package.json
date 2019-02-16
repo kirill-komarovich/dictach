@@ -140,11 +140,16 @@
     ]
   },
   "babel": {
-    "presets": ["react-app"],
+    "presets": [
+      "react-app"
+    ],
     "plugins": [
-      ["react-intl", {
+      [
+        "react-intl",
+        {
           "messagesDir": "./src/translations/"
-      }]
+        }
+      ]
     ]
   }
 }

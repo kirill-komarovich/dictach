@@ -8,7 +8,7 @@ import AuthenticationRoute from 'components/authenticationRoute';
 import DefaultLayout from 'containers/defaultLayout';
 import RootContainer from 'containers/rootContainer';
 import history from './history';
-import urls from './urls';
+import paths from './paths';
 import ConnectedIntlProvider from 'components/connectedIntrlProvider';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
@@ -22,13 +22,14 @@ const Routes = () => {
             <Router history={history}>
               <DefaultLayout>
                 <Switch>
-                  <AuthenticationRoute exact path={urls.dictioanries} authenticated component={App} />
+                  <AuthenticationRoute exact path={paths.dictioanries} authenticated component={App} />
                   <AuthenticationRoute
                     exact
-                    path={urls.root}
-                    unauthorizedRedirectTo={urls.dictioanries}
+                    path={paths.root}
+                    unauthorizedRedirectTo={paths.dictioanries}
                     component={RootContainer}
                   />
+                  
                 </Switch>
               </DefaultLayout>
             </Router>

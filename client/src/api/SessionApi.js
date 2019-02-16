@@ -1,23 +1,9 @@
-import urls from './apiUrls';
-
-const requestMethods = {
-  get: 'GET',
-  post: 'POST',
-  delete: 'DELETE'
-}
-
-const headers = {
-  contentType: {
-    json: {
-      'Content-Type': 'application/json',
-    }
-  },
-}
+import { urls, methods, headers } from './apiUrls';
 
 class SessionApi {
   async signin(credentials) {
     const request = new Request(urls.session.signin, {
-      method: requestMethods.post,
+      method: methods.post,
       headers: new Headers({
         ...headers.contentType.json,
       }),
@@ -40,7 +26,7 @@ class SessionApi {
 
   async signout() {
     const request = new Request(urls.session.signout, {
-      method: requestMethods.delete,
+      method: methods.delete,
     });
 
     try {
@@ -54,7 +40,7 @@ class SessionApi {
 
   async checkAuthentication() {
     const request = new Request(urls.session.check, {
-      method: requestMethods.get,
+      method: methods.get,
     });
 
     try {

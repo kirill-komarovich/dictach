@@ -5,4 +5,8 @@ export default {
     authenticated: false,
   },
   locale: navigator.language.split(/[-_]/)[0],
+  namespaces: {
+    chosen: {},
+    all: [],
+  },
 }

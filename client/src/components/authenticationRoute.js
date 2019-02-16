@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sessionActions from 'actions/SessionActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import urls from 'urls';
+import paths from 'paths';
 
 const loaderSize = 100;
 
@@ -49,6 +49,6 @@ AuthenticationRoute.propTypes = {
 
 AuthenticationRoute.defaultProps = {
   authenticated: false,
-  unauthorizedRedirectTo: urls.root,
+  unauthorizedRedirectTo: paths.root,
 };
 export default connect(state => state, mapDispatchToProps)(AuthenticationRoute);
