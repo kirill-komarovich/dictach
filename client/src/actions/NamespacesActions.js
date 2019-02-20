@@ -5,8 +5,8 @@ export function fetchAllNamespacesBegin() {
   return {type: types.FETCH_ALL_NAMESPACES_BEGIN}
 }
 
-export function fetchAllNamespacesSuccess() {
-  return {type: types.FETCH_ALL_NAMESPACES_SUCCESS}
+export function fetchAllNamespacesSuccess(namespaces) {
+  return {type: types.FETCH_ALL_NAMESPACES_SUCCESS, namespaces}
 }
 
 export function fetchAllNamespacesFailure(errors) {
@@ -23,11 +23,11 @@ export function fetchAllNamespaces() {
   return async function(dispatch) {
     dispatch(fetchAllNamespacesBegin());
     const response = await namespacesApi.fetchAll();
-    if (!response.error) {
-      dispatch(fetchAllNamespacesSuccess());
+    if (!response.errors) {
+      dispatch(fetchAllNamespacesSuccess(response));
     }
     else {
-      dispatch(fetchAllNamespacesFailure([response.error]));
+      dispatch(fetchAllNamespacesFailure(response.errors));
     }
   };
 }

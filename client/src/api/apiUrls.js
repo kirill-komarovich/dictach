@@ -49,16 +49,21 @@ const urls = {
 const methods = {
   get: 'GET',
   post: 'POST',
-  delete: 'DELETE'
-}
+  delete: 'DELETE',
+};
 
 const headers = {
   contentType: {
     json: {
       'Content-Type': 'application/json',
-    }
+    },
   },
-}
+  accept: {
+    json: {
+      'Accept': 'application/json',
+    },
+  },
+};
 
 export {
   urls,

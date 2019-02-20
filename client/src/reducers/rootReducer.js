@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
 import { persistReducer } from 'redux-persist';
 import session from './sessionReducer';
+import namespaces from './namespacesReducer';
 import locale from './localeReducer';
 
 const persistConfig = {
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   session,
+  namespaces,
   locale,
 });
 

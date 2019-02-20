@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { IntlProvider } from 'react-intl';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import Typography from '@material-ui/core/Typography';
 import * as namespacesActions from 'actions/NamespacesActions';
+import './index.scss';
 
 class NamespacesList extends React.Component {
   componentDidMount() {
@@ -12,22 +17,25 @@ class NamespacesList extends React.Component {
   }
 
   render() {
-    const namespaces = this.props.namespaces.all;
+    const { namespaces: { all: namespaces } } = this.props;
     return (
-      <List dense>
-        {
-          namespaces.map((namespace) => (
-              <ListItem>
+      <div className="namespaces-list">
+        <Typography variant="h5">
+          Namespaces
+        </Typography>
+        <List dense>
+          {
+            namespaces.map((namespace) => (
+              <ListItem key={namespace.id}>
                 <ListItemIcon>
-                  {/* <FolderIcon /> */}
+                  <EditOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText
-                  primary="Single-line item"
-                />
+                <ListItemText primary={namespace.title}/>
               </ListItem>
-          ))
-        }
-      </List>
+            ))
+          }
+        </List>
+      </div>
     )
   }
 };

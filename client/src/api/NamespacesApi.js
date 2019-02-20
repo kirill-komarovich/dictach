@@ -1,11 +1,11 @@
-import urls from './apiUrls';
+import { urls, methods, headers } from './apiUrls';
 
 class NamespacesApi {
-  async fetchAll(withDictionaries = false) {
-    const request = new Request(urls.namespaces, {
-      method: 'GET',
+  async fetchAll() {
+    const request = new Request(urls.namespaces(), {
+      method: methods.get,
       headers: new Headers({
-        'Accept': 'application/json',
+        ...headers.accept.json,
       }),
     });
 
@@ -21,9 +21,9 @@ class NamespacesApi {
 
   async fetchById(id) {
     const request = new Request(urls.namespace(id), {
-      method: 'GET',
+      method: methods.get,
       headers: new Headers({
-        'Accept': 'application/json',
+        ...headers.accept.json,
       }),
     });
 

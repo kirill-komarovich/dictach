@@ -8,5 +8,6 @@ export default {
   namespaces: {
     chosen: {},
     all: [],
+    loading: false,
   },
 }

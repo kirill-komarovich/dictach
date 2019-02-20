@@ -3,17 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import NamespacesList from 'components/namespacesList';
 import './index.scss';
 
-const namespacesListXs = 3;
-const chosenNamespaceXs = 9;
+const namespacesListXs = 2;
+const chosenNamespaceXs = 10;
 
 function NamespacesContainer() {
   return (
-    <Grid container >
-      <Grid item xs={namespacesListXs} className="namespaces-list">
+    <Grid container className="namespaces-container">
+      <Grid item xs={namespacesListXs}>
         <NamespacesList/>
       </Grid>
-      <Grid item xs={chosenNamespaceXs}>
-
+      <Grid item xs={chosenNamespaceXs} style={{backgroundColor: 'red'}}>
+        ChosenNamespace
       </Grid>
     </Grid>
   );

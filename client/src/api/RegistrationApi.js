@@ -1,11 +1,11 @@
-import urls from './apiUrls';
+import { urls, methods, headers } from './apiUrls';
 
 class RegistrationApi {
   async signup(credentials) {
     const request = new Request(urls.session.signup, {
-      method: 'POST',
+      method: methods.post,
       headers: new Headers({
-        'Content-Type': 'application/json'
+        ...headers.contentType.json,
       }),
       body: JSON.stringify({user: credentials})
     });
