@@ -2,3 +2,14 @@
     overflow-y: auto;
     text-align: center;
 }
+
+.list-icon {
+    margin-left: 0.75rem;
+}
+
+.list-text {
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

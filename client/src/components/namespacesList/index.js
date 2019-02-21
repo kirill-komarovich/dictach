@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import Typography from '@material-ui/core/Typography';
 import * as namespacesActions from 'actions/NamespacesActions';
 import './index.scss';
@@ -23,18 +24,38 @@ class NamespacesList extends React.Component {
         <Typography variant="h5">
           Namespaces
         </Typography>
-        <List dense>
+        <List>
           {
             namespaces.map((namespace) => (
               <ListItem key={namespace.id}>
-                <ListItemIcon>
-                  <EditOutlinedIcon />
+                <ListItemIcon className="list-icon">
+                  <LabelOutlinedIcon/>
                 </ListItemIcon>
-                <ListItemText primary={namespace.title}/>
+                <ListItemText
+                  primary={namespace.title}
+                  primaryTypographyProps={
+                    {
+                      className: 'list-text'
+                    }
+                  }
+                />
               </ListItem>
             ))
           }
         </List>
+        <ListItem>
+          <ListItemIcon className="list-icon">
+            <EditOutlinedIcon/>
+          </ListItemIcon>
+          <ListItemText
+            primary="Edit namespaces"
+            primaryTypographyProps={
+              {
+                className: 'list-text'
+              }
+            }
+          />
+        </ListItem>
       </div>
     )
   }
