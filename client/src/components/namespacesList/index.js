@@ -20,43 +20,27 @@ class NamespacesList extends React.Component {
   render() {
     const { namespaces: { all: namespaces } } = this.props;
     return (
-      <div className="namespaces-list">
-        <Typography variant="h5">
+      <List className="namespaces-list">
+        <span className="list-title">
           Namespaces
-        </Typography>
-        <List>
-          {
-            namespaces.map((namespace) => (
-              <ListItem key={namespace.id}>
-                <ListItemIcon className="list-icon">
-                  <LabelOutlinedIcon/>
-                </ListItemIcon>
-                <ListItemText
-                  primary={namespace.title}
-                  primaryTypographyProps={
-                    {
-                      className: 'list-text'
-                    }
-                  }
-                />
-              </ListItem>
-            ))
-          }
-        </List>
-        <ListItem>
-          <ListItemIcon className="list-icon">
-            <EditOutlinedIcon/>
+        </span>
+        {
+          namespaces.map((namespace) => (
+            <ListItem key={namespace.id} role="menuitem" className="namespaces-list__item">
+              <ListItemIcon >
+                <LabelOutlinedIcon className="list-icon"/>
+              </ListItemIcon>
+              <span className="list-text">{namespace.title}</span>
+            </ListItem>
+          ))
+        }
+        <ListItem role="menuitem" className="namespaces-list__item">
+          <ListItemIcon>
+            <EditOutlinedIcon className="list-icon"/>
           </ListItemIcon>
-          <ListItemText
-            primary="Edit namespaces"
-            primaryTypographyProps={
-              {
-                className: 'list-text'
-              }
-            }
-          />
+          <span className="list-text">Edit namespaces</span>
         </ListItem>
-      </div>
+      </List>
     )
   }
 };
