@@ -6,6 +6,7 @@ services:
     ports:
       - '3001:3001'
       - '3000:3000'
+      - '3035:3035'
     depends_on:
       - db
       - redis

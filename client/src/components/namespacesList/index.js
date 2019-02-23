@@ -1,14 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { IntlProvider } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
-import Typography from '@material-ui/core/Typography';
 import * as namespacesActions from 'actions/NamespacesActions';
 import './index.scss';
 
@@ -18,11 +17,15 @@ class NamespacesList extends React.Component {
   }
 
   render() {
-    const { namespaces: { all: namespaces } } = this.props;
+    const {
+      namespaces: { all: namespaces },
+      toggleForm,
+      intl: { formatMessage },
+    } = this.props;
     return (
       <List className="namespaces-list">
         <span className="list-title">
-          Namespaces
+          {formatMessage({id: 'namespaces.list.title'})}
         </span>
         {
           namespaces.map((namespace) => (
@@ -34,15 +37,23 @@ class NamespacesList extends React.Component {
             </ListItem>
           ))
         }
-        <ListItem role="menuitem" className="namespaces-list__item">
+        <ListItem role="menuitem" className="namespaces-list__item" onClick={toggleForm}>
           <ListItemIcon>
             <EditOutlinedIcon className="list-icon"/>
           </ListItemIcon>
-          <span className="list-text">Edit namespaces</span>
+          <span className="list-text">
+            {formatMessage({id: 'namespaces.list.edit'})}
+          </span>
         </ListItem>
       </List>
     )
   }
+};
+
+
+NamespacesList.propTypes = {
+  toggleForm: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -57,4 +68,5 @@ function mapStateToProps(state) {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NamespacesList);
+const NamespacesListWithIntl = injectIntl(NamespacesList);
+export default connect(mapStateToProps, mapDispatchToProps)(NamespacesListWithIntl);

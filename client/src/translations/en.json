@@ -3,5 +3,10 @@
     "session.sign_in": "sign in",
     "session.sign_out": "sign out",
     "user.attributes.email": "email",
-    "user.attributes.password": "password"
+    "user.attributes.password": "password",
+    "namespaces.list.title": "namespaces",
+    "namespaces.list.edit": "Edit namespaces",
+    "buttons.done": "Done",
+    "tooltip.namespace.delete": "Delete namespace",
+    "tooltip.namespace.edit": "Rename namespace"
 }

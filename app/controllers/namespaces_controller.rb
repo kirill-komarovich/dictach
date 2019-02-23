@@ -8,6 +8,7 @@ class NamespacesController < ApplicationController
   def index; end
 
   def create
+    @namespace.user = current_user
     if @namespace.save
       render :create, status: :created
     else

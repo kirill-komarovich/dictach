@@ -123,7 +123,7 @@
       "^components/(.*)$": "<rootDir>/src/components/$1",
       "^containers/(.*)$": "<rootDir>/src/containers/$1",
       "^actions/(.*)$": "<rootDir>/src/actions/$1",
-      "^urls$": "<rootDir>/src/urls",
+      "^paths$": "<rootDir>/src/paths",
       "^utils/(.*)$": "<rootDir>/src/utils/$1"
     },
     "moduleFileExtensions": [
