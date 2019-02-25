@@ -13,43 +13,58 @@ import * as namespacesActions from 'actions/NamespacesActions';
 import EditInput from './editInput';
 import './index.scss';
 
-function NamespacesFormModal({
-    open,
-    onClose,
-    intl: { formatMessage },
-    namespaces: { all: namespaces },
-  }) {
-  const [ editableNamespaceId, setEditableNamespaceId] = React.useState(-1);
+class NamespacesFormModal extends React.Component  {
 
-  return (
-    <Modal
-      open={open}
-      onClose={onClose}
-    >
-      <Paper className="namespaces-modal">
-        <Typography variant="subtitle1" className="namespaces-modal__title">
-          {formatMessage({ id: 'namespaces.list.edit' })}
-        </Typography>
-        <List>
-          {
-            namespaces.map((namespace) => (
-              <EditInput
-                key={namespace.id}
-                namespace={namespace}
-                editable={editableNamespaceId === namespace.id}
-                setEditableNamespace={setEditableNamespaceId}
-              />
-            ))
-          }
-        </List>
-        <Grid container direction="row" justify="flex-end">
-          <Button onClick={onClose} className="namespaces-modal__button-done">
-            {formatMessage({ id: 'buttons.done' })}
-          </Button>
-        </Grid>
-      </Paper>
-    </Modal>
-  )
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editableNamespace: -1,
+    }
+  }
+
+  setEditableNamespace = (id) => {
+    this.setState({ editableNamespace: id })
+  }
+
+  render() {
+    const {
+      open,
+      onClose,
+      intl: { formatMessage },
+      namespaces: { all: namespaces },
+    } = this.props;
+    const { editableNamespace } = this.state;
+    return (
+      <Modal
+        open={open}
+        onClose={onClose}
+      >
+        <Paper className="namespaces-modal">
+          <Typography variant="subtitle1" className="namespaces-modal__title">
+            {formatMessage({ id: 'namespaces.list.edit' })}
+          </Typography>
+          <List>
+            {
+              namespaces.map((namespace) => (
+                <EditInput
+                  key={namespace.id}
+                  namespace={namespace}
+                  editable={editableNamespace === namespace.id}
+                  setEditableNamespace={this.setEditableNamespace}
+                />
+              ))
+            }
+          </List>
+          <Grid container direction="row" justify="flex-end">
+            <Button onClick={onClose} className="namespaces-modal__button-done">
+              {formatMessage({ id: 'buttons.done' })}
+            </Button>
+          </Grid>
+        </Paper>
+      </Modal>
+    )
+  }
 };
 
 NamespacesFormModal.propTypes = {

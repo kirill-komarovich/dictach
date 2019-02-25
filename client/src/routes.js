@@ -16,9 +16,9 @@ import theme from './theme';
 const Routes = () => {
   return (
     <Provider store={store}>
-      <MuiThemeProvider theme={theme} >
-        <ConnectedIntlProvider >
-          <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor} >
+        <MuiThemeProvider theme={theme} >
+          <ConnectedIntlProvider >
             <Router history={history}>
               <DefaultLayout>
                 <Switch>
@@ -33,9 +33,9 @@ const Routes = () => {
                 </Switch>
               </DefaultLayout>
             </Router>
-          </PersistGate>
-        </ConnectedIntlProvider>
-      </MuiThemeProvider>
+          </ConnectedIntlProvider>
+        </MuiThemeProvider>
+      </PersistGate>
     </Provider>
   );
 };

@@ -25,7 +25,10 @@ class EditInput extends React.PureComponent {
   }
 
   deleteNamespace = () => {
-    console.log('delete namespace')
+    const { setEditableNamespace, actions: { deleteNamespace } } = this.props;
+    const { namespace } = this.state;
+    deleteNamespace(namespace.id).then(() => setEditableNamespace(null));
+
   }
 
   toggleMouseOver = () => {
@@ -41,6 +44,12 @@ class EditInput extends React.PureComponent {
   setEditable = () => {
     this.inputRef.current.focus();
     this.props.setEditableNamespace(this.state.namespace.id);
+  }
+
+  updateNamespace = () => {
+    const { actions: { updateNamespace, fetchAllNamespaces } } = this.props;
+    const { namespace } = this.state;
+    updateNamespace(namespace).then(() => fetchAllNamespaces());
   }
 
   render() {
@@ -68,7 +77,7 @@ class EditInput extends React.PureComponent {
         <ListItemIcon className="edit-icon" >
           {
             editable ?
-              <TooltipedDoneIcon onClick={() => console.log('done')} /> :
+              <TooltipedDoneIcon onClick={this.updateNamespace} /> :
               <TooltipedEditIcon onClick={this.setEditable} />
           }
         </ListItemIcon>

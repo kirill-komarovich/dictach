@@ -1,5 +1,6 @@
 .namespaces-list {
     overflow-y: auto;
+    overflow-x: hidden;
 
     &__item {
         cursor: pointer;

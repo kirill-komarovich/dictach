@@ -13,6 +13,30 @@ export function fetchAllNamespacesFailure(errors) {
   return {type: types.FETCH_ALL_NAMESPACES_FAILURE, errors}
 }
 
+export function updateNamespaceBegin() {
+  return {type: types.UPDATE_NAMESPACE_BEGIN}
+}
+
+export function updateNamespaceSuccess() {
+  return {type: types.UPDATE_NAMESPACE_SUCCESS}
+}
+
+export function updateNamespaceFailure(errors) {
+  return {type: types.UPDATE_NAMESPACE_FAILURE, errors}
+}
+
+export function deleteNamespaceBegin() {
+  return {type: types.DELETE_NAMESPACE_BEGIN}
+}
+
+export function deleteNamespaceSuccess(namespace) {
+  return {type: types.DELETE_NAMESPACE_SUCCESS, namespace}
+}
+
+export function deleteNamespaceFailure(errors) {
+  return {type: types.DELETE_NAMESPACE_FAILURE, errors}
+}
+
 export function freeNamespaceErrorsSuccess() {
   return {type: types.FREE_NAMESPACE_ERRORS}
 }
@@ -28,6 +52,34 @@ export function fetchAllNamespaces() {
     }
     else {
       dispatch(fetchAllNamespacesFailure(response.errors));
+    }
+  };
+}
+
+export function updateNamespace(namespace) {
+  const namespacesApi = new NamespacesApi();
+  return async function(dispatch) {
+    dispatch(updateNamespaceBegin());
+    const response = await namespacesApi.update(namespace);
+    if (!response.errors) {
+      dispatch(updateNamespaceSuccess());
+    }
+    else {
+      dispatch(updateNamespaceFailure(response.errors));
+    }
+  };
+}
+
+export function deleteNamespace(id) {
+  const namespacesApi = new NamespacesApi();
+  return async function(dispatch) {
+    dispatch(deleteNamespaceBegin());
+    const response = await namespacesApi.delete(id);
+    if (!response.errors) {
+      dispatch(deleteNamespaceSuccess(response));
+    }
+    else {
+      dispatch(deleteNamespaceFailure(response.errors));
     }
   };
 }

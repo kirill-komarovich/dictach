@@ -12,7 +12,7 @@ class SessionApi {
           email: credentials.email,
           password: credentials.password
         }
-      })
+      }),
     });
 
     try {

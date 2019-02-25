@@ -14,14 +14,14 @@ const urls = {
     return url;
   },
 
-  namespace: (id) => `/namespace/${id}`,
+  namespace: (id) => `/namespaces/${id}`,
 
   dictionaries(namespace_id) {
     return `${this.namespace(namespace_id)}/dictionaries`
   },
 
   dictionary(namespace_id, id) {
-    return `${this.namespace(namespace_id)}/dictionary/${id}`
+    return `${this.dictionaries(namespace_id)}/${id}`
   },
 
   words(namespace_id, dictionary_id, letter) {
@@ -50,6 +50,7 @@ const methods = {
   get: 'GET',
   post: 'POST',
   delete: 'DELETE',
+  put: 'PUT',
 };
 
 const headers = {

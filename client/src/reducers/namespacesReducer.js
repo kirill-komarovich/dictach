@@ -6,7 +6,7 @@ import { persistReducer } from 'redux-persist';
 const namespacesPersistConfig = {
   key: 'namespaces',
   storage: storage,
-  whitelist: ['chosen']
+  whitelist: ['chosen'],
 }
 
 function namespacesReducer(state = initialState.namespaces, action) {
@@ -20,6 +20,43 @@ function namespacesReducer(state = initialState.namespaces, action) {
       return {
         ...state,
         all: action.namespaces,
+        loading: false,
+      };
+    case types.UPDATE_NAMESPACE_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.UPDATE_NAMESPACE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case types.UPDATE_NAMESPACE_FAILURE:
+      return {
+        ...state,
+        errors: action.errors,
+        loading: false,
+      };
+    case types.DELETE_NAMESPACE_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.DELETE_NAMESPACE_SUCCESS:
+      const { namespace: deletedNamespace } = action;
+      const { all } = state;
+      const filtered = all.filter((namespace) => namespace.id !== deletedNamespace.id );
+
+      return {
+        ...state,
+        all: filtered,
+        loading: false,
+      };
+    case types.DELETE_NAMESPACE_FAILURE:
+      return {
+        ...state,
+        errors: action.errors,
         loading: false,
       };
     default:

@@ -4,10 +4,11 @@ export default {
     loading: false,
     authenticated: false,
   },
-  locale: navigator.language.split(/[-_]/)[0],
   namespaces: {
     chosen: {},
     all: [],
     loading: false,
+    errors: null,
   },
+  locale: navigator.language.split(/[-_]/)[0],
 }
