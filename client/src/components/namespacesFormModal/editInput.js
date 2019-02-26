@@ -7,9 +7,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Input from '@material-ui/core/Input';
 import * as namespacesActions from 'actions/NamespacesActions';
-import TooltipedDeleteIcon from './tooltipedDeleteIcon';
-import TooltipedEditIcon from './tooltipedEditIcon';
-import TooltipedDoneIcon from './tooltipedDoneIcon';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import DoneIcon from '@material-ui/icons/Done';
+import TooltipedIcon from 'components/tooltipedIcon';
 import './index.scss';
 
 class EditInput extends React.PureComponent {
@@ -47,9 +48,10 @@ class EditInput extends React.PureComponent {
   }
 
   updateNamespace = () => {
-    const { actions: { updateNamespace, fetchAllNamespaces } } = this.props;
+    const { actions: { updateNamespace, fetchAllNamespaces }, setEditableNamespace } = this.props;
     const { namespace } = this.state;
-    updateNamespace(namespace).then(() => fetchAllNamespaces());
+    updateNamespace(namespace).then(() => fetchAllNamespaces()
+                              .then(() => setEditableNamespace(null)));
   }
 
   render() {
@@ -63,7 +65,12 @@ class EditInput extends React.PureComponent {
         <ListItemIcon >
           {
             mouseOver || editable ?
-              <TooltipedDeleteIcon onClick={this.deleteNamespace}/> :
+              <TooltipedIcon
+                icon={DeleteIcon}
+                messageId="tooltip.namespace.delete"
+                onClick={this.deleteNamespace}
+                className="action-icon"
+              /> :
               <LabelIcon/>
           }
         </ListItemIcon>
@@ -77,8 +84,18 @@ class EditInput extends React.PureComponent {
         <ListItemIcon className="edit-icon" >
           {
             editable ?
-              <TooltipedDoneIcon onClick={this.updateNamespace} /> :
-              <TooltipedEditIcon onClick={this.setEditable} />
+              <TooltipedIcon
+                icon={DoneIcon}
+                messageId="tooltip.namespace.edit"
+                onClick={this.updateNamespace}
+                className="action-icon"
+              /> :
+              <TooltipedIcon
+                icon={EditIcon}
+                messageId="tooltip.namespace.edit"
+                onClick={this.setEditable}
+                className="action-icon"
+              />
           }
         </ListItemIcon>
       </ListItem>

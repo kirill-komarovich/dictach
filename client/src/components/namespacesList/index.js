@@ -21,9 +21,10 @@ class NamespacesList extends React.Component {
       namespaces: { all: namespaces },
       toggleForm,
       intl: { formatMessage },
+      headerHeight,
     } = this.props;
     return (
-      <List className="namespaces-list">
+      <List className="namespaces-list" style={{ height: `calc(100vh - ${headerHeight}px - 16px)`}}>
         <span className="list-title">
           {formatMessage({id: 'namespaces.list.title'})}
         </span>
@@ -54,6 +55,7 @@ class NamespacesList extends React.Component {
 NamespacesList.propTypes = {
   toggleForm: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  headerHeight: PropTypes.number.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

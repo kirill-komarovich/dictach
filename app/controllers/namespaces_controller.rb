@@ -5,7 +5,9 @@ class NamespacesController < ApplicationController
 
   load_and_authorize_resource
 
-  def index; end
+  def index
+    @namespaces = @namespaces.order(:title)
+  end
 
   def create
     @namespace.user = current_user
@@ -38,10 +40,10 @@ class NamespacesController < ApplicationController
   end
 
   def with_dictionaries_param
-    params.permit(:with_dictionaries)[:with_dictionaries]
+    params[:with_dictionaries]
   end
 
   def namespace_params
-    params.require(:namespace).permit(:title, :user_id)
+    params.require(:namespace).permit(:title)
   end
 end

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from 'containers/header';
 import { SnackbarProvider } from 'notistack';
+import './index.scss';
 
 const containerMaxSnack = 5;
 

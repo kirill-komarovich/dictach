@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape } from 'react-intl';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import CardActions from '@material-ui/core/CardActions';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -41,26 +42,30 @@ class NamespacesFormModal extends React.Component  {
         onClose={onClose}
       >
         <Paper className="namespaces-modal">
-          <Typography variant="subtitle1" className="namespaces-modal__title">
-            {formatMessage({ id: 'namespaces.list.edit' })}
-          </Typography>
-          <List>
-            {
-              namespaces.map((namespace) => (
-                <EditInput
-                  key={namespace.id}
-                  namespace={namespace}
-                  editable={editableNamespace === namespace.id}
-                  setEditableNamespace={this.setEditableNamespace}
-                />
-              ))
-            }
-          </List>
-          <Grid container direction="row" justify="flex-end">
-            <Button onClick={onClose} className="namespaces-modal__button-done">
-              {formatMessage({ id: 'buttons.done' })}
-            </Button>
-          </Grid>
+          <div className="namespaces-modal__content">
+            <Typography variant="subtitle1" className="namespaces-modal__title">
+              {formatMessage({ id: 'namespaces.list.edit' })}
+            </Typography>
+            <List>
+              {
+                namespaces.map((namespace) => (
+                  <EditInput
+                    key={namespace.id}
+                    namespace={namespace}
+                    editable={editableNamespace === namespace.id}
+                    setEditableNamespace={this.setEditableNamespace}
+                  />
+                ))
+              }
+            </List>
+          </div>
+          <CardActions>
+            <Grid container direction="row" justify="flex-end">
+              <Button onClick={onClose} className="namespaces-modal__button-done">
+                {formatMessage({ id: 'buttons.done' })}
+              </Button>
+            </Grid>
+          </CardActions>
         </Paper>
       </Modal>
     )

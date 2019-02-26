@@ -1,3 +1,15 @@
 .namespaces-container {
-    margin-top: 1rem;
+    &__list {
+        position: fixed;
+    }
+
+    &__chosen {
+        height: calc(100vh - 16%);
+        @media screen and (max-width: 600px) {
+            margin-left: 0px;
+        }
+        @media screen and (min-width: 600px) {
+            margin-left: 280px;
+        }
+    }
 }
