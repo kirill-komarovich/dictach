@@ -14,7 +14,7 @@ function TooltipedIcon({ icon: Icon, onClick, className, messageId, intl: { form
 TooltipedIcon.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.element.isRequired,
   messageId: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
 };

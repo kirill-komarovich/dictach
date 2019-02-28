@@ -16,18 +16,6 @@ import './index.scss';
 
 class NamespacesFormModal extends React.Component  {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editableNamespace: -1,
-    }
-  }
-
-  setEditableNamespace = (id) => {
-    this.setState({ editableNamespace: id })
-  }
-
   render() {
     const {
       open,
@@ -35,7 +23,6 @@ class NamespacesFormModal extends React.Component  {
       intl: { formatMessage },
       namespaces: { all: namespaces },
     } = this.props;
-    const { editableNamespace } = this.state;
     return (
       <Modal
         open={open}
@@ -52,8 +39,6 @@ class NamespacesFormModal extends React.Component  {
                   <EditInput
                     key={namespace.id}
                     namespace={namespace}
-                    editable={editableNamespace === namespace.id}
-                    setEditableNamespace={this.setEditableNamespace}
                   />
                 ))
               }

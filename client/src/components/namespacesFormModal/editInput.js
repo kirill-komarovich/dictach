@@ -27,10 +27,9 @@ class EditInput extends React.PureComponent {
   }
 
   deleteNamespace = () => {
-    const { setEditableNamespace, actions: { deleteNamespace } } = this.props;
+    const { actions: { deleteNamespace } } = this.props;
     const { namespace } = this.state;
-    deleteNamespace(namespace.id).then(() => setEditableNamespace(null));
-
+    deleteNamespace(namespace.id)
   }
 
   onTitleChange = ( { target: { value } }) => {
@@ -39,9 +38,8 @@ class EditInput extends React.PureComponent {
     this.setState({ namespace })
   }
 
-  setEditable = () => {
+  focusInput = () => {
     this.inputRef.current.focus();
-    this.props.setEditableNamespace(this.state.namespace.id);
   }
 
   blurInputGroupFocus = () => {
@@ -57,7 +55,6 @@ class EditInput extends React.PureComponent {
 
   render() {
     const { namespace } = this.state;
-    const { setEditableNamespace } = this.props;
     return (
       <ListItem
         role="menuitem"
@@ -76,20 +73,24 @@ class EditInput extends React.PureComponent {
             />
           </div>
         </ListItemIcon>
-        <div tabIndex="0" className="namespaces-modal__input-group" ref={this.inputGroupRef}>
+        <div
+          tabIndex="0"
+          className="namespaces-modal__input-group"
+          ref={this.inputGroupRef}
+          onClick={this.focusInput}
+        >
           <Input
             className="namespaces-modal__input"
             value={namespace.title}
             onChange={this.onTitleChange}
             inputRef={this.inputRef}
-            onFocus={() => setEditableNamespace(namespace.id)}
           />
           <ListItemIcon className="edit-icon">
             <div>
               <TooltipedIcon
                 icon={EditIcon}
                 messageId="tooltip.namespace.edit"
-                onClick={this.setEditable}
+
                 className="icon action-icon"
               />
               <TooltipedIcon
@@ -110,8 +111,6 @@ EditInput.propTypes = {
   namespace: PropTypes.shape({
     title: PropTypes.string.isRequired,
   }).isRequired,
-  editable: PropTypes.bool.isRequired,
-  setEditableNamespace: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
