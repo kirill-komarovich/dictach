@@ -19,10 +19,11 @@ class EditInput extends React.PureComponent {
 
     this.state = {
       namespace: props.namespace,
-      mouseOver: false,
+      showDeleteModal: false,
     }
 
     this.inputRef = React.createRef();
+    this.inputGroupRef = React.createRef();
   }
 
   deleteNamespace = () => {
@@ -30,10 +31,6 @@ class EditInput extends React.PureComponent {
     const { namespace } = this.state;
     deleteNamespace(namespace.id).then(() => setEditableNamespace(null));
 
-  }
-
-  toggleMouseOver = () => {
-    this.setState({ mouseOver: !this.state.mouseOver })
   }
 
   onTitleChange = ( { target: { value } }) => {
@@ -47,57 +44,63 @@ class EditInput extends React.PureComponent {
     this.props.setEditableNamespace(this.state.namespace.id);
   }
 
+  blurInputGroupFocus = () => {
+    this.inputGroupRef.current.blur()
+  }
+
   updateNamespace = () => {
-    const { actions: { updateNamespace, fetchAllNamespaces }, setEditableNamespace } = this.props;
+    const { actions: { updateNamespace, fetchAllNamespaces } } = this.props;
     const { namespace } = this.state;
-    updateNamespace(namespace).then(() => fetchAllNamespaces()
-                              .then(() => setEditableNamespace(null)));
+    updateNamespace(namespace).then(fetchAllNamespaces);
+    this.blurInputGroupFocus();
   }
 
   render() {
-    const { namespace, mouseOver } = this.state;
-    const { editable, setEditableNamespace } = this.props;
+    const { namespace } = this.state;
+    const { setEditableNamespace } = this.props;
     return (
-      <ListItem role="menuitem"
+      <ListItem
+        role="menuitem"
         onMouseEnter={this.toggleMouseOver}
         onMouseLeave={this.toggleMouseOver}
+        className="namespaces-modal__list-item"
       >
-        <ListItemIcon >
-          {
-            mouseOver || editable ?
-              <TooltipedIcon
-                icon={DeleteIcon}
-                messageId="tooltip.namespace.delete"
-                onClick={this.deleteNamespace}
-                className="action-icon"
-              /> :
-              <LabelIcon/>
-          }
+        <ListItemIcon>
+          <div className="list-icon">
+            <LabelIcon className="icon"/>
+            <TooltipedIcon
+              icon={DeleteIcon}
+              messageId="tooltip.namespace.delete"
+              onClick={this.deleteNamespace}
+              className="icon action-icon"
+            />
+          </div>
         </ListItemIcon>
-        <Input
-          className="namespaces-modal__input"
-          value={namespace.title}
-          onChange={this.onTitleChange}
-          inputRef={this.inputRef}
-          onFocus={() => setEditableNamespace(namespace.id)}
-        />
-        <ListItemIcon className="edit-icon" >
-          {
-            editable ?
-              <TooltipedIcon
-                icon={DoneIcon}
-                messageId="tooltip.namespace.edit"
-                onClick={this.updateNamespace}
-                className="action-icon"
-              /> :
+        <div tabIndex="0" className="namespaces-modal__input-group" ref={this.inputGroupRef}>
+          <Input
+            className="namespaces-modal__input"
+            value={namespace.title}
+            onChange={this.onTitleChange}
+            inputRef={this.inputRef}
+            onFocus={() => setEditableNamespace(namespace.id)}
+          />
+          <ListItemIcon className="edit-icon">
+            <div>
               <TooltipedIcon
                 icon={EditIcon}
                 messageId="tooltip.namespace.edit"
                 onClick={this.setEditable}
-                className="action-icon"
+                className="icon action-icon"
               />
-          }
-        </ListItemIcon>
+              <TooltipedIcon
+                icon={DoneIcon}
+                messageId="tooltip.namespace.edit"
+                onClick={this.updateNamespace}
+                className="icon action-icon"
+              />
+            </div>
+          </ListItemIcon>
+        </div>
       </ListItem>
     )
   }

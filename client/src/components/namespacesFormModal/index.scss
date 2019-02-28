@@ -1,10 +1,15 @@
-.namespaces-modal {
+.centered-modal {
     position: absolute;
-    width: 300px;
-    outline: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.namespaces-modal {
+    @extend .centered-modal;
+
+    width: 300px;
+    outline: none;
     padding: 0 2px 15px 0;
 
     &__content {
@@ -26,6 +31,39 @@
     &__input {
         font-size: 14px !important;
         font-weight: 500 !important;
+    }
+
+    &__input-group {
+        display: flex;
+        outline: 0px none;
+
+        .edit-icon > div > .icon + .icon {
+            display: none;
+        }
+
+        &:focus, &:focus-within {
+            .edit-icon > div > .icon {
+                display: none;
+            }
+            .edit-icon > div > .icon + .icon {
+                display: inherit;
+            }
+        }
+    }
+
+    &__list-item {
+        .icon + .icon {
+            display: none;
+        }
+
+        &:hover, &:focus-within {
+            .list-icon > .icon {
+                display: none;
+            }
+            .list-icon > .icon + .icon {
+                display: inherit;
+            }
+        }
     }
 }
 
