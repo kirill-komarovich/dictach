@@ -38,6 +38,22 @@ function namespacesReducer(state = initialState.namespaces, action) {
         errors: action.errors,
         loading: false,
       };
+    case types.CREATE_NAMESPACE_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case types.CREATE_NAMESPACE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case types.CREATE_NAMESPACE_FAILURE:
+      return {
+        ...state,
+        errors: action.errors,
+        loading: false,
+      };
     case types.DELETE_NAMESPACE_BEGIN:
       return {
         ...state,

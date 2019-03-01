@@ -77,6 +77,25 @@ class NamespacesApi {
       return error;
     }
   }
+
+  async create(namespace) {
+    const request = new Request(urls.namespaces(), {
+      method: methods.post,
+      headers: new Headers({
+        ...headers.contentType.json,
+      }),
+      body: JSON.stringify({ namespace }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response.json();
+    }
+
+    catch (error) {
+      return error;
+    }
+  }
 }
 
 export default NamespacesApi;

@@ -13,6 +13,18 @@ export function fetchAllNamespacesFailure(errors) {
   return {type: types.FETCH_ALL_NAMESPACES_FAILURE, errors}
 }
 
+export function createNamespaceBegin() {
+  return {type: types.CREATE_NAMESPACE_BEGIN}
+}
+
+export function createNamespaceSuccess() {
+  return {type: types.CREATE_NAMESPACE_SUCCESS}
+}
+
+export function createNamespaceFailure(errors) {
+  return {type: types.CREATE_NAMESPACE_FAILURE, errors}
+}
+
 export function updateNamespaceBegin() {
   return {type: types.UPDATE_NAMESPACE_BEGIN}
 }
@@ -52,6 +64,20 @@ export function fetchAllNamespaces() {
     }
     else {
       dispatch(fetchAllNamespacesFailure(response.errors));
+    }
+  };
+}
+
+export function createNamespace(namespace) {
+  const namespacesApi = new NamespacesApi();
+  return async function(dispatch) {
+    dispatch(createNamespaceBegin());
+    const response = await namespacesApi.create(namespace);
+    if (!response.errors) {
+      dispatch(createNamespaceSuccess());
+    }
+    else {
+      dispatch(createNamespaceFailure(response.errors));
     }
   };
 }

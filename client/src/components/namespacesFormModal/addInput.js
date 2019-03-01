@@ -1,36 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import LabelIcon from '@material-ui/icons/Label';
+import { injectIntl, intlShape } from 'react-intl';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Input from '@material-ui/core/Input';
 import * as namespacesActions from 'actions/NamespacesActions';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 import DoneIcon from '@material-ui/icons/Done';
 import TooltipedIcon from 'components/tooltipedIcon';
 import './index.scss';
 
-class EditInput extends React.PureComponent {
+class AddInput extends React.PureComponent {
   constructor(props) {
     super(props)
 
     this.state = {
-      namespace: props.namespace,
-      showDeleteModal: false,
+      namespace: {
+        title: '',
+      },
       changed: false,
     }
 
     this.inputRef = React.createRef();
     this.inputGroupRef = React.createRef();
-  }
-
-  deleteNamespace = () => {
-    const { actions: { deleteNamespace } } = this.props;
-    const { namespace } = this.state;
-    deleteNamespace(namespace.id)
   }
 
   onTitleChange = ({ target: { value } }) => {
@@ -39,7 +33,7 @@ class EditInput extends React.PureComponent {
     this.setState({
       namespace,
       changed: true,
-    })
+    });
   }
 
   focusInput = () => {
@@ -47,20 +41,32 @@ class EditInput extends React.PureComponent {
   }
 
   blurInputGroupFocus = () => {
-    this.inputGroupRef.current.blur()
+    this.inputGroupRef.current.blur();
   }
 
-  updateNamespace = () => {
-    const { actions: { updateNamespace, fetchAllNamespaces } } = this.props;
+  createNamespace = () => {
+    const { actions: { createNamespace} } = this.props;
     const { namespace, changed } = this.state;
     if (changed) {
-      updateNamespace(namespace).then(fetchAllNamespaces);
+      createNamespace(namespace).then(this.afterCreateCallback);
     }
     this.blurInputGroupFocus();
   }
 
+  afterCreateCallback = () => {
+    const { actions: { fetchAllNamespaces } } = this.props;
+    const namespace = { ...this.state.namespace };
+    namespace.title = '';
+    this.setState({
+      namespace,
+      changed: false,
+    });
+    fetchAllNamespaces();
+  }
+
   render() {
     const { namespace } = this.state;
+    const { intl: { formatMessage }, namespaces: { errors }} = this.props;
     return (
       <ListItem
         role="menuitem"
@@ -70,12 +76,17 @@ class EditInput extends React.PureComponent {
       >
         <ListItemIcon>
           <div className="list-icon">
-            <LabelIcon className="icon"/>
             <TooltipedIcon
-              icon={DeleteIcon}
-              messageId="tooltip.namespace.delete"
-              onClick={this.deleteNamespace}
-              className="icon action-icon"
+              icon={AddIcon}
+              messageId="tooltip.namespace.create"
+              onClick={this.focusInput}
+              className="new-icon action-icon"
+            />
+            <TooltipedIcon
+              icon={CloseIcon}
+              messageId="tooltip.cancel"
+              onClick={this.blurInputGroupFocus}
+              className="new-icon action-icon"
             />
           </div>
         </ListItemIcon>
@@ -86,26 +97,21 @@ class EditInput extends React.PureComponent {
           onClick={this.focusInput}
         >
           <Input
+            error={errors !== null}
             className="namespaces-modal__input"
             value={namespace.title}
             onChange={this.onTitleChange}
             inputRef={this.inputRef}
+            autoFocus
+            placeholder={formatMessage({ id: 'tooltip.namespace.create' })}
           />
-          <ListItemIcon className="edit-icon">
-            <div>
-              <TooltipedIcon
-                icon={EditIcon}
-                messageId="tooltip.namespace.edit"
-
-                className="icon action-icon"
-              />
-              <TooltipedIcon
-                icon={DoneIcon}
-                messageId="tooltip.namespace.edit"
-                onClick={this.updateNamespace}
-                className="icon action-icon"
-              />
-            </div>
+          <ListItemIcon className="done-icon">
+            <TooltipedIcon
+              icon={DoneIcon}
+              messageId="tooltip.namespace.create"
+              onClick={this.createNamespace}
+              className="icon action-icon"
+            />
           </ListItemIcon>
         </div>
       </ListItem>
@@ -113,11 +119,8 @@ class EditInput extends React.PureComponent {
   }
 };
 
-EditInput.propTypes = {
-  namespace: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-  }).isRequired,
+AddInput.propTypes = {
+  intl: intlShape.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -134,4 +137,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditInput);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(AddInput));

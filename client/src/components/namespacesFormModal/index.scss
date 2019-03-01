@@ -10,7 +10,8 @@
 
     width: 300px;
     outline: none;
-    padding: 0 2px 15px 0;
+    padding: 0 1px 15px 0;
+    border-radius: 0 !important;
 
     &__content {
         overflow-y: auto;
@@ -37,7 +38,8 @@
         display: flex;
         outline: 0px none;
 
-        .edit-icon > div > .icon + .icon {
+        .edit-icon > div > .icon + .icon,
+        .done-icon > .icon {
             display: none;
         }
 
@@ -45,14 +47,17 @@
             .edit-icon > div > .icon {
                 display: none;
             }
-            .edit-icon > div > .icon + .icon {
+
+            .edit-icon > div > .icon + .icon,
+            .done-icon > .icon {
                 display: inherit;
             }
         }
     }
 
     &__list-item {
-        .icon + .icon {
+        .icon + .icon,
+        .new-icon + .new-icon {
             display: none;
         }
 
@@ -64,15 +69,23 @@
                 display: inherit;
             }
         }
+
+        &:focus-within {
+            .list-icon > .new-icon {
+                display: none;
+            }
+            .list-icon > .new-icon + .new-icon {
+                display: inherit;
+            }
+        }
     }
-}
 
-.action-icon {
-    cursor: pointer;
-}
+    .action-icon {
+        cursor: pointer;
+    }
 
-.edit-icon {
-    margin-left: auto;
-    display: flex;
-    margin-right: 0 !important;
+    .edit-icon, .done-icon {
+        margin-left: auto;
+        margin-right: 0 !important;
+    }
 }

@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import * as namespacesActions from 'actions/NamespacesActions';
 import EditInput from './editInput';
+import AddInput from './addInput';
 import './index.scss';
 
 class NamespacesFormModal extends React.Component  {
@@ -34,6 +35,7 @@ class NamespacesFormModal extends React.Component  {
               {formatMessage({ id: 'namespaces.list.edit' })}
             </Typography>
             <List>
+              <AddInput/>
               {
                 namespaces.map((namespace) => (
                   <EditInput

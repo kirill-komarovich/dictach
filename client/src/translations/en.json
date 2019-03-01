@@ -7,6 +7,8 @@
     "namespaces.list.title": "namespaces",
     "namespaces.list.edit": "Edit namespaces",
     "buttons.done": "Done",
+    "tooltip.cancel": "Cancel",
+    "tooltip.namespace.create": "Create namespace",
     "tooltip.namespace.delete": "Delete namespace",
     "tooltip.namespace.edit": "Rename namespace"
 }
