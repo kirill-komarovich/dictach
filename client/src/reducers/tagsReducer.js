@@ -75,6 +75,11 @@ function tagsReducer(state = initialState.tags, action) {
         errors: action.errors,
         loading: false,
       };
+    case types.FREE_TAG_ERRORS:
+      return {
+        ...state,
+        errors: null,
+      }
     default:
       return state;
   }

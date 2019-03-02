@@ -10,12 +10,30 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { withSnackbar } from 'notistack';
 import * as tagsActions from 'actions/TagsActions';
 import EditInput from './editInput';
 import AddInput from './addInput';
 import './index.scss';
 
+const SNACKBAR_HIDE_DURATION = 3000;
+
 class TagsFormModal extends React.Component  {
+  handleErrorMessages = () => {
+    const { tags: { errors }, actions: { freeTagErrors }, enqueueSnackbar } = this.props;
+    if (!errors) return undefined;
+    errors.forEach((error) => {
+      enqueueSnackbar(error, {
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right',
+        },
+        variant: 'error',
+        autoHideDuration: SNACKBAR_HIDE_DURATION,
+      });
+    });
+    freeTagErrors();
+  }
 
   render() {
     const {
@@ -24,6 +42,7 @@ class TagsFormModal extends React.Component  {
       intl: { formatMessage },
       tags: { all: tags },
     } = this.props;
+    this.handleErrorMessages();
     return (
       <Modal
         open={open}
@@ -78,4 +97,4 @@ function mapStateToProps(state) {
 };
 
 const TagsFormModalWithIntl = injectIntl(TagsFormModal);
-export default connect(mapStateToProps, mapDispatchToProps)(TagsFormModalWithIntl);
+export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(TagsFormModalWithIntl));

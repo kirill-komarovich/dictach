@@ -25,7 +25,7 @@ const styles = theme => ({
 
 const formXs = 12;
 const submitButtonXs = 6;
-const snackbarHideDuration = 3000;
+const SNACKBAR_HIDE_DURATION = 3000;
 
 class SignInForm extends Component {
   constructor(props) {
@@ -51,19 +51,19 @@ class SignInForm extends Component {
   }
 
   handleErrorMessages = () => {
-    if (!this.props.session.errors) return undefined;
-    const errors = this.props.session.errors;
+    const { session: { errors }, actions: { freeSessionErrors }, enqueueSnackbar } = this.props;
+    if (!errors) return undefined;
     errors.forEach((error) => {
-      this.props.enqueueSnackbar(error, {
+      enqueueSnackbar(error, {
         anchorOrigin: {
           vertical: 'top',
           horizontal: 'right',
         },
         variant: 'error',
-        autoHideDuration: snackbarHideDuration,
+        autoHideDuration: SNACKBAR_HIDE_DURATION,
       });
     });
-    this.props.actions.freeSessionErrors();
+    freeSessionErrors();
   }
 
   locales = {
