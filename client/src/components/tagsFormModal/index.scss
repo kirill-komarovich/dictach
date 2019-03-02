@@ -94,3 +94,26 @@
         margin-right: 0 !important;
     }
 }
+
+
+.confirm-delete-modal {
+    @extend .centered-modal;
+    width: 430px;
+    padding: 25px;
+    border-radius: 0 !important;
+    outline: 0 none;
+    justify-content: center;
+
+    &__message {
+        margin-bottom: 20px;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        .btn-cancel {
+            margin-right: 16px;
+        }
+    }
+}

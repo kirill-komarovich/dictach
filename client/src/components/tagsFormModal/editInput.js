@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import TooltipedIcon from 'components/tooltipedIcon';
+import DeleteTagModal from './deleteTagModal';
 import './index.scss';
 
 class EditInput extends React.PureComponent {
@@ -31,7 +32,7 @@ class EditInput extends React.PureComponent {
   deleteTag = () => {
     const { actions: { deleteTag } } = this.props;
     const { tag } = this.state;
-    deleteTag(tag.id)
+    deleteTag(tag.id).then(this.toggleDeleteModal)
   }
 
   onTitleChange = ({ target: { value } }) => {
@@ -52,6 +53,10 @@ class EditInput extends React.PureComponent {
     this.setState({ editable: !this.state.editable })
   }
 
+  toggleDeleteModal = () => {
+    this.setState({ showDeleteModal: !this.state.showDeleteModal })
+  }
+
   blurInputGroupFocus = () => {
     this.inputGroupRef.current.blur();
     this.toggleEditable()
@@ -67,7 +72,7 @@ class EditInput extends React.PureComponent {
   }
 
   render() {
-    const { tag, editable } = this.state;
+    const { tag, editable, showDeleteModal } = this.state;
     return (
       <ListItem
         role="menuitem"
@@ -81,7 +86,7 @@ class EditInput extends React.PureComponent {
             <TooltipedIcon
               icon={DeleteIcon}
               messageId="tooltip.tag.delete"
-              onClick={this.deleteTag}
+              onClick={this.toggleDeleteModal}
               className="icon action-icon"
             />
           </div>
@@ -117,6 +122,11 @@ class EditInput extends React.PureComponent {
             </div>
           </ListItemIcon>
         </div>
+        <DeleteTagModal
+          open={showDeleteModal}
+          onClose={this.toggleDeleteModal}
+          onConfirm={this.deleteTag}
+        />
       </ListItem>
     )
   }
