@@ -2,16 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe DictionariesController, type: :controller do
+RSpec.describe Tags::DictionariesController, type: :controller do
   let(:user) { create(:user) }
+  let!(:tag) { create(:tag, user: user) }
 
   before { sign_in(user) }
 
   describe '#index' do
     let!(:dictionaries) { create_list(:dictionary, 3, user: user) }
 
+    before { tag.dictionaries << dictionaries }
+
     it 'renders index template', :aggregate_failures do
-      get :index, format: :json
+      get :index, params: { tag_id: tag.id }, format: :json
 
       expect(response).to have_http_status 200
       expect(response).to render_template :index
@@ -22,7 +25,8 @@ RSpec.describe DictionariesController, type: :controller do
   describe '#create' do
     let(:params) do
       {
-        dictionary: dictionary_params
+        dictionary: dictionary_params,
+        tag_id: tag.id
       }
     end
 
@@ -57,9 +61,10 @@ RSpec.describe DictionariesController, type: :controller do
 
   describe '#show' do
     let!(:dictionary) { create(:dictionary, user: user) }
+    before { tag.dictionaries << dictionary }
 
     it 'renders show template', :aggregate_failures do
-      get :show, params: { id: dictionary.id, user_id: user.id }, format: :json
+      get :show, params: { tag_id: tag.id, id: dictionary.id, user_id: user.id }, format: :json
 
       expect(response).to have_http_status 200
       expect(response).to render_template :show
@@ -72,9 +77,11 @@ RSpec.describe DictionariesController, type: :controller do
     let(:params) do
       {
         id: dictionary.id,
-        dictionary: dictionary_params
+        dictionary: dictionary_params,
+        tag_id: tag.id
       }
     end
+    before { tag.dictionaries << dictionary }
 
     context 'with valid params' do
       let(:dictionary_params) { attributes_for(:dictionary, user: user) }
@@ -103,9 +110,10 @@ RSpec.describe DictionariesController, type: :controller do
 
   describe '#destroy' do
     let!(:dictionary) { create(:dictionary, user: user) }
+    before { tag.dictionaries << dictionary }
 
     it 'deletes dictionary', :aggregate_failures do
-      delete :destroy, params: { id: dictionary.id }, format: :json
+      delete :destroy, params: { tag_id: tag.id, id: dictionary.id }, format: :json
 
       expect(Dictionary.find_by(id: dictionary.id)).to be_nil
       expect(response).to have_http_status 200

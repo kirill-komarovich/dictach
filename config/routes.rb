@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
 
   resources :tags, defaults: { format: :json }, except: :show do
-    resources :dictionaries, defaults: { format: :json }
+    resources :dictionaries, defaults: { format: :json }, module: :tags
   end
 
   resources :dictionaries, defaults: { format: :json } do
