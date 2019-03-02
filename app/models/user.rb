@@ -6,6 +6,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable, :trackable
 
-  has_many :namespaces, dependent: :destroy
-  has_many :dictionaries, through: :namespaces
+  has_many :tags, dependent: :destroy
+  has_many :dictionaries, dependent: :destroy
 end

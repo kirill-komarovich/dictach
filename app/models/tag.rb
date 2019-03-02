@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-class Namespace < ApplicationRecord
+class Tag < ApplicationRecord
   belongs_to :user
-  has_many :dictionaries, dependent: :destroy
+
+  has_many :tags_dictionaries, dependent: :destroy
+  has_many :dictionaries, through: :tags_dictionaries
 
   validates :title,
             uniqueness: {

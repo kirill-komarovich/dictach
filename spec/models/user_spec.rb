@@ -17,8 +17,8 @@ RSpec.describe User, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:namespaces).dependent(:destroy) }
-    it { is_expected.to have_many(:dictionaries).through(:namespaces) }
+    it { is_expected.to have_many(:tags).dependent(:destroy) }
+    it { is_expected.to have_many(:dictionaries).dependent(:destroy) }
   end
 
   describe 'abilities' do
@@ -27,12 +27,12 @@ RSpec.describe User, type: :model do
 
     context 'when is signed in' do
       let(:user) { create(:user) }
-      let(:namespace) { create(:namespace, user: user) }
-      let(:dictionary) { create(:dictionary, namespace: namespace) }
+      let(:tag) { create(:tag, user: user) }
+      let(:dictionary) { create(:dictionary, user: user) }
       let(:word) { create(:word, dictionary: dictionary) }
 
       it 'can manage all owned resources', :aggregate_failures do
-        is_expected.to be_able_to(:manage, namespace)
+        is_expected.to be_able_to(:manage, tag)
         is_expected.to be_able_to(:manage, dictionary)
         is_expected.to be_able_to(:manage, word)
       end
