@@ -8,8 +8,8 @@ class Ability
 
     return if user.blank?
 
-    can :manage, Namespace, user_id: user.id
-    can :manage, Dictionary, namespace: { user_id: user.id }
-    can :manage, Word, dictionary: { namespace: { user_id: user.id } }
+    can :manage, Tag, user_id: user.id
+    can :manage, Dictionary, user_id: user.id
+    can :manage, Word, dictionary: { user_id: user.id }
   end
 end

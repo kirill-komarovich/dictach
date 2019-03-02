@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'home', to: 'home#index'
 
-  resources :namespaces, defaults: { format: :json } do
-    resources :dictionaries, defaults: { format: :json }, module: :namespaces do
-      resources :words, defaults: { format: :json }, module: :dictionaries
-    end
+  resources :tags, defaults: { format: :json }, except: :show do
+    resources :dictionaries, defaults: { format: :json }, module: :tags
+  end
+
+  resources :dictionaries, defaults: { format: :json } do
+    resources :words, defaults: { format: :json }, module: :dictionaries
   end
 end

@@ -5,14 +5,14 @@ class Dictionary < ApplicationRecord
 
   SUPPORTED_LANGUAGES = %i[en ru].freeze
 
-  belongs_to :namespace
+  belongs_to :user
   has_many :words, dependent: :destroy
-
-  delegate :user, to: :namespace
+  has_many :tags_dictionaries, dependent: :destroy
+  has_many :tags, through: :tags_dictionaries
 
   validates :title,
             uniqueness: {
-              scope: :namespace_id,
+              scope: :user_id,
               case_sensitive: false
             },
             length: {
