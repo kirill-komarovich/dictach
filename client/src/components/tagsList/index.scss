@@ -1,0 +1,53 @@
+.tags-list {
+    top: 0;
+    width: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &__item {
+        cursor: pointer;
+        border-radius: 0 25px 25px 0;
+        color: #202124;
+        letter-spacing: .01785714em;
+        font-family: 'Google Sans',Roboto,Arial,sans-serif;
+        font-size: .875rem;
+        font-weight: 500;
+        line-height: 1.25rem;
+    }
+
+    &__item:hover {
+        background-color: #f1f3f4;
+        background: rgba(0,0,0,0.12);
+        -webkit-border-radius: 0 25px 25px 0;
+        border-radius: 0 25px 25px 0;
+    }
+}
+
+.list {
+    &-icon {
+        margin-left: 0.75rem;
+        color: #5f6368;
+    }
+
+    &-text {
+        padding-left: 16px;
+        display: inline-block;
+        vertical-align: top;
+        width: 176px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &-title {
+        margin-left: 0.4rem;
+        color: #5f6368;
+        cursor: default;
+        letter-spacing: .07272727em;
+        font-size: .6875rem;
+        font-weight: 500;
+        line-height: 1rem;
+        text-transform: uppercase;
+        padding: 15px 24px 10px;
+    }
+}

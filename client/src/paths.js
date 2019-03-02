@@ -1,6 +1,6 @@
-const urls = {
+const paths = {
   root: '/',
   dictioanries: '/dicts',
 };
 
-export default urls;
+export default paths;

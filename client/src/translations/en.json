@@ -1,7 +1,16 @@
 {
-    "app.intro": "To get started, edit <code>src/App.js</code> and save to reload.",
     "session.sign_in": "sign in",
     "session.sign_out": "sign out",
     "user.attributes.email": "email",
-    "user.attributes.password": "password"
+    "user.attributes.password": "password",
+    "tags.list.title": "tags",
+    "tags.list.edit": "Edit tags",
+    "tags.confirm_delete": "Tag will be deleted. It will disappear from all dictionaries, while the dictionaries themselves will remain.",
+    "buttons.done": "Done",
+    "buttons.cancel": "Cancel",
+    "buttons.delete": "Delete",
+    "tooltip.cancel": "Cancel",
+    "tooltip.tag.create": "Create tag",
+    "tooltip.tag.delete": "Delete tag",
+    "tooltip.tag.edit": "Rename tag"
 }
