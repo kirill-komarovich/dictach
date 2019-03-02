@@ -2,59 +2,52 @@
 
 require 'rails_helper'
 
-RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
+RSpec.describe DictionariesController, type: :controller do
   let(:user) { create(:user) }
-  let(:namespace) { create(:namespace, user: user) }
-  let(:dictionary) { create(:dictionary, namespace: namespace) }
-  let(:route_params) do
-    {
-      namespace_id: namespace.id,
-      dictionary_id: dictionary.id
-    }
-  end
 
   before { sign_in(user) }
 
   describe '#index' do
-    let!(:words) { create_list(:word, 3, dictionary: dictionary).sort_by(&:title) }
+    let!(:dictionaries) { create_list(:dictionary, 3, user: user) }
 
     it 'renders index template', :aggregate_failures do
-      get :index, params: route_params, format: :json
+      get :index, format: :json
 
       expect(response).to have_http_status 200
       expect(response).to render_template :index
-      expect(assigns(:words)).to eq words
+      expect(assigns(:dictionaries)).to eq dictionaries
     end
   end
 
   describe '#create' do
     let(:params) do
       {
-        word: word_params
-      }.merge(route_params)
+        dictionary: dictionary_params,
+      }
     end
 
     context 'with valid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary) }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user) }
 
-      it 'creates new word', :aggregate_failures do
+      it 'creates new dictionary', :aggregate_failures do
         post :create, format: :json, params: params
 
-        new_word = Word.last
+        new_dictionary = Dictionary.last
         expect(response).to have_http_status 201
         expect(response).to render_template :create
-        expect(new_word.title).to eq word_params[:title]
-        expect(new_word.dictionary_id).to eq dictionary.id
+        expect(new_dictionary.title).to eq dictionary_params[:title]
+        expect(new_dictionary.language).to eq dictionary_params[:language]
+        expect(new_dictionary.user_id).to eq user.id
       end
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: 'a') }
 
       it 'does not create new dictionary', :aggregate_failures do
         expect do
           post :create, format: :json, params: params
-        end.to change { Word.count }.by(0)
+        end.to change { Dictionary.count }.by(0)
 
         expect(response).to have_http_status 422
         expect(response).to render_template 'shared/errors'
@@ -63,58 +56,58 @@ RSpec.describe Namespaces::Dictionaries::WordsController, type: :controller do
   end
 
   describe '#show' do
-    let(:word) { create(:word, dictionary: dictionary) }
+    let!(:dictionary) { create(:dictionary, user: user) }
 
     it 'renders show template', :aggregate_failures do
-      get :show, params: route_params.merge(id: word.id), format: :json
+      get :show, params: { id: dictionary.id, user_id: user.id }, format: :json
 
       expect(response).to have_http_status 200
       expect(response).to render_template :show
-      expect(assigns(:word)).to eq word
+      expect(assigns(:dictionary)).to eq dictionary
     end
   end
 
   describe '#update' do
-    let!(:word) { create(:word, dictionary: dictionary) }
+    let!(:dictionary) { create(:dictionary, user: user) }
     let(:params) do
       {
-        id: word.id,
-        word: word_params
-      }.merge(route_params)
+        id: dictionary.id,
+        dictionary: dictionary_params,
+      }
     end
 
     context 'with valid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary) }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user) }
 
       it 'updates dictionary', :aggregate_failures do
         put :update, params: params, format: :json
 
         expect(response).to have_http_status 200
         expect(response).to render_template :update
-        expect(word.reload.title).to eq word_params[:title]
+        expect(dictionary.reload.title).to eq dictionary_params[:title]
       end
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: 'a') }
 
       it 'does not update dictionary', :aggregate_failures do
         put :update, params: params, format: :json
 
         expect(response).to have_http_status 422
         expect(response).to render_template 'shared/errors'
-        expect(word.reload.title).not_to eq word_params[:title]
+        expect(dictionary.reload.title).not_to eq dictionary_params[:title]
       end
     end
   end
 
   describe '#destroy' do
-    let!(:word) { create(:word, dictionary: dictionary) }
+    let!(:dictionary) { create(:dictionary, user: user) }
 
     it 'deletes dictionary', :aggregate_failures do
-      delete :destroy, params: { id: word.id }.merge(route_params), format: :json
+      delete :destroy, params: { id: dictionary.id }, format: :json
 
-      expect(Word.find_by(id: dictionary.id)).to be_nil
+      expect(Dictionary.find_by(id: dictionary.id)).to be_nil
       expect(response).to have_http_status 200
     end
   end

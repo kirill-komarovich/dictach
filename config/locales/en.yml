@@ -37,7 +37,7 @@ en:
       attributes:
         email: email
         password: password
-    namespace:
+    tag:
       attributes:
         title: title
     dictionary:
