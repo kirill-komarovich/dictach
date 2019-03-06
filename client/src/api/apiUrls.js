@@ -1,15 +1,15 @@
 const urls = {
   session: {
-    signin: '/users/sign_in',
-    signup: '/users/sign_up',
-    signout: '/users/sign_out',
-    check: '/authentication_checks',
+    signin: 'api/users/sign_in',
+    signup: 'api/users/sign_up',
+    signout: 'api/users/sign_out',
+    check: 'api/authentication_checks',
   },
 
-  tags: () => '/tags',
-  tag: (id) => `/tags/${id}`,
+  tags: () => 'api/tags',
+  tag: (id) => `api/tags/${id}`,
 
-  dictionaries: () => '/dictionaries',
+  dictionaries: () => 'api/dictionaries',
   dictionary(id) {
     return `${this.dictionaries}/${id}`;
   },
