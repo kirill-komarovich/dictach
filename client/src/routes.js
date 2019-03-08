@@ -3,7 +3,7 @@ import { Router, Switch } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import { Provider } from 'react-redux';
-import TagsContainer from 'containers/tagsContainer';
+import DictionariesContainer from 'containers/dictionariesContainer';
 import AuthenticationRoute from 'components/authenticationRoute';
 import DefaultLayout from 'containers/defaultLayout';
 import RootContainer from 'containers/rootContainer';
@@ -22,7 +22,12 @@ const Routes = () => {
             <Router history={history}>
               <DefaultLayout>
                 <Switch>
-                  <AuthenticationRoute exact path={paths.dictioanries} authenticated component={TagsContainer} />
+                  <AuthenticationRoute
+                    exact
+                    path={paths.dictioanries}
+                    authenticated
+                    component={DictionariesContainer}
+                  />
                   <AuthenticationRoute
                     exact
                     path={paths.root}

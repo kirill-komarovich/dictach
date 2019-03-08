@@ -2,10 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import TagsList from 'components/tagsList';
+import DictionariesTable from 'components/dictionariesTable';
 import TagsFormModal from 'components/tagsFormModal';
 import './index.scss';
 
-class TagsContainer extends React.PureComponent {
+class DictionariesContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -40,7 +41,7 @@ class TagsContainer extends React.PureComponent {
           </div>
         </Hidden>
         <div className="tags-container__chosen">
-          ChosenTag
+          <DictionariesTable/>
         </div>
         {
           editFormOpened && <TagsFormModal open onClose={this.toggleForm} />
@@ -50,4 +51,4 @@ class TagsContainer extends React.PureComponent {
   }
 }
 
-export default TagsContainer;
+export default DictionariesContainer;
