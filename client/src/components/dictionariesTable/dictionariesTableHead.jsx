@@ -9,38 +9,31 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
-// import * as dictionariesActions from 'actions/DictionariesActions';
-
-const
+import * as dictionariesActions from 'actions/DictionariesActions';
 
 class DictionariesTableHead extends React.Component {
   columns = () => {
     const { intl: { formatMessage } } = this.props;
     return [
       { id: 'title', numeric: false, disablePadding: true, label: formatMessage({id: 'dictionaries.table.head.title'}) },
-      { id: 'description', numeric: true, disablePadding: false, label: formatMessage({id: 'dictionaries.table.head.description'}) },
+      { id: 'language', numeric: true, disablePadding: false, label: formatMessage({id: 'dictionaries.table.head.language'}) },
       { id: 'tags', numeric: true, disablePadding: false, label: formatMessage({id: 'dictionaries.table.head.tags'}) },
     ];
   }
 
   render() {
+    const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+    const columns = this.columns();
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              // indeterminate={numSelected > 0 && numSelected < rowCount}
-              // checked={numSelected === rowCount}
-              // onChange={onSelectAllClick}
-            />
-          </TableCell>
           {
             columns.map((column) => (
               <TableCell
                 key={column.id}
                 align={column.numeric ? 'right' : 'left'}
                 padding={column.disablePadding ? 'none' : 'default'}
-                // sortDirection={orderBy === column.id ? order : false}
+                sortDirection={orderBy === column.id ? order : false}
               >
                 <Tooltip
                   title="Sort"
@@ -70,7 +63,7 @@ DictionariesTableHead.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // actions: bindActionCreators(dictionariesActions, dispatch)
+    actions: bindActionCreators(dictionariesActions, dispatch)
   };
 }
 
