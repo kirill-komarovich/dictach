@@ -14,6 +14,7 @@
     "buttons.cancel": "Cancel",
     "buttons.delete": "Delete",
     "tooltip.cancel": "Cancel",
+    "tooltip.sort": "Sort",
     "tooltip.tag.create": "Create tag",
     "tooltip.tag.delete": "Delete tag",
     "tooltip.tag.edit": "Rename tag"

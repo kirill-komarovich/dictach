@@ -9,9 +9,9 @@ const urls = {
   tags: () => 'api/tags',
   tag: (id) => `api/tags/${id}`,
 
-  dictionaries(page, rowsPerPage) {
+  dictionaries(page, rowsPerPage, order, direction) {
     const url = 'api/dictionaries';
-    return this.withQueryParams(url, { page, per_page: rowsPerPage })
+    return this.withQueryParams(url, { page, per_page: rowsPerPage, order, direction });
   },
   dictionary(id) {
     return `${this.dictionaries}/${id}`;

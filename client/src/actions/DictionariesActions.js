@@ -18,11 +18,11 @@ export function deleteDictionaryFailure(errors) {
 }
 
 
-export function fetchAllDictionaries(page, rowsPerPage) {
+export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
   const dictionariesApi = new DictionariesApi();
   return async function(dispatch) {
     dispatch({ type: types.FETCH_ALL_DICTIONARIES_BEGIN });
-    const response = await dictionariesApi.fetchAll(page, rowsPerPage);
+    const response = await dictionariesApi.fetchAll(page, rowsPerPage, order, direction);
     if (!response.errors) {
       dispatch({
         type: types.FETCH_ALL_DICTIONARIES_SUCCESS,

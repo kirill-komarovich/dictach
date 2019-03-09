@@ -5,7 +5,7 @@ class DictionariesController < ApplicationController
   helper_method :page_count, :records_count
 
   def index
-    @dictionaries = @dictionaries.page(page).per(per_page).includes(:tags)
+    @dictionaries = @dictionaries.order(order_direction).page(page).per(per_page).includes(:tags)
   end
 
   def create
@@ -48,6 +48,12 @@ class DictionariesController < ApplicationController
 
   def page
     [params[:page].to_i, 1].max && [params[:page].to_i, page_count].min
+  end
+
+  def order_direction
+    property = Dictionary.column_names.include?(params[:order]) ? params[:order] : 'id'
+    direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    { property => direction }
   end
 
   def dictionary_params
