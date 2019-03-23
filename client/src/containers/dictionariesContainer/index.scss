@@ -1,10 +1,11 @@
-.tags-container {
-    &__list {
+.dictionaries-container {
+    &__tags-list {
         position: fixed;
     }
 
-    &__chosen {
+    &__table {
         height: calc(100vh - 16%);
+        padding: 1.5rem;
         @media screen and (max-width: 600px) {
             margin-left: 0px;
         }

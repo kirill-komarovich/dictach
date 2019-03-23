@@ -1,0 +1,21 @@
+.dictionaries {
+    &-table {
+        &__header {
+            display: flex;
+        }
+
+        &__title {
+            flex-grow: 1;
+        }
+    }
+
+    &-loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 15rem;
+    }
+    &-empty-message {
+        margin-top: 2rem;
+    }
+}

@@ -2,10 +2,13 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import TagsList from 'components/tagsList';
+import DictionariesTable from 'components/dictionariesTable';
 import TagsFormModal from 'components/tagsFormModal';
 import './index.scss';
 
-class TagsContainer extends React.PureComponent {
+const DICTIONARIES_TABLE_XS = 10;
+
+class DictionariesContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -20,7 +23,6 @@ class TagsContainer extends React.PureComponent {
     this.setState({ headerHeight });
   }
 
-
   toggleForm = () => {
     this.setState({
       editFormOpened: !this.state.editFormOpened ,
@@ -30,18 +32,18 @@ class TagsContainer extends React.PureComponent {
   render() {
     const { headerHeight, editFormOpened } = this.state;
     return (
-      <Grid container className="tags-container" style={{ marginTop: `${headerHeight}px` }}>
+      <Grid container className="dictionaries-container" style={{ marginTop: `${headerHeight}px` }}>
         <Hidden xsDown>
-          <div className="tags-container__list">
+          <div className="dictionaries-container__tags-list">
             <TagsList
               toggleForm={this.toggleForm}
               headerHeight={headerHeight}
             />
           </div>
         </Hidden>
-        <div className="tags-container__chosen">
-          ChosenTag
-        </div>
+        <Grid xs={DICTIONARIES_TABLE_XS} className="dictionaries-container__table">
+          <DictionariesTable/>
+        </Grid>
         {
           editFormOpened && <TagsFormModal open onClose={this.toggleForm} />
         }
@@ -50,4 +52,4 @@ class TagsContainer extends React.PureComponent {
   }
 }
 
-export default TagsContainer;
+export default DictionariesContainer;

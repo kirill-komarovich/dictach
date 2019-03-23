@@ -9,7 +9,10 @@ const urls = {
   tags: () => 'api/tags',
   tag: (id) => `api/tags/${id}`,
 
-  dictionaries: () => 'api/dictionaries',
+  dictionaries(page, rowsPerPage, order, direction) {
+    const url = 'api/dictionaries';
+    return this.withQueryParams(url, { page, per_page: rowsPerPage, order, direction });
+  },
   dictionary(id) {
     return `${this.dictionaries}/${id}`;
   },
@@ -28,7 +31,9 @@ const urls = {
   withQueryParams(originUrl, params) {
     let url = originUrl.concat('?');
     Object.keys(params).forEach((param) => {
-      url = url.concat(`${param}=${params[param]}&`);
+      if (params[param]){
+        url = url.concat(`${param}=${params[param]}&`);
+      }
     });
     return url.slice(0, -1);
   }

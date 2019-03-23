@@ -11,14 +11,24 @@ RSpec.describe 'Dictionary API' do
 
   describe 'GET /dictionaries' do
     let!(:dictionaries) { create_list(:dictionary, 3, user: user) }
-    let(:expected_response) do
+    let(:dictionaries_array) do
       dictionaries.map do |dictionary|
         {
           id: dictionary.id,
           title: dictionary.title,
-          language: dictionary.language
+          language: dictionary.language,
+          tags: dictionary.tags.pluck(:title)
         }
       end
+    end
+    let(:expected_response) do
+      {
+        dictionaries: dictionaries_array,
+        meta: {
+          pages: 1,
+          records: dictionaries.length
+        }
+      }
     end
 
     it 'returns dictionaries owned by user', :aggregate_failures do
@@ -42,7 +52,7 @@ RSpec.describe 'Dictionary API' do
         body = JSON.parse(response.body)
         dictionary = Dictionary.find_by(id: body['id'])
         expect(response).to have_http_status 201
-        expect(body['created_at']).to eq I18n.l(dictionary.created_at)
+        expect(body['created_at']).to eq dictionary.created_at.to_i
         expect(body['title']).to eq dictionary_params[:title]
         expect(body['language']).to eq dictionary_params[:language]
       end
@@ -75,6 +85,7 @@ RSpec.describe 'Dictionary API' do
         id: dictionary.id,
         title: dictionary.title,
         language: dictionary.language,
+        tags: dictionary.tags.pluck(:title),
         alphabeth: dictionary.alphabeth
       }
     end
@@ -102,7 +113,7 @@ RSpec.describe 'Dictionary API' do
         body = JSON.parse(response.body)
         expect(response).to have_http_status 200
         expect(body['id']).to eq dictionary.id
-        expect(body['updated_at']).to eq I18n.l(dictionary.updated_at)
+        expect(body['updated_at']).to eq dictionary.updated_at.to_i
         expect(body['title']).to eq dictionary_params[:title]
         expect(body['language']).to eq dictionary_params[:language]
       end
