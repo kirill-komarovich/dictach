@@ -7,10 +7,10 @@ const paperElevation = 1;
 
 function SignInContainer() {
   return (
-      <Paper className="paper" elevation={paperElevation}>
-        <SignInForm/>
-      </Paper>
+    <Paper className="paper" elevation={paperElevation}>
+      <SignInForm/>
+    </Paper>
   );
-};
+}
 
 export default SignInContainer;

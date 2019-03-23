@@ -2,19 +2,19 @@ import * as types from '../actionTypes/tags';
 import TagsApi from '../api/TagsApi';
 
 export function fetchAllTagsFailure(errors) {
-  return {type: types.FETCH_ALL_TAGS_FAILURE, errors}
+  return {type: types.FETCH_ALL_TAGS_FAILURE, errors};
 }
 
 export function updateTagFailure(errors) {
-  return {type: types.UPDATE_TAG_FAILURE, errors}
+  return {type: types.UPDATE_TAG_FAILURE, errors};
 }
 
 export function createTagFailure(errors) {
-  return {type: types.CREATE_TAG_FAILURE, errors}
+  return {type: types.CREATE_TAG_FAILURE, errors};
 }
 
 export function deleteTagFailure(errors) {
-  return {type: types.DELETE_TAG_FAILURE, errors}
+  return {type: types.DELETE_TAG_FAILURE, errors};
 }
 
 

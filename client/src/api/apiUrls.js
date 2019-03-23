@@ -19,10 +19,10 @@ const urls = {
     if (letter === undefined) {
       return url;
     }
-    return this.withQueryParams(url, { letter })
+    return this.withQueryParams(url, { letter });
   },
   word(dictionary_id, id) {
-    return `${this.dictionary(dictionary_id)}/word/${id}`
+    return `${this.dictionary(dictionary_id)}/word/${id}`;
   },
 
   withQueryParams(originUrl, params) {

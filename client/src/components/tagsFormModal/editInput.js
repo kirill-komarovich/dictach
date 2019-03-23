@@ -6,7 +6,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Input from '@material-ui/core/Input';
-import * as tagsActions from 'actions/TagsActions';
+import { deleteTag, updateTag, fetchAllTags } from 'actions/TagsActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
@@ -16,14 +16,14 @@ import './index.scss';
 
 class EditInput extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       tag: props.tag,
       showDeleteModal: false,
       changed: false,
       editable: false,
-    }
+    };
 
     this.inputRef = React.createRef();
     this.inputGroupRef = React.createRef();
@@ -32,7 +32,7 @@ class EditInput extends React.PureComponent {
   deleteTag = () => {
     const { actions: { deleteTag } } = this.props;
     const { tag } = this.state;
-    deleteTag(tag.id).then(this.toggleDeleteModal)
+    deleteTag(tag.id).then(this.toggleDeleteModal);
   }
 
   onTitleChange = ({ target: { value } }) => {
@@ -41,25 +41,25 @@ class EditInput extends React.PureComponent {
     this.setState({
       tag,
       changed: true,
-    })
+    });
   }
 
   focusInput = () => {
     this.inputRef.current.focus();
-    this.toggleEditable()
+    this.toggleEditable();
   }
 
   toggleEditable = () => {
-    this.setState({ editable: !this.state.editable })
+    this.setState({ editable: !this.state.editable });
   }
 
   toggleDeleteModal = () => {
-    this.setState({ showDeleteModal: !this.state.showDeleteModal })
+    this.setState({ showDeleteModal: !this.state.showDeleteModal });
   }
 
   blurInputGroupFocus = () => {
     this.inputGroupRef.current.blur();
-    this.toggleEditable()
+    this.toggleEditable();
   }
 
   updateTag = () => {
@@ -128,14 +128,22 @@ class EditInput extends React.PureComponent {
           onConfirm={this.deleteTag}
         />
       </ListItem>
-    )
+    );
   }
-};
+}
 
 EditInput.propTypes = {
   tag: PropTypes.shape({
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+  }).isRequired,
+  tags: PropTypes.shape({
+    errors: PropTypes.oneOf({ types: [PropTypes.array, null] }).isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    deleteTag: PropTypes.func.isRequired,
+    updateTag: PropTypes.func.isRequired,
+    fetchAllTags: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -145,11 +153,11 @@ function mapStateToProps(state) {
       errors: state.tags.errors,
     },
   };
-};
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(tagsActions, dispatch)
+    actions: bindActionCreators({ deleteTag, updateTag, fetchAllTags }, dispatch)
   };
 }
 

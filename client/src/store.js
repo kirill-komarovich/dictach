@@ -6,7 +6,7 @@ import loggerMiddleware from 'redux-logger';
 
 const middlewares = [thunkMiddleware];
 if (process.env.NODE_ENV === 'development') {
-  middlewares.push(loggerMiddleware)
+  middlewares.push(loggerMiddleware);
 }
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 

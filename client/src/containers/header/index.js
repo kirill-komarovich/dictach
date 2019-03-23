@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,16 +12,23 @@ function Header(props) {
     <AppBar className="header" position="fixed">
       <Toolbar>
         <Logo className="logo" />
-        {props.session.authenticated && (<HeaderMenu />)}
+        { props.session.authenticated && (<HeaderMenu />)}
       </Toolbar>
     </AppBar>
   );
+}
+
+Header.propTypes = {
+  session: PropTypes.shape({
+    authenticated: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 function mapStateToProps(state) {
+  const { session: { authenticated } } = state;
   return {
-    session: state.session
+    session: { authenticated },
   };
-};
+}
 
 export default connect(mapStateToProps)(Header);

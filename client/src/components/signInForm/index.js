@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as sessionActions from 'actions/SessionActions';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
 import { injectIntl, intlShape } from 'react-intl';
-import { capitalize } from 'utils/str';
+import { capitalize } from 'src/utils/str';
+import { signInUser } from 'actions/SessionActions';
+import { redirectToDictionaries } from 'src/navigation';
 import './index.scss';
 
 const styles = theme => ({
@@ -46,8 +47,10 @@ class SignInForm extends Component {
   }
 
   onSubmit = (event) => {
+    const { actions: { signInUser } } = this.props;
+    const { credentials } = this.state;
     event.preventDefault();
-    this.props.actions.signInUser(this.state.credentials);
+    signInUser(credentials).then(redirectToDictionaries);
   }
 
   handleErrorMessages = () => {
@@ -80,7 +83,7 @@ class SignInForm extends Component {
       <div className="signin-form">
         <form onSubmit={this.onSubmit}>
           <Grid item xs={formXs} container direction="column">
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth>
               <TextField
                 label={emailLabel}
                 className={classes.textField}
@@ -89,12 +92,11 @@ class SignInForm extends Component {
                 autoComplete="email"
                 margin="normal"
                 variant="outlined"
-                fullWidth={true}
-                autoFocus={true}
+                fullWidth
                 onChange={this.onChange}
-                />
+              />
             </FormControl>
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth>
               <TextField
                 label={passwordLabel}
                 className={classes.textField}
@@ -103,9 +105,9 @@ class SignInForm extends Component {
                 margin="normal"
                 name="password"
                 variant="outlined"
-                fullWidth={true}
+                fullWidth
                 onChange={this.onChange}
-                />
+              />
             </FormControl>
             <Grid item container className="buttons">
               <Grid item xs={submitButtonXs}>
@@ -125,20 +127,28 @@ SignInForm.propTypes = {
   classes: PropTypes.object.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  session: PropTypes.shape({
+    errors: PropTypes.oneOf({ types: [PropTypes.array, null] }).isRequired,
+    loading: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    signInUser: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators({ signInUser }, dispatch)
   };
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     session: state.session
   };
 }
 
 const SignInFormWithIntl = injectIntl(SignInForm);
-const SignInFormWithSnackbar = withSnackbar(SignInFormWithIntl)
+const SignInFormWithSnackbar = withSnackbar(SignInFormWithIntl);
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignInFormWithSnackbar));

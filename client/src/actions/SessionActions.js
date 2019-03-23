@@ -2,18 +2,17 @@ import * as types from '../actionTypes/session';
 import SessionApi from '../api/SessionApi';
 
 export function signInFailure(errors) {
-  return {type: types.SIGN_IN_FAILURE, errors}
+  return {type: types.SIGN_IN_FAILURE, errors};
 }
 
 export function signInUser(credentials) {
   const sessionApi = new SessionApi();
   return async function(dispatch) {
     dispatch({ type: types.SIGN_IN_BEGIN });
-    const response = await sessionApi.signin(credentials)
+    const response = await sessionApi.signin(credentials);
     if (!response.error) {
       dispatch({ type: types.SIGN_IN_SUCCESS });
-    }
-    else {
+    } else {
       dispatch(signInFailure([response.error]));
     }
   };

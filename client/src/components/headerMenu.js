@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import * as sessionActions from 'actions/SessionActions';
+import { signOutUser } from 'actions/SessionActions';
 import { injectIntl, intlShape } from 'react-intl';
-import { capitalize } from 'utils/str';
+import { capitalize } from 'src/utils/str';
+import { redirectToRoot } from 'src/navigation';
 
-class HeaderMenu extends Component {
+class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       anchorEl: null,
-    }
+    };
   }
 
   handleMenu = (event) => {
@@ -26,14 +28,15 @@ class HeaderMenu extends Component {
   }
 
   handleSignOut =  () => {
-    this.props.actions.signOutUser();
+    const { actions: { signOutUser } } = this.props;
+    signOutUser().then(redirectToRoot);
   }
 
   render() {
     const { anchorEl } = this.state;
     const { intl } = this.props;
     const open = Boolean(anchorEl);
-    const signOutLabel = capitalize(intl.formatMessage({id: 'session.sign_out'}));
+    const signOutLabel = capitalize(intl.formatMessage({ id: 'session.sign_out' }));
     return (
       <div>
         <IconButton
@@ -61,19 +64,22 @@ class HeaderMenu extends Component {
           <MenuItem onClick={this.handleSignOut}>{signOutLabel}</MenuItem>
         </Menu>
       </div>
-    )
-  };
-};
+    );
+  }
+}
 
 HeaderMenu.propTypes = {
   intl: intlShape.isRequired,
+  actions: PropTypes.shape({
+    signOutUser: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators({ signOutUser }, dispatch)
   };
-};
+}
 
 
-export default connect(state => state, mapDispatchToProps)(injectIntl(HeaderMenu));
+export default connect(null, mapDispatchToProps)(injectIntl(HeaderMenu));
