@@ -10,10 +10,10 @@ export function signInUser(credentials) {
   return async function(dispatch) {
     dispatch({ type: types.SIGN_IN_BEGIN });
     const response = await sessionApi.signin(credentials);
-    if (!response.error) {
+    if (!response.errors) {
       dispatch({ type: types.SIGN_IN_SUCCESS });
     } else {
-      dispatch(signInFailure([response.error]));
+      dispatch(signInFailure(response.errors));
     }
   };
 }
