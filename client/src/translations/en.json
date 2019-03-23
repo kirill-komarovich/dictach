@@ -11,7 +11,7 @@
     "dictionaries.table.head.title": "Title",
     "dictionaries.table.head.language": "Language",
     "dictionaries.table.head.tags": "Tags",
-    "dictionaries.table.empty": "You do not have any dictionaries yes, please, add your first dictionary",
+    "dictionaries.table.empty": "You do not have any dictionaries yet, please, add your first dictionary",
     "buttons.done": "Done",
     "buttons.cancel": "Cancel",
     "buttons.delete": "Delete",

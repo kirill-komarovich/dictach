@@ -41,10 +41,6 @@ class DictionariesTable extends React.Component {
     fetchAllDictionaries(page, rowsPerPage, order, direction);
   }
 
-  handleClick = (id) => {
-    console.log(id);
-  };
-
   handleChangePage = (_event, page) => {
     const { rowsPerPage, order, direction } = this.state;
     this.setState({ page: page + 1 });
@@ -86,9 +82,15 @@ class DictionariesTable extends React.Component {
       return (
         <React.Fragment>
           <div className="dictionaries-table__header">
-            <Typography variant="h5" gutterBottom className="dictionaries-table__title">
-              <FormattedMessage id="dictionaries.table.title"/>
-            </Typography>
+            <FormattedMessage id="dictionaries.table.title">
+              {
+                (formatMessage) => (
+                  <Typography variant="h5" gutterBottom className="dictionaries-table__title">
+                    { formatMessage }
+                  </Typography>
+                )
+              }
+            </FormattedMessage>
             <Button variant="contained" color="primary">
               <FormattedMessage id="dictionaries.table.add"/>
             </Button>
