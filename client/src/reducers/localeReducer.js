@@ -1,6 +1,6 @@
 import initialState from './initialState';
 
-function localeReducer(state = initialState.locale, action) {
+function localeReducer(state = initialState.locale) {
   return state;
 }
 

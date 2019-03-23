@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
-import * as tagsActions from 'actions/TagsActions';
+import { freeTagErrors } from 'actions/TagsActions';
 import EditInput from './editInput';
 import AddInput from './addInput';
 import './index.scss';
@@ -74,27 +74,36 @@ class TagsFormModal extends React.Component  {
           </CardActions>
         </Paper>
       </Modal>
-    )
+    );
   }
-};
+}
 
 TagsFormModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  tags: PropTypes.shape({
+    all: PropTypes.array.isRequired,
+    errors: PropTypes.oneOf({ types: [PropTypes.array, null] }).isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    freeTagErrors: PropTypes.func.isRequired,
+  }).isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(tagsActions, dispatch)
+    actions: bindActionCreators({ freeTagErrors }, dispatch)
   };
 }
 
 function mapStateToProps(state) {
+  const { tags: { all, errors } } = state;
   return {
-    tags: state.tags,
+    tags: { all, errors },
   };
-};
+}
 
 const TagsFormModalWithIntl = injectIntl(TagsFormModal);
 export default connect(mapStateToProps, mapDispatchToProps)(withSnackbar(TagsFormModalWithIntl));

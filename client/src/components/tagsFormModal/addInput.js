@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { injectIntl, intlShape } from 'react-intl';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Input from '@material-ui/core/Input';
-import * as tagsActions from 'actions/TagsActions';
+import { createTag, fetchAllTags } from 'actions/TagsActions';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import DoneIcon from '@material-ui/icons/Done';
@@ -14,14 +15,14 @@ import './index.scss';
 
 class AddInput extends React.PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       tag: {
         title: '',
       },
       changed: false,
-    }
+    };
 
     this.inputRef = React.createRef();
     this.inputGroupRef = React.createRef();
@@ -114,12 +115,19 @@ class AddInput extends React.PureComponent {
           </ListItemIcon>
         </div>
       </ListItem>
-    )
+    );
   }
-};
+}
 
 AddInput.propTypes = {
   intl: intlShape.isRequired,
+  tags: PropTypes.shape({
+    errors: PropTypes.oneOf({ types: [PropTypes.array, null] }).isRequired,
+  }).isRequired,
+  actions: PropTypes.shape({
+    createTag: PropTypes.func.isRequired,
+    fetchAllTags: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -128,11 +136,11 @@ function mapStateToProps(state) {
       errors: state.tags.errors,
     },
   };
-};
+}
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(tagsActions, dispatch)
+    actions: bindActionCreators({ createTag, fetchAllTags }, dispatch)
   };
 }
 

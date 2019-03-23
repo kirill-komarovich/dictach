@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
-import * as tagsActions from 'actions/TagsActions';
+import { fetchAllTags } from 'actions/TagsActions';
 import './index.scss';
 
 class TagsList extends React.Component {
@@ -47,28 +47,35 @@ class TagsList extends React.Component {
           </span>
         </ListItem>
       </List>
-    )
+    );
   }
-};
+}
 
 
 TagsList.propTypes = {
   toggleForm: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   headerHeight: PropTypes.number.isRequired,
+  actions: PropTypes.shape({
+    fetchAllTags: PropTypes.func.isRequired,
+  }).isRequired,
+  tags: PropTypes.shape({
+    all: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(tagsActions, dispatch)
+    actions: bindActionCreators({ fetchAllTags }, dispatch)
   };
 }
 
 function mapStateToProps(state) {
+  const { tags: { all } } = state;
   return {
-    tags: state.tags,
+    tags: { all },
   };
-};
+}
 
 const TagsListWithIntl = injectIntl(TagsList);
 export default connect(mapStateToProps, mapDispatchToProps)(TagsListWithIntl);

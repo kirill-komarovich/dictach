@@ -11,4 +11,4 @@ export default {
     errors: null,
   },
   locale: navigator.language.split(/[-_]/)[0],
-}
+};

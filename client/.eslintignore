@@ -1,0 +1,7 @@
+coverage/
+scripts/start.js
+scripts/build.js
+scripts/test.js
+config/
+src/serviceWorker.js
+node_modules/

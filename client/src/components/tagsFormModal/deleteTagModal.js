@@ -28,8 +28,8 @@ function DeleteTagModal({ open, onConfirm, onClose, intl: { formatMessage }}) {
         </div>
       </Paper>
     </Modal>
-  )
-};
+  );
+}
 
 DeleteTagModal.propTypes = {
   open: PropTypes.bool.isRequired,

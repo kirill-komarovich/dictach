@@ -8,10 +8,7 @@ class SessionApi {
         ...headers.contentType.json,
       }),
       body: JSON.stringify({
-        user: {
-          email: credentials.email,
-          password: credentials.password
-        }
+        user: { ...credentials }
       }),
     });
 

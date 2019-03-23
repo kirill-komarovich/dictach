@@ -8,13 +8,13 @@ function TooltipedIcon({ icon: Icon, onClick, className, messageId, intl: { form
     <Tooltip title={formatMessage({ id: messageId })}>
       <Icon onClick={onClick} className={className} />
     </Tooltip>
-  )
-};
+  );
+}
 
 TooltipedIcon.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.func.isRequired,
   messageId: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
 };

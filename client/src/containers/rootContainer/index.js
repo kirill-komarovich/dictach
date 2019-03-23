@@ -10,26 +10,26 @@ const rootContainerXs = 12;
 
 function RootContainer () {
   return (
-      <Grid container className="root-container" >
-        <Grid item xs={rootContainerXs} >
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Hidden smDown>
-              <Grid item xs={aboutContainerXs} >
-                Placeholder
-              </Grid>
-            </Hidden>
-            <Grid item >
-              <SignInContainer />
+    <Grid container className="root-container" >
+      <Grid item xs={rootContainerXs} >
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+        >
+          <Hidden smDown>
+            <Grid item xs={aboutContainerXs} >
+              Placeholder
             </Grid>
+          </Hidden>
+          <Grid item >
+            <SignInContainer />
           </Grid>
         </Grid>
       </Grid>
-  )
-};
+    </Grid>
+  );
+}
 
 export default withRouter(RootContainer);

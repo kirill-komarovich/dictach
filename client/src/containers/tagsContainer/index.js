@@ -12,7 +12,7 @@ class TagsContainer extends React.PureComponent {
     this.state = {
       editFormOpened: false,
       headerHeight: 0,
-    }
+    };
   }
 
   componentDidMount() {
@@ -24,7 +24,7 @@ class TagsContainer extends React.PureComponent {
   toggleForm = () => {
     this.setState({
       editFormOpened: !this.state.editFormOpened ,
-    })
+    });
   }
 
   render() {
@@ -48,6 +48,6 @@ class TagsContainer extends React.PureComponent {
       </Grid>
     );
   }
-};
+}
 
 export default TagsContainer;
