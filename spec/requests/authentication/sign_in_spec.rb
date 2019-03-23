@@ -38,10 +38,12 @@ RSpec.describe 'Sign in', type: :request do
 
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body).to include(
-        error: I18n.t(
-          'devise.failure.invalid',
-          authentication_keys: I18n.t('models.user.attributes.email').capitalize
-        )
+        errors: [
+          I18n.t(
+            'devise.failure.invalid',
+            authentication_keys: I18n.t('models.user.attributes.email').capitalize
+          )
+        ]
       )
       expect(response).to have_http_status 401
     end

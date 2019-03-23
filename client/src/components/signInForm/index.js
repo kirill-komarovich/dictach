@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
 import { injectIntl, intlShape } from 'react-intl';
 import { capitalize } from 'src/utils/str';
-import { signInUser } from 'actions/SessionActions';
+import { signInUser, freeSessionErrors } from 'actions/SessionActions';
 import { redirectToDictionaries } from 'src/navigation';
 import './index.scss';
 
@@ -134,12 +134,13 @@ SignInForm.propTypes = {
   }).isRequired,
   actions: PropTypes.shape({
     signInUser: PropTypes.func.isRequired,
+    freeSessionErrors: PropTypes.func.isRequired,
   }).isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ signInUser }, dispatch)
+    actions: bindActionCreators({ signInUser, freeSessionErrors }, dispatch)
   };
 }
 
