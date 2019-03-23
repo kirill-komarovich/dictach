@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { checkAuthentication } from 'actions/SessionActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import paths from 'paths';
+import paths from 'src/paths';
 
 const loaderSize = 100;
 

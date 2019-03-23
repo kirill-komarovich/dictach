@@ -9,8 +9,6 @@ module.exports = {
           components: './src/components',
           containers: './src/containers',
           actions: './src/actions',
-          paths: './src/paths',
-          utils: './src/utils',
           src: './src',
         },
         extensions: ['.js', '.jsx', '.scss', '.json'],

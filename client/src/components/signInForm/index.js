@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { withSnackbar } from 'notistack';
 import { injectIntl, intlShape } from 'react-intl';
-import { capitalize } from 'utils/str';
+import { capitalize } from 'src/utils/str';
 import { signInUser } from 'actions/SessionActions';
 import { redirectToDictionaries } from 'src/navigation';
 import './index.scss';

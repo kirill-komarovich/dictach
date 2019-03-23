@@ -1,11 +1,10 @@
 import paths from './paths';
 import history from './history';
 
-module.export = {
-  redirectToRoot: () => {
-    history.push(paths.root);
-  },
-  redirectToDictionaries: () => {
-    history.push(paths.dictioanries);
-  },
-};
+export function redirectToRoot() {
+  history.push(paths.root);
+}
+
+export function redirectToDictionaries() {
+  history.push(paths.dictioanries);
+}

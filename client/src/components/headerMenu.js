@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import { signOutUser } from 'actions/SessionActions';
 import { injectIntl, intlShape } from 'react-intl';
-import { capitalize } from 'utils/str';
+import { capitalize } from 'src/utils/str';
 import { redirectToRoot } from 'src/navigation';
 
 class HeaderMenu extends React.Component {
