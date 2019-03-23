@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import TooltipedIcon from 'components/tooltipedIcon';
-import DeleteTagModal from './deleteTagModal';
+import DeleteTagDialog from './deleteTagDialog';
 import './index.scss';
 
 class EditInput extends React.PureComponent {
@@ -122,7 +122,7 @@ class EditInput extends React.PureComponent {
             </div>
           </ListItemIcon>
         </div>
-        <DeleteTagModal
+        <DeleteTagDialog
           open={showDeleteModal}
           onClose={this.toggleDeleteModal}
           onConfirm={this.deleteTag}

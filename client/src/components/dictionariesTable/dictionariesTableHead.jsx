@@ -76,12 +76,12 @@ class DictionariesTableHead extends React.Component {
                 }
               </TableCell>
             ), this)
-        }
+          }
         </TableRow>
       </TableHead>
     );
   }
-};
+}
 
 DictionariesTableHead.propTypes = {
   intl: intlShape.isRequired,
@@ -100,7 +100,7 @@ function mapStateToProps(state) {
   return {
     dictionaries: state.dictionaries,
   };
-};
+}
 
-const DictionariesTableHeadWithIntl = injectIntl(DictionariesTableHead)
+const DictionariesTableHeadWithIntl = injectIntl(DictionariesTableHead);
 export default connect(mapStateToProps, mapDispatchToProps)(DictionariesTableHeadWithIntl);
