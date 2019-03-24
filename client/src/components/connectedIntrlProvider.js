@@ -18,9 +18,9 @@ ConnectedIntlProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({ locale }) {
   return {
-    locale: state.locale
+    locale: locale,
   };
 }
 

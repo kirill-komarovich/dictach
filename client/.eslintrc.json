@@ -55,10 +55,11 @@
     },
     "rules": {
         "indent": [1, 2],
-        "linebreak-style": [2, "unix"],
+        "linebreak-style": [1, "unix"],
         "quotes": [1, "single"],
         "semi": [1, "always"],
         "no-console": [1],
+        "no-debugger":[1],
         "no-unreachable": [1],
         "no-unused-vars": [1],
         "react-redux/prefer-separate-component-file": [0],

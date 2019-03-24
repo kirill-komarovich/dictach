@@ -45,7 +45,7 @@ function sessionReducer(state = initialState.session, action) {
   case types.FREE_SESSION_ERRORS:
     return {
       ...state,
-      errors: undefined,
+      errors: null,
     };
   case types.AUTHENTICATION_CHECK_BEGIN:
     return {

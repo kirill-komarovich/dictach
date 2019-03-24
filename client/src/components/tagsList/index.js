@@ -51,7 +51,6 @@ class TagsList extends React.Component {
   }
 }
 
-
 TagsList.propTypes = {
   toggleForm: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
@@ -70,8 +69,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
-  const { tags: { all } } = state;
+function mapStateToProps({ tags: { all } }) {
   return {
     tags: { all },
   };
