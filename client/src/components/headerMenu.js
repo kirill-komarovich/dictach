@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { signOutUser } from 'actions/SessionActions';
 import { injectIntl, intlShape } from 'react-intl';
 import { capitalize } from 'src/utils/str';
-import { redirectToRoot } from 'src/navigation';
 
 class HeaderMenu extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class HeaderMenu extends React.Component {
 
   handleSignOut =  () => {
     const { actions: { signOutUser } } = this.props;
-    signOutUser().then(redirectToRoot);
+    signOutUser();
   }
 
   render() {
@@ -70,10 +69,19 @@ class HeaderMenu extends React.Component {
 
 HeaderMenu.propTypes = {
   intl: intlShape.isRequired,
+  session: PropTypes.shape({
+    authenticated: PropTypes.bool.isRequired,
+  }).isRequired,
   actions: PropTypes.shape({
     signOutUser: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+function mapStateToProps({ session: { authenticated } }) {
+  return {
+    session: { authenticated },
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -82,4 +90,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(null, mapDispatchToProps)(injectIntl(HeaderMenu));
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(HeaderMenu));

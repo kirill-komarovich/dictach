@@ -158,7 +158,7 @@ class DictionariesTable extends React.Component {
                 >
                   {
                     (formatMessage) => (
-                      <Typography variant="display5" >
+                      <Typography variant="body1" >
                         { formatMessage }
                       </Typography>
                     )
@@ -189,8 +189,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
-  const { dictionaries: { all, records, loading } } = state;
+function mapStateToProps({ dictionaries: { all, records, loading } }) {
   return {
     dictionaries: { all, records, loading },
   };

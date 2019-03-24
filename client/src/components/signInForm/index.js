@@ -11,7 +11,6 @@ import { withSnackbar } from 'notistack';
 import { injectIntl, intlShape } from 'react-intl';
 import { capitalize } from 'src/utils/str';
 import { signInUser, freeSessionErrors } from 'actions/SessionActions';
-import { redirectToDictionaries } from 'src/navigation';
 import './index.scss';
 
 const styles = theme => ({
@@ -50,7 +49,7 @@ class SignInForm extends Component {
     const { actions: { signInUser } } = this.props;
     const { credentials } = this.state;
     event.preventDefault();
-    signInUser(credentials).then(redirectToDictionaries);
+    signInUser(credentials);
   }
 
   handleErrorMessages = () => {

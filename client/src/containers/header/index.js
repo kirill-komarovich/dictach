@@ -24,8 +24,7 @@ Header.propTypes = {
   }).isRequired,
 };
 
-function mapStateToProps(state) {
-  const { session: { authenticated } } = state;
+function mapStateToProps({ session: { authenticated } }) {
   return {
     session: { authenticated },
   };

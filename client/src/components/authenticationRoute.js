@@ -11,22 +11,30 @@ const LOADER_SIZE = 100;
 
 class AuthenticationRoute extends Component {
   componentDidMount() {
-    if (this.props.authenticated === false) return;
-    this.props.actions.checkAuthentication();
+    const { authenticated, actions: { checkAuthentication } } = this.props;
+    if (!authenticated) return;
+    checkAuthentication();
   }
 
   render () {
-    if (this.props.session.loading) {
+    const {
+      authenticated,
+      unauthorizedRedirectTo,
+      session: { authenticated: storedAuthenticated, loading },
+      location,
+      ...props
+    } = this.props;
+    if (loading) {
       return (
         <CircularProgress className="screen-loader" size={LOADER_SIZE} />
       );
-    } else if (this.props.authenticated !== this.props.session.authenticated) {
+    } else if (authenticated !== storedAuthenticated) {
       return (
-        <Redirect to={{pathname: this.props.unauthorizedRedirectTo, state: {from: this.props.location}}} />
+        <Redirect to={{ pathname: unauthorizedRedirectTo, state: { from: location } }} />
       );
     } else {
       return (
-        <Route {...this.props} />
+        <Route {...props} />
       );
     }
   }
@@ -58,8 +66,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
-  const { session: { authenticated } } = state;
+function mapStateToProps({ session: { authenticated } }) {
   return {
     session: { authenticated },
   };

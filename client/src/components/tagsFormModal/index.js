@@ -98,8 +98,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
-  const { tags: { all, errors } } = state;
+function mapStateToProps({ tags: { all, errors } }) {
   return {
     tags: { all, errors },
   };
