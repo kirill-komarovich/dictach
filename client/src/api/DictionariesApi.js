@@ -19,15 +19,16 @@ class DictionariesApi {
     }
   }
 
-  async create({ title }) {
+  async create({ title, language }) {
     const request = new Request(urls.dictionaries(), {
       method: methods.post,
       headers: new Headers({
         ...headers.contentType.json,
       }),
       body: JSON.stringify({
-        tag: {
+        dictionary: {
           title,
+          language,
         }
       }),
     });

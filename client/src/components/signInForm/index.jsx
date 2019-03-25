@@ -38,11 +38,10 @@ class SignInForm extends Component {
     };
   }
 
-  onChange = (event) => {
-    const field = event.target.name;
-    const credentials = this.state.credentials;
-    credentials[field] = event.target.value;
-    return this.setState({credentials: credentials});
+  onChange = ({ target: { name, value } }) => {
+    const credentials = { ...this.state.credentials };
+    credentials[name] = value;
+    return this.setState({ credentials });
   }
 
   onSubmit = (event) => {
@@ -54,7 +53,7 @@ class SignInForm extends Component {
 
   handleErrorMessages = () => {
     const { session: { errors }, actions: { freeSessionErrors }, enqueueSnackbar } = this.props;
-    if (!errors) return undefined;
+    if (!errors) return;
     errors.forEach((error) => {
       enqueueSnackbar(error, {
         anchorOrigin: {

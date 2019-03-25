@@ -17,7 +17,6 @@ export function deleteDictionaryFailure(errors) {
   return {type: types.DELETE_DICTIONARY_FAILURE, errors};
 }
 
-
 export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
   const dictionariesApi = new DictionariesApi();
   return async function(dispatch) {
@@ -30,36 +29,33 @@ export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
         pages: response.meta.pages,
         records: response.meta.records,
       });
-    }
-    else {
+    } else {
       dispatch(fetchAllDictionariesFailure(response.errors));
     }
   };
 }
 
-export function updateDictionary(tag) {
+export function updateDictionary(dictionary) {
   const dictionariesApi = new DictionariesApi();
   return async function(dispatch) {
     dispatch({ type: types.UPDATE_DICTIONARY_BEGIN });
-    const response = await dictionariesApi.update(tag);
+    const response = await dictionariesApi.update(dictionary);
     if (!response.errors) {
       dispatch({ type: types.UPDATE_DICTIONARY_SUCCESS });
-    }
-    else {
+    } else {
       dispatch(updateDictionaryFailure(response.errors));
     }
   };
 }
 
-export function createDictionary(tag) {
+export function createDictionary(dictionary) {
   const dictionariesApi = new DictionariesApi();
   return async function(dispatch) {
     dispatch({ type: types.CREATE_DICTIONARY_BEGIN });
-    const response = await dictionariesApi.create(tag);
+    const response = await dictionariesApi.create(dictionary);
     if (!response.errors) {
       dispatch({ type: types.CREATE_DICTIONARY_SUCCESS });
-    }
-    else {
+    } else {
       dispatch(createDictionaryFailure(response.errors));
     }
   };
@@ -72,8 +68,7 @@ export function deleteDictionary(id) {
     const response = await dictionariesApi.delete(id);
     if (!response.errors) {
       dispatch({ type: types.DELETE_DICTIONARY_SUCCESS, tag: response });
-    }
-    else {
+    } else {
       dispatch(deleteDictionaryFailure(response.errors));
     }
   };

@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { fetchAllDictionaries } from 'actions/DictionariesActions';
 import DictionariesTableHead from './dictionariesTableHead';
+import DictionaryFormDialog from 'components/dictionaryFormDialog';
 import './index.scss';
 
 const PER_PAGE_VARIANTS = [5, 10, 20];
@@ -28,6 +29,7 @@ class DictionariesTable extends React.Component {
       orderBy: 'id',
       page: 1,
       rowsPerPage: 5,
+      formOpened: false,
     };
   }
 
@@ -68,14 +70,22 @@ class DictionariesTable extends React.Component {
     }
   };
 
+  toggleForm = (_event, update) => {
+    this.setState({ formOpened: !this.state.formOpened });
+    if (update) {
+      const { order, direction, page, rowsPerPage } = this.state;
+      this.fetchDictionaries(page, rowsPerPage, order, direction);
+    }
+  }
+
   render() {
     const { dictionaries: { all: dictionaries, records, loading } } = this.props;
-    const { page, rowsPerPage, order, direction } = this.state;
+    const { page, rowsPerPage, order, direction, formOpened } = this.state;
     const emptyRows = Math.min(rowsPerPage, rowsPerPage - dictionaries.length);
     if (loading)
       return (
         <div className="dictionaries-loader">
-          <CircularProgress size={LOADER_SIZE} />
+          <CircularProgress size={LOADER_SIZE}/>
         </div>
       );
     else
@@ -91,7 +101,7 @@ class DictionariesTable extends React.Component {
                 )
               }
             </FormattedMessage>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={this.toggleForm}>
               <FormattedMessage id="dictionaries.table.add"/>
             </Button>
           </div>
@@ -167,18 +177,19 @@ class DictionariesTable extends React.Component {
               </div>
             )
           }
+          { formOpened && <DictionaryFormDialog open={formOpened} onClose={this.toggleForm} />}
         </React.Fragment>
       );
   }
 }
 
 DictionariesTable.propTypes = {
-  actions: PropTypes.shape({
+  dictionaries: PropTypes.shape({
     all: PropTypes.array.isRequired,
     records: PropTypes.number.isRequired,
     loading: PropTypes.bool.isRequired,
   }).isRequired,
-  dictionaries: PropTypes.shape({
+  actions: PropTypes.shape({
     fetchAllDictionaries: PropTypes.func.isRequired,
   }).isRequired,
 };

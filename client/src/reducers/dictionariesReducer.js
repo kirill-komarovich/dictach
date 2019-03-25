@@ -24,6 +24,16 @@ function dictionariesReducer(state = initialState.dictionaries, action) {
       records: action.records,
       loading: false,
     };
+  case types.CREATE_DICTIONARY_FAILURE:
+    return {
+      ...state,
+      errors: action.errors,
+    };
+  case types.FREE_DICTIONARY_ERRORS:
+    return {
+      ...state,
+      errors: null,
+    };
   default:
     return state;
   }
