@@ -71,7 +71,9 @@ class DictionariesTable extends React.Component {
   };
 
   toggleForm = (_event, update) => {
-    this.setState({ formOpened: !this.state.formOpened });
+    this.setState(({ formOpened }) => {
+      return { formOpened: !formOpened };
+    });
     if (update) {
       const { order, direction, page, rowsPerPage } = this.state;
       this.fetchDictionaries(page, rowsPerPage, order, direction);
@@ -120,7 +122,6 @@ class DictionariesTable extends React.Component {
                         return (
                           <TableRow
                             hover
-                            onClick={() => this.handleClick(dictionary.id)}
                             tabIndex={-1}
                             key={dictionary.id}
                           >

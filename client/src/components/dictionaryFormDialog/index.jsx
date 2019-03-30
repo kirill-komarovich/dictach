@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import { injectIntl, intlShape } from 'react-intl';
 import { withSnackbar } from 'notistack';
-import { createDictionary, freeDictionaryErrors } from 'actions/DictionariesActions'
+import { createDictionary, freeDictionaryErrors } from 'actions/DictionariesActions';
 
 const LANGUAGES = ['en', 'ru'];
 const SNACKBAR_HIDE_DURATION = 3000;
