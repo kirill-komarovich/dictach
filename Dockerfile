@@ -1,9 +1,9 @@
-FROM ruby:2.6.0
+FROM ruby:2.6.1
 
 ENV APP_ROOT=/dictach
 ENV BUNDLE_PATH=${APP_ROOT}/vendor/bundle
 ENV PORT=3000
-ENV NODE_VERSION=v10.15.0
+ENV NODE_VERSION=v10.15.3
 ENV NODE_DIST_FILENAME=node-$NODE_VERSION-linux-x64.tar.xz
 ENV NODE_PATH=${APP_ROOT}/client/node_modules
 ENV PATH=$PATH:/node_modules/.bin
