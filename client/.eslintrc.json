@@ -63,6 +63,7 @@
         "no-unreachable": [1],
         "no-unused-vars": [1],
         "react-redux/prefer-separate-component-file": [0],
+        "react-redux/no-unused-prop-types": [1],
         "jsx-a11y/no-noninteractive-tabindex": [0],
         "jsx-a11y/tabindex-no-positive": [0],
         "jsx-a11y/no-autofocus": [0]

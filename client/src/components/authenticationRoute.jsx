@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import paths from 'src/paths';
 
-class AuthenticationRoute extends Component {
-  render () {
-    const {
-      authenticated,
-      unauthorizedRedirectTo,
-      session: { authenticated: storedAuthenticated },
-      location,
-      ...props
-    } = this.props;
-    if (authenticated !== storedAuthenticated) {
-      return (
-        <Redirect to={{ pathname: unauthorizedRedirectTo, state: { from: location } }} />
-      );
-    } else {
-      return (
-        <Route {...props} />
-      );
-    }
-  }
+function AuthenticationRoute({
+  authenticated,
+  unauthorizedRedirectTo,
+  session: { storedAuthenticated },
+  component: Component,
+  ...rest
+}) {
+
+  return (
+    <Route
+      {...rest}
+      render={({ location, ...props }) => {
+        return authenticated === storedAuthenticated ? (
+          <Component {...props}/>
+        ) : (
+          <Redirect to={{ pathname: unauthorizedRedirectTo, state: { from: location } }} />
+        );
+      }}
+    />
+  );
 }
 
 AuthenticationRoute.propTypes = {
@@ -33,7 +34,7 @@ AuthenticationRoute.propTypes = {
   authenticated: PropTypes.bool.isRequired,
   unauthorizedRedirectTo: PropTypes.string.isRequired,
   session: PropTypes.shape({
-    authenticated: PropTypes.bool.isRequired,
+    storedAuthenticated: PropTypes.bool.isRequired,
   }),
 };
 
@@ -44,7 +45,7 @@ AuthenticationRoute.defaultProps = {
 
 function mapStateToProps({ session: { authenticated } }) {
   return {
-    session: { authenticated },
+    session: { storedAuthenticated: authenticated },
   };
 }
 

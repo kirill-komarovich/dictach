@@ -1,20 +1,21 @@
 const urls = {
   session: {
-    signin: 'api/users/sign_in',
-    signup: 'api/users/sign_up',
-    signout: 'api/users/sign_out',
-    check: 'api/authentication_checks',
+    signin: '/api/users/sign_in',
+    signup: '/api/users/sign_up',
+    signout: '/api/users/sign_out',
+    check: '/api/authentication_checks',
   },
 
-  tags: () => 'api/tags',
-  tag: (id) => `api/tags/${id}`,
+  tags: () => '/api/tags',
+  tag: (id) => `/api/tags/${id}`,
 
   dictionaries(page, rowsPerPage, order, direction) {
-    const url = 'api/dictionaries';
+    const url = '/api/dictionaries';
     return this.withQueryParams(url, { page, per_page: rowsPerPage, order, direction });
   },
+
   dictionary(id) {
-    return `${this.dictionaries}/${id}`;
+    return `/api/dictionaries/${id}`;
   },
 
   words(dictionary_id, letter) {
@@ -38,7 +39,6 @@ const urls = {
     return url.slice(0, -1);
   }
 };
-
 
 const methods = {
   get: 'GET',

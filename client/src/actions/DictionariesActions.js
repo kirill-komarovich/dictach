@@ -35,6 +35,22 @@ export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
   };
 }
 
+export function fetchDictionary(id) {
+  const dictionariesApi = new DictionariesApi();
+  return async function(dispatch) {
+    dispatch({ type: types.FETCH_DICTIONARY_BEGIN });
+    const response = await dictionariesApi.fetch(id);
+    if (!response.errors) {
+      dispatch({
+        type: types.FETCH_DICTIONARY_SUCCESS,
+        dictionary: response,
+      });
+    } else {
+      dispatch(fetchAllDictionariesFailure(response.errors));
+    }
+  }
+}
+
 export function updateDictionary(dictionary) {
   const dictionariesApi = new DictionariesApi();
   return async function(dispatch) {

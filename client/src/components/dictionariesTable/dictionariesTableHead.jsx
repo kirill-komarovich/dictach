@@ -17,21 +17,18 @@ class DictionariesTableHead extends React.Component {
       {
         id: 'title',
         numeric: false,
-        disablePadding: true,
         label: formatMessage({id: 'dictionaries.table.head.title'}),
         sortable: true,
       },
       {
         id: 'language',
         numeric: true,
-        disablePadding: false,
         label: formatMessage({id: 'dictionaries.table.head.language'}),
         sortable: true,
       },
       {
         id: 'tags',
         numeric: true,
-        disablePadding: false,
         label: formatMessage({id: 'dictionaries.table.head.tags'}),
         sortable: false,
       },
@@ -59,8 +56,6 @@ class DictionariesTableHead extends React.Component {
             columns.map((column) => (
               <TableCell
                 key={column.id}
-                align={column.numeric ? 'right' : 'left'}
-                padding={column.disablePadding ? 'none' : 'default'}
                 sortDirection={order === column.id ? direction : false}
               >
                 {

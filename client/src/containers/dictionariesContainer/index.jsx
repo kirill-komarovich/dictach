@@ -9,13 +9,9 @@ import './index.scss';
 const DICTIONARIES_TABLE_XS = 10;
 
 class DictionariesContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editFormOpened: false,
-      headerHeight: 0,
-    };
+  state = {
+    editFormOpened: false,
+    headerHeight: 0,
   }
 
   componentDidMount() {
