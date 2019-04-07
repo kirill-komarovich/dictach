@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
@@ -12,8 +13,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Breadcrumbs from '@material-ui/lab/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 import { fetchDictionary } from 'actions/DictionariesActions';
 import TagChips from 'components/tagChips';
+import paths from 'src/paths';
 import './index.scss';
 
 const LOADER_SIZE = 60;
@@ -48,9 +52,17 @@ class DictionaryContainer extends React.Component {
           className="dictionary-container"
         >
           <Grid item sm={8} xs={11}>
+              <Breadcrumbs aria-label="Breadcrumb">
+                <Link color="inherit" to={paths.dictionaries} component={RouterLink}>
+                  Dictionaries
+                </Link>
+                <Typography color="textPrimary">
+                  { title }
+                </Typography>
+              </Breadcrumbs>
             <Grid container>
-              <Grid item xs >
-                <Typography variant="h4" gutterBottom>
+              <Grid item xs>
+                <Typography variant="h3" gutterBottom>
                   { title }
                 </Typography>
               </Grid>

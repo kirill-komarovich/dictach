@@ -33,7 +33,7 @@ const Routes = () => {
                     />
                     <AuthenticationRoute
                       exact
-                      path={paths.dictioanries}
+                      path={paths.dictionaries}
                       authenticated
                       component={DictionariesContainer}
                     />
