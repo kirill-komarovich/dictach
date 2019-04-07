@@ -53,9 +53,15 @@ class DictionaryContainer extends React.Component {
         >
           <Grid item sm={8} xs={11}>
             <Breadcrumbs aria-label="Breadcrumb">
-              <Link color="inherit" to={paths.dictionaries} component={RouterLink}>
-                Dictionaries
-              </Link>
+              <FormattedMessage id="dictionaries">
+                {
+                  (formatMessage) => (
+                    <Link color="inherit" to={paths.dictionaries} component={RouterLink}>
+                      { formatMessage }
+                    </Link>
+                  )
+                }
+              </FormattedMessage>
               <Typography color="textPrimary">
                 { title }
               </Typography>
