@@ -48,7 +48,7 @@ export function fetchDictionary(id) {
     } else {
       dispatch(fetchAllDictionariesFailure(response.errors));
     }
-  }
+  };
 }
 
 export function updateDictionary(dictionary) {

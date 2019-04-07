@@ -52,14 +52,14 @@ class DictionaryContainer extends React.Component {
           className="dictionary-container"
         >
           <Grid item sm={8} xs={11}>
-              <Breadcrumbs aria-label="Breadcrumb">
-                <Link color="inherit" to={paths.dictionaries} component={RouterLink}>
-                  Dictionaries
-                </Link>
-                <Typography color="textPrimary">
-                  { title }
-                </Typography>
-              </Breadcrumbs>
+            <Breadcrumbs aria-label="Breadcrumb">
+              <Link color="inherit" to={paths.dictionaries} component={RouterLink}>
+                Dictionaries
+              </Link>
+              <Typography color="textPrimary">
+                { title }
+              </Typography>
+            </Breadcrumbs>
             <Grid container>
               <Grid item xs>
                 <Typography variant="h3" gutterBottom>
