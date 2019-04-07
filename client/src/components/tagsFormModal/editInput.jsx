@@ -50,11 +50,11 @@ class EditInput extends React.PureComponent {
   }
 
   toggleEditable = () => {
-    this.setState({ editable: !this.state.editable });
+    this.setState(({ editable }) => ({ editable: !editable }));
   }
 
   toggleDeleteModal = () => {
-    this.setState({ showDeleteModal: !this.state.showDeleteModal });
+    this.setState(({ showDeleteModal }) => ({ showDeleteModal: !showDeleteModal }));
   }
 
   blurInputGroupFocus = () => {
@@ -76,8 +76,6 @@ class EditInput extends React.PureComponent {
     return (
       <ListItem
         role="menuitem"
-        onMouseEnter={this.toggleMouseOver}
-        onMouseLeave={this.toggleMouseOver}
         className="tags-modal__list-item"
       >
         <ListItemIcon>

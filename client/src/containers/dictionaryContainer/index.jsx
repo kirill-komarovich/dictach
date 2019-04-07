@@ -4,16 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import Grid from '@material-ui/core/Grid';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { fetchDictionary } from 'actions/DictionariesActions';
 import TagChips from 'components/tagChips';
+import WordsExpansionPanel from 'components/wordsExpansionPanel';
 import Breadcrumbs from './breadcrumbs';
 import './index.scss';
 
@@ -74,16 +71,7 @@ class DictionaryContainer extends React.Component {
             <TagChips tags={tags} className="dictionary-container__tag-chips"/>
             {
               alphabeth.map((letter) => (
-                <ExpansionPanel key={letter}>
-                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>{letter.toUpperCase()}</Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Typography>
-                      Word list
-                    </Typography>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
+                <WordsExpansionPanel key={letter} letter={letter}/>
               ))
             }
           </Grid>

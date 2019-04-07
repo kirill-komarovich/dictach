@@ -71,8 +71,6 @@ class AddInput extends React.PureComponent {
     return (
       <ListItem
         role="menuitem"
-        onMouseEnter={this.toggleMouseOver}
-        onMouseLeave={this.toggleMouseOver}
         className="tags-modal__list-item"
       >
         <ListItemIcon>
