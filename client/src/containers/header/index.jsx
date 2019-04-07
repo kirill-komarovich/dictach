@@ -7,12 +7,12 @@ import HeaderMenu from 'components/headerMenu';
 import Logo from 'components/logo';
 import './index.scss';
 
-function Header(props) {
+function Header({ session: { authenticated } }) {
   return (
     <AppBar className="header" position="fixed">
       <Toolbar>
         <Logo className="logo" />
-        { props.session.authenticated && (<HeaderMenu />)}
+        { authenticated && (<HeaderMenu />)}
       </Toolbar>
     </AppBar>
   );
@@ -21,7 +21,7 @@ function Header(props) {
 Header.propTypes = {
   session: PropTypes.shape({
     authenticated: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
 };
 
 function mapStateToProps({ session: { authenticated } }) {

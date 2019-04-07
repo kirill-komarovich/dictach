@@ -1,0 +1,12 @@
+.dictionary-container {
+    padding-top: 2rem;
+
+    &__settings-button {
+        display: block;
+        margin: auto;
+    }
+
+    &__tag-chips {
+        margin-bottom: 1rem;
+    }
+}

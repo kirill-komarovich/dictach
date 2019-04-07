@@ -1,13 +1,5 @@
 import * as types from '../actionTypes/session';
 import initialState from './initialState';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
-import { persistReducer } from 'redux-persist';
-
-const sessionPersistConfig = {
-  key: 'session',
-  storage: storage,
-  whitelist: ['authenticated']
-};
 
 function sessionReducer(state = initialState.session, action) {
   switch(action.type) {
@@ -63,4 +55,4 @@ function sessionReducer(state = initialState.session, action) {
   }
 }
 
-export default persistReducer(sessionPersistConfig, sessionReducer);
+export default sessionReducer;

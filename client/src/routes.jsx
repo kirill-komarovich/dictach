@@ -7,6 +7,7 @@ import DictionariesContainer from 'containers/dictionariesContainer';
 import AuthenticationRoute from 'components/authenticationRoute';
 import DefaultLayout from 'containers/defaultLayout';
 import RootContainer from 'containers/rootContainer';
+import DictionaryContainer from 'containers/dictionaryContainer';
 import history from './history';
 import paths from './paths';
 import ConnectedIntlProvider from 'components/connectedIntrlProvider';
@@ -32,9 +33,14 @@ const Routes = () => {
                     />
                     <AuthenticationRoute
                       exact
-                      path={paths.dictioanries}
+                      path={paths.dictionaries}
                       authenticated
                       component={DictionariesContainer}
+                    />
+                    <AuthenticationRoute
+                      path={paths.dictionary}
+                      authenticated
+                      component={DictionaryContainer}
                     />
                   </Switch>
                 </DefaultLayout>

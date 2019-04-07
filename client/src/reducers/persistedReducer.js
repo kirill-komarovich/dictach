@@ -5,7 +5,7 @@ import rootReducer from './rootReducer';
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['session', 'tags', 'dictionaries']
+  whitelist: ['locale']
 };
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

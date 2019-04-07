@@ -8,14 +8,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const LOADER_SIZE = 100;
 
 class AuthProvider extends React.Component {
-  async componentDidMount() {
+  state = {
+    checked: false,
+  }
+
+  componentDidMount() {
     const { actions: { checkAuthentication } } = this.props;
-    await checkAuthentication();
+    checkAuthentication().then(() => this.setState({ checked: true }));
   }
 
   render() {
+    const { checked } = this.state;
     const { loading, children } = this.props;
-    if (loading) {
+    if (!checked || loading) {
       return (
         <CircularProgress className="screen-loader" size={LOADER_SIZE} />
       );

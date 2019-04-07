@@ -2,19 +2,23 @@ import * as types from '../actionTypes/dictionaries';
 import DictionariesApi from '../api/DictionariesApi';
 
 export function fetchAllDictionariesFailure(errors) {
-  return {type: types.FETCH_ALL_DICTIONARIES_FAILURE, errors};
+  return { type: types.FETCH_ALL_DICTIONARIES_FAILURE, errors };
+}
+
+export function fetchDictionaryFailure(errors) {
+  return { type: types.FETCH_DICTIONARY_FAILURE, errors };
 }
 
 export function updateDictionaryFailure(errors) {
-  return {type: types.UPDATE_DICTIONARY_FAILURE, errors};
+  return { type: types.UPDATE_DICTIONARY_FAILURE, errors };
 }
 
 export function createDictionaryFailure(errors) {
-  return {type: types.CREATE_DICTIONARY_FAILURE, errors};
+  return { type: types.CREATE_DICTIONARY_FAILURE, errors };
 }
 
 export function deleteDictionaryFailure(errors) {
-  return {type: types.DELETE_DICTIONARY_FAILURE, errors};
+  return { type: types.DELETE_DICTIONARY_FAILURE, errors };
 }
 
 export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
@@ -31,6 +35,22 @@ export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
       });
     } else {
       dispatch(fetchAllDictionariesFailure(response.errors));
+    }
+  };
+}
+
+export function fetchDictionary(id) {
+  const dictionariesApi = new DictionariesApi();
+  return async function(dispatch) {
+    dispatch({ type: types.FETCH_DICTIONARY_BEGIN });
+    const response = await dictionariesApi.fetch(id);
+    if (!response.errors) {
+      dispatch({
+        type: types.FETCH_DICTIONARY_SUCCESS,
+        dictionary: response,
+      });
+    } else {
+      dispatch(fetchDictionaryFailure(response.errors));
     }
   };
 }

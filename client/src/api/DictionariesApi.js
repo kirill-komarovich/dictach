@@ -19,6 +19,24 @@ class DictionariesApi {
     }
   }
 
+  async fetch(id) {
+    const request = new Request(urls.dictionary(id), {
+      method: methods.get,
+      headers: new Headers({
+        ...headers.accept.json,
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response.json();
+    }
+
+    catch (error) {
+      return error;
+    }
+  }
+
   async create({ title, language }) {
     const request = new Request(urls.dictionaries(), {
       method: methods.post,

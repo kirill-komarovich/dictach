@@ -37,7 +37,7 @@ class HeaderMenu extends React.Component {
     const open = Boolean(anchorEl);
     const signOutLabel = capitalize(intl.formatMessage({ id: 'session.sign_out' }));
     return (
-      <div>
+      <React.Fragment>
         <IconButton
           aria-owns={open ? 'menu-appbar' : undefined}
           aria-haspopup="true"
@@ -62,7 +62,7 @@ class HeaderMenu extends React.Component {
         >
           <MenuItem onClick={this.handleSignOut}>{signOutLabel}</MenuItem>
         </Menu>
-      </div>
+      </React.Fragment>
     );
   }
 }

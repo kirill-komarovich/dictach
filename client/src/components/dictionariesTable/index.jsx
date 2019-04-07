@@ -14,6 +14,8 @@ import Button from '@material-ui/core/Button';
 import { fetchAllDictionaries } from 'actions/DictionariesActions';
 import DictionariesTableHead from './dictionariesTableHead';
 import DictionaryFormDialog from 'components/dictionaryFormDialog';
+import paths from 'src/paths';
+import history from 'src/history';
 import './index.scss';
 
 const PER_PAGE_VARIANTS = [5, 10, 20];
@@ -34,19 +36,23 @@ class DictionariesTable extends React.Component {
   }
 
   componentDidMount() {
-    const { page, rowsPerPage, order, direction } = this.state;
-    this.fetchDictionaries(page, rowsPerPage, order, direction);
+    const { page, rowsPerPage, orderBy, direction } = this.state;
+    this.fetchDictionaries(page, rowsPerPage, orderBy, direction);
   }
 
-  fetchDictionaries = (page, rowsPerPage, order, direction) => {
+  fetchDictionaries = (page, rowsPerPage, orderBy, direction) => {
     const { actions: { fetchAllDictionaries }} = this.props;
-    fetchAllDictionaries(page, rowsPerPage, order, direction);
+    fetchAllDictionaries(page, rowsPerPage, orderBy, direction);
+  }
+
+  handleClick = (id) => {
+    history.push(paths.dictioanryPath(id));
   }
 
   handleChangePage = (_event, page) => {
-    const { rowsPerPage, order, direction } = this.state;
+    const { rowsPerPage, orderBy, direction } = this.state;
     this.setState({ page: page + 1 });
-    this.fetchDictionaries(page + 1, rowsPerPage, order, direction);
+    this.fetchDictionaries(page + 1, rowsPerPage, orderBy, direction);
   };
 
   handleChangeRowsPerPage = (event) => {
@@ -57,15 +63,15 @@ class DictionariesTable extends React.Component {
   };
 
   handleRequestSort = (property) => {
-    const { order, direction, page, rowsPerPage } = this.state;
+    const { orderBy, direction, page, rowsPerPage } = this.state;
     let orderDirection = 'desc';
 
-    if (order === property && direction === 'desc') {
+    if (orderBy === property && direction === 'desc') {
       orderDirection = 'asc';
     }
 
     if (property !== 'tags') {
-      this.setState({ direction: orderDirection, order: property });
+      this.setState({ direction: orderDirection, orderBy: property });
       this.fetchDictionaries(page, rowsPerPage, property, orderDirection);
     }
   };
@@ -75,14 +81,14 @@ class DictionariesTable extends React.Component {
       return { formOpened: !formOpened };
     });
     if (update) {
-      const { order, direction, page, rowsPerPage } = this.state;
-      this.fetchDictionaries(page, rowsPerPage, order, direction);
+      const { orderBy, direction, page, rowsPerPage } = this.state;
+      this.fetchDictionaries(page, rowsPerPage, orderBy, direction);
     }
   }
 
   render() {
     const { dictionaries: { all: dictionaries, records, loading } } = this.props;
-    const { page, rowsPerPage, order, direction, formOpened } = this.state;
+    const { page, rowsPerPage, orderBy, direction, formOpened } = this.state;
     const emptyRows = Math.min(rowsPerPage, rowsPerPage - dictionaries.length);
     if (loading)
       return (
@@ -112,27 +118,28 @@ class DictionariesTable extends React.Component {
               <React.Fragment>
                 <Table className="dictionaries-table" aria-labelledby="tableTitle">
                   <DictionariesTableHead
-                    order={order}
+                    order={orderBy}
                     direction={direction}
                     handleRequestSort={this.handleRequestSort}
                   />
                   <TableBody>
                     {
-                      dictionaries.map(dictionary => {
+                      dictionaries.map(({ id, title, language, tags}) => {
                         return (
                           <TableRow
+                            key={id}
                             hover
                             tabIndex={-1}
-                            key={dictionary.id}
+                            onClick={() => this.handleClick(id) }
                           >
-                            <TableCell component="th" scope="row" padding="none">
-                              { dictionary.title }
+                            <TableCell component="th" scope="row">
+                              { title }
                             </TableCell>
-                            <TableCell align="right">
-                              { dictionary.language }
+                            <TableCell>
+                              { language }
                             </TableCell>
-                            <TableCell align="right">
-                              { dictionary.tags }
+                            <TableCell>
+                              { tags }
                             </TableCell>
                           </TableRow>
                         );
