@@ -11,7 +11,6 @@ function AuthenticationRoute({
   component: Component,
   ...rest
 }) {
-
   return (
     <Route
       {...rest}
