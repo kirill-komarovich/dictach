@@ -60,6 +60,29 @@ class DictionariesApi {
       return error;
     }
   }
+
+  async update({ id, title }) {
+    const request = new Request(urls.dictionary(id), {
+      method: methods.put,
+      headers: new Headers({
+        ...headers.contentType.json,
+      }),
+      body: JSON.stringify({
+        dictionary: {
+          title,
+        }
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response.json();
+    }
+
+    catch (error) {
+      return error;
+    }
+  }
 }
 
 export default DictionariesApi;

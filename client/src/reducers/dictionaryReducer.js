@@ -1,25 +1,26 @@
 import * as types from '../actionTypes/dictionaries';
 import initialState from './initialState';
 
-function dictionariesReducer(state = initialState.dictionaries, action) {
+function dictionaryReducer(state = initialState.dictionary, action) {
   switch(action.type) {
-  case types.FETCH_ALL_DICTIONARIES_BEGIN:
-  case types.CREATE_DICTIONARY_BEGIN:
+  case types.FETCH_DICTIONARY_BEGIN:
+  case types.UPDATE_DICTIONARY_BEGIN:
+  case types.DELETE_DICTIONARY_BEGIN:
     return {
       ...state,
       loading: true,
     };
-  case types.FETCH_ALL_DICTIONARIES_SUCCESS:
+  case types.FETCH_DICTIONARY_SUCCESS:
+  case types.UPDATE_DICTIONARY_SUCCESS:
     return {
       ...state,
-      all: action.dictionaries,
-      pages: action.pages,
-      records: action.records,
+      ...action.dictionary,
       loading: false,
     };
-  case types.CREATE_DICTIONARY_SUCCESS:
+  case types.DELETE_DICTIONARY_SUCCESS:
     return {
       ...state,
+      ...initialState.dictionary,
       loading: false,
     };
   case types.FREE_DICTIONARY_ERRORS:
@@ -32,4 +33,4 @@ function dictionariesReducer(state = initialState.dictionaries, action) {
   }
 }
 
-export default dictionariesReducer;
+export default dictionaryReducer;

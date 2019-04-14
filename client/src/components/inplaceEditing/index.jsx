@@ -5,19 +5,20 @@ import TextField from '@material-ui/core/TextField';
 import './index.scss';
 
 class InplaceEditing extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  state = {
+    value: '',
+    editing: false,
+    changed: false,
+  };
 
-    this.state = {
-      value: props.value,
-      editing: false,
-    };
-
-    this.inputRef = React.createRef();
+  componentDidMount() {
+    const { value } = this.props;
+    this.setState({ value });
   }
 
   handleChange = ({ target: { value } }) => {
-    this.setState({ value });
+    const { value: propsValue } = this.props;
+    this.setState({ value, changed: value !== propsValue });
   }
 
   handleKeyDown = ({ key }) => {
@@ -36,16 +37,17 @@ class InplaceEditing extends React.PureComponent {
   handleEditEnd = () => {
     const { value: initialValue } = this.props;
 
-    this.setState(({ value }) => ({
+    this.setState(({ value, changed }) => ({
       editing: false,
-      value: value.length > 0 ? value : initialValue,
+      value: value.length > 0 && changed ? value : initialValue,
+      changed: false,
     }));
   }
 
   handleSubmit = () => {
     const { onSubmit } = this.props;
-    const { value } = this.state;
-    if (value.length > 0) {
+    const { value, changed } = this.state;
+    if (value.length > 0 && changed) {
       onSubmit(value);
     }
     this.handleEditEnd();
@@ -91,7 +93,7 @@ class InplaceEditing extends React.PureComponent {
 }
 
 InplaceEditing.propTypes = {
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

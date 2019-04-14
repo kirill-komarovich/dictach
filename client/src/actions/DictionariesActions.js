@@ -61,7 +61,7 @@ export function updateDictionary(dictionary) {
     dispatch({ type: types.UPDATE_DICTIONARY_BEGIN });
     const response = await dictionariesApi.update(dictionary);
     if (!response.errors) {
-      dispatch({ type: types.UPDATE_DICTIONARY_SUCCESS });
+      dispatch({ type: types.UPDATE_DICTIONARY_SUCCESS, dictionary: response });
     } else {
       dispatch(updateDictionaryFailure(response.errors));
     }
@@ -87,7 +87,7 @@ export function deleteDictionary(id) {
     dispatch({ type: types.DELETE_DICTIONARY_BEGIN });
     const response = await dictionariesApi.delete(id);
     if (!response.errors) {
-      dispatch({ type: types.DELETE_DICTIONARY_SUCCESS, tag: response });
+      dispatch({ type: types.DELETE_DICTIONARY_SUCCESS, dictionary: response });
     } else {
       dispatch(deleteDictionaryFailure(response.errors));
     }
