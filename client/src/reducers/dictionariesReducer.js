@@ -4,7 +4,6 @@ import initialState from './initialState';
 function dictionariesReducer(state = initialState.dictionaries, action) {
   switch(action.type) {
   case types.FETCH_ALL_DICTIONARIES_BEGIN:
-  case types.CREATE_DICTIONARY_BEGIN:
     return {
       ...state,
       loading: true,
@@ -17,12 +16,7 @@ function dictionariesReducer(state = initialState.dictionaries, action) {
       records: action.records,
       loading: false,
     };
-  case types.CREATE_DICTIONARY_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-    };
-  case types.FREE_DICTIONARY_ERRORS:
+  case types.FREE_DICTIONARIES_ERRORS:
     return {
       ...state,
       errors: null,

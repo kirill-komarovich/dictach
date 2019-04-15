@@ -83,6 +83,24 @@ class DictionariesApi {
       return error;
     }
   }
+
+  async delete(id) {
+    const request = new Request(urls.dictionary(id), {
+      method: methods.delete,
+      headers: new Headers({
+        ...headers.accept.json,
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response.json();
+    }
+
+    catch (error) {
+      return error;
+    }
+  }
 }
 
 export default DictionariesApi;

@@ -6,6 +6,7 @@ function dictionaryReducer(state = initialState.dictionary, action) {
   case types.FETCH_DICTIONARY_BEGIN:
   case types.UPDATE_DICTIONARY_BEGIN:
   case types.DELETE_DICTIONARY_BEGIN:
+  case types.CREATE_DICTIONARY_BEGIN:
     return {
       ...state,
       loading: true,
@@ -21,6 +22,18 @@ function dictionaryReducer(state = initialState.dictionary, action) {
     return {
       ...state,
       ...initialState.dictionary,
+      loading: false,
+    };
+  case types.CREATE_DICTIONARY_SUCCESS:
+    return {
+      ...state,
+      loading: false,
+    };
+  case types.CREATE_DICTIONARY_FAILURE:
+  case types.UPDATE_DICTIONARY_FAILURE:
+    return {
+      ...state,
+      errors: action.errors,
       loading: false,
     };
   case types.FREE_DICTIONARY_ERRORS:

@@ -90,7 +90,7 @@ class DictionariesTable extends React.Component {
     const { dictionaries: { all: dictionaries, records, loading } } = this.props;
     const { page, rowsPerPage, orderBy, direction, formOpened } = this.state;
     const emptyRows = Math.min(rowsPerPage, rowsPerPage - dictionaries.length);
-    if (loading)
+    if (!formOpened && loading)
       return (
         <div className="dictionaries-loader">
           <CircularProgress size={LOADER_SIZE}/>

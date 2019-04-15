@@ -5,16 +5,16 @@ export function fetchAllDictionariesFailure(errors) {
   return { type: types.FETCH_ALL_DICTIONARIES_FAILURE, errors };
 }
 
+export function createDictionaryFailure(errors) {
+  return { type: types.CREATE_DICTIONARY_FAILURE, errors };
+}
+
 export function fetchDictionaryFailure(errors) {
   return { type: types.FETCH_DICTIONARY_FAILURE, errors };
 }
 
 export function updateDictionaryFailure(errors) {
   return { type: types.UPDATE_DICTIONARY_FAILURE, errors };
-}
-
-export function createDictionaryFailure(errors) {
-  return { type: types.CREATE_DICTIONARY_FAILURE, errors };
 }
 
 export function deleteDictionaryFailure(errors) {
@@ -95,6 +95,12 @@ export function deleteDictionary(id) {
 }
 
 export function freeDictionaryErrors() {
+  return function(dispatch) {
+    dispatch({ type: types.FREE_DICTIONARY_ERRORS });
+  };
+}
+
+export function freeDictionariesErrors() {
   return function(dispatch) {
     dispatch({ type: types.FREE_DICTIONARY_ERRORS });
   };

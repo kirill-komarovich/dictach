@@ -25,7 +25,7 @@ class DictionaryFormDialog extends React.Component {
 
   componentDidUpdate() {
     const { submited } = this.state;
-    const { onClose, dictionaries: { errors } } = this.props;
+    const { onClose, dictionary: { errors } } = this.props;
     if (!submited) {
       return;
     }
@@ -38,7 +38,7 @@ class DictionaryFormDialog extends React.Component {
 
   handleErrorMessages = () => {
     const {
-      dictionaries: { errors },
+      dictionary: { errors },
       actions: { freeDictionaryErrors },
       enqueueSnackbar
     } = this.props;
@@ -126,18 +126,18 @@ DictionaryFormDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
-  dictionaries: PropTypes.shape({
+  dictionary: PropTypes.shape({
     errors: PropTypes.oneOf({ types: [PropTypes.arrayOf(PropTypes.string), null] }).isRequired,
-  }).isRequired,
+  }),
   actions: PropTypes.shape({
     createDictionary: PropTypes.func.isRequired,
     freeDictionaryErrors: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-function mapStateToProps({ dictionaries: { errors } }) {
+function mapStateToProps({ dictionary: { errors } }) {
   return {
-    dictionaries: { errors },
+    dictionary: { errors },
   };
 }
 
