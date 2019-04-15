@@ -20,7 +20,7 @@ class DictionariesController < ApplicationController
   def show; end
 
   def update
-    if @dictionary.update(dictionary_params)
+    if @dictionary.update(dictionary_update_params)
       render :update, status: :ok
     else
       render 'shared/errors', locals: { model: @dictionary }, status: :unprocessable_entity
@@ -58,5 +58,9 @@ class DictionariesController < ApplicationController
 
   def dictionary_params
     params.require(:dictionary).permit(:title, :language)
+  end
+
+  def dictionary_update_params
+    params.require(:dictionary).permit(:title)
   end
 end
