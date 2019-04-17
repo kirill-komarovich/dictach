@@ -20,6 +20,7 @@
     "dictionaries.table.head.language": "Language",
     "dictionaries.table.head.tags": "Tags",
     "dictionaries.table.empty": "You do not have any dictionaries yet, please, add your first dictionary",
+    "dictionaries.confirm_delete": "Dictionary will be deleted. All words it contains will also be deleted.",
     "buttons.done": "Done",
     "buttons.cancel": "Cancel",
     "buttons.delete": "Delete",

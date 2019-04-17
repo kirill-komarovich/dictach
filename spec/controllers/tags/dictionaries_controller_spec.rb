@@ -46,7 +46,7 @@ RSpec.describe Tags::DictionariesController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: 'a') }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: '') }
 
       it 'does not create new dictionary', :aggregate_failures do
         expect do
@@ -96,7 +96,7 @@ RSpec.describe Tags::DictionariesController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: 'a') }
+      let(:dictionary_params) { attributes_for(:dictionary, user: user, title: '') }
 
       it 'does not update dictionary', :aggregate_failures do
         put :update, params: params, format: :json

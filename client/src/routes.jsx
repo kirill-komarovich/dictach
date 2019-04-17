@@ -28,7 +28,7 @@ const Routes = () => {
                     <AuthenticationRoute
                       exact
                       path={paths.root}
-                      unauthorizedRedirectTo={paths.dictioanries}
+                      unauthorizedRedirectTo={paths.dictionaries}
                       component={RootContainer}
                     />
                     <AuthenticationRoute

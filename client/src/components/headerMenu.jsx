@@ -11,15 +11,12 @@ import { injectIntl, intlShape } from 'react-intl';
 import { capitalize } from 'src/utils/str';
 
 class HeaderMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorEl: null,
-    };
-  }
+  state = {
+    anchorEl: null,
+  };
 
-  handleMenu = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleMenu = ({ currentTarget }) => {
+    this.setState({ anchorEl: currentTarget });
   }
 
   handleClose = () => {

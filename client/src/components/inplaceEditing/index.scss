@@ -1,0 +1,17 @@
+.inplace {
+    margin-left: -0.87rem !important;
+
+    &--disabled {
+        padding: 1.15rem 0.87rem 1.16rem !important;
+
+        &:hover {
+            background-color: #eeeef7;;
+            border-radius: 3px;
+        }
+    }
+
+    &__field > div {
+        font-size: inherit !important;
+        line-height: inherit !important;
+    }
+}

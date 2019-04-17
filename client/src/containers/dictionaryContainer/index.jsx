@@ -6,11 +6,11 @@ import { FormattedMessage } from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import IconButton from '@material-ui/core/IconButton';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { fetchDictionary } from 'actions/DictionariesActions';
+import { fetchDictionary, updateDictionary } from 'actions/DictionariesActions';
 import TagChips from 'components/tagChips';
 import WordsExpansionPanel from 'components/wordsExpansionPanel';
+import InplaceEditing from 'components/inplaceEditing';
+import DictionaryMenu from 'components/dictionaryMenu';
 import Breadcrumbs from './breadcrumbs';
 import './index.scss';
 
@@ -29,10 +29,15 @@ class DictionaryContainer extends React.Component {
     fetchDictionary(id).then(() => this.setState({ loaded: true }));
   }
 
+  updateTitle = (value) => {
+    const { actions: { updateDictionary }, dictionary: { id } } = this.props;
+    updateDictionary({ title: value, id });
+  }
+
   render() {
-    const { dictionary: { title, tags, language, alphabeth } } = this.props;
+    const { dictionary: { title, tags, language, alphabeth, loading } } = this.props;
     const { headerHeight, loaded } = this.state;
-    if (!loaded) {
+    if (!loaded || loading) {
       return (
         <CircularProgress className="screen-loader" size={LOADER_SIZE} />
       );
@@ -49,14 +54,15 @@ class DictionaryContainer extends React.Component {
             <Breadcrumbs title={title}/>
             <Grid container>
               <Grid item xs>
-                <Typography variant="h3" gutterBottom>
-                  { title }
-                </Typography>
+                <InplaceEditing
+                  variant="h3"
+                  gutterBottom
+                  value={title}
+                  onSubmit={this.updateTitle}
+                />
               </Grid>
               <Grid item >
-                <IconButton aria-label="Settings">
-                  <MoreIcon />
-                </IconButton>
+                <DictionaryMenu />
               </Grid>
             </Grid>
             <FormattedMessage id={`dictionaries.languages.${language}`}>
@@ -93,6 +99,7 @@ DictionaryContainer.propTypes = {
     language: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     title: PropTypes.string.isRequired,
+    loading: PropTypes.bool.isRequired,
   }),
   actions: PropTypes.shape({
     fetchDictionary: PropTypes.func.isRequired,
@@ -101,14 +108,13 @@ DictionaryContainer.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ fetchDictionary }, dispatch)
+    actions: bindActionCreators({ fetchDictionary, updateDictionary }, dispatch)
   };
 }
 
-function mapStateToProps({ dictionaries: { chosen, loading } }) {
+function mapStateToProps({ dictionary }) {
   return {
-    dictionary: chosen,
-    loading,
+    dictionary,
   };
 }
 
