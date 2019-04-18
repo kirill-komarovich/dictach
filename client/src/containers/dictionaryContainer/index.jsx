@@ -11,6 +11,7 @@ import TagChips from 'components/tagChips';
 import WordsExpansionPanel from 'components/wordsExpansionPanel';
 import InplaceEditing from 'components/inplaceEditing';
 import DictionaryMenu from 'components/dictionaryMenu';
+import AddWordButton from 'components/addWordButton';
 import Breadcrumbs from './breadcrumbs';
 import './index.scss';
 
@@ -81,6 +82,7 @@ class DictionaryContainer extends React.Component {
               ))
             }
           </Grid>
+          <AddWordButton className="dictionary-container__fab" />
         </Grid>
       );
     }
