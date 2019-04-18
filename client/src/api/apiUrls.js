@@ -13,7 +13,6 @@ const urls = {
     const url = '/api/dictionaries';
     return this.withQueryParams(url, { page, per_page: rowsPerPage, order, direction });
   },
-
   dictionary(id) {
     return `/api/dictionaries/${id}`;
   },

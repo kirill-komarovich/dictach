@@ -3,6 +3,7 @@ import session from './sessionReducer';
 import tags from './tagsReducer';
 import dictionaries from './dictionariesReducer';
 import dictionary from './dictionaryReducer';
+import words from './wordsReducer';
 import locale from './localeReducer';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   tags,
   dictionaries,
   dictionary,
+  words,
   locale,
 });
 

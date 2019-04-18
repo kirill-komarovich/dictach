@@ -1,5 +1,5 @@
-import * as types from '../actionTypes/dictionaries';
-import DictionariesApi from '../api/DictionariesApi';
+import * as types from 'src/actionTypes/dictionaries';
+import DictionariesApi from 'src/api/DictionariesApi';
 
 export function fetchAllDictionariesFailure(errors) {
   return { type: types.FETCH_ALL_DICTIONARIES_FAILURE, errors };

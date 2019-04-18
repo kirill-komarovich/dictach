@@ -28,5 +28,9 @@ export default {
     loading: false,
     errors: null,
   },
+  words: {
+    loading: false,
+    errors: null,
+  },
   locale: navigator.language.split(/[-_]/)[0],
 };

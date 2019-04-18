@@ -42,7 +42,7 @@ module Dictionaries
     end
 
     def by_letter_param
-      params.permit(:letter)[:letter]
+      params.permit(:letter, :dictionary_id, :format)[:letter]
     end
 
     def by_letter?
