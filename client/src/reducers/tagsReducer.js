@@ -24,42 +24,25 @@ function tagsReducer(state = initialState.tags, action) {
       all: action.tags,
       loading: false,
     };
-  case types.UPDATE_TAG_BEGIN:
-    return {
-      ...state,
-      loading: true,
-    };
-  case types.UPDATE_TAG_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-    };
-  case types.UPDATE_TAG_FAILURE:
-    return {
-      ...state,
-      errors: action.errors,
-      loading: false,
-    };
   case types.CREATE_TAG_BEGIN:
+  case types.UPDATE_TAG_BEGIN:
+  case types.DELETE_TAG_BEGIN:
     return {
       ...state,
       loading: true,
     };
   case types.CREATE_TAG_SUCCESS:
+  case types.UPDATE_TAG_SUCCESS:
     return {
       ...state,
       loading: false,
     };
   case types.CREATE_TAG_FAILURE:
+  case types.UPDATE_TAG_FAILURE:
+  case types.DELETE_TAG_FAILURE:
     return {
       ...state,
-      errors: action.errors,
       loading: false,
-    };
-  case types.DELETE_TAG_BEGIN:
-    return {
-      ...state,
-      loading: true,
     };
   case types.DELETE_TAG_SUCCESS:
     const { tag: deletedTag } = action;
@@ -70,17 +53,6 @@ function tagsReducer(state = initialState.tags, action) {
       ...state,
       all: filtered,
       loading: false,
-    };
-  case types.DELETE_TAG_FAILURE:
-    return {
-      ...state,
-      errors: action.errors,
-      loading: false,
-    };
-  case types.FREE_TAG_ERRORS:
-    return {
-      ...state,
-      errors: null,
     };
   default:
     return state;

@@ -25,21 +25,17 @@ function dictionaryReducer(state = initialState.dictionary, action) {
       loading: false,
     };
   case types.CREATE_DICTIONARY_SUCCESS:
+  case types.UPDATE_DICTIONARY_FAILURE:
+  case types.DELETE_DICTIONARY_FAILURE:
     return {
       ...state,
       loading: false,
     };
   case types.CREATE_DICTIONARY_FAILURE:
-  case types.UPDATE_DICTIONARY_FAILURE:
     return {
       ...state,
-      errors: action.errors,
+      errors: true,
       loading: false,
-    };
-  case types.FREE_DICTIONARY_ERRORS:
-    return {
-      ...state,
-      errors: null,
     };
   default:
     return state;

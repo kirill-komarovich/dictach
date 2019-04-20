@@ -10,11 +10,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import { injectIntl, intlShape } from 'react-intl';
-import { withSnackbar } from 'notistack';
-import { createDictionary, freeDictionaryErrors } from 'actions/DictionariesActions';
+import { createDictionary } from 'actions/DictionariesActions';
 
 const LANGUAGES = ['en', 'ru'];
-const SNACKBAR_HIDE_DURATION = 3000;
 
 class DictionaryFormDialog extends React.Component {
   state = {
@@ -30,29 +28,10 @@ class DictionaryFormDialog extends React.Component {
       return;
     }
     if (errors) {
-      this.setState({ submited: false }, () => this.handleErrorMessages());
+      this.setState({ submited: false });
     } else {
       onClose(null, true);
     }
-  }
-
-  handleErrorMessages = () => {
-    const {
-      dictionary: { errors },
-      actions: { freeDictionaryErrors },
-      enqueueSnackbar
-    } = this.props;
-    errors.forEach((error) => {
-      enqueueSnackbar(error, {
-        anchorOrigin: {
-          vertical: 'top',
-          horizontal: 'right',
-        },
-        variant: 'error',
-        autoHideDuration: SNACKBAR_HIDE_DURATION,
-      });
-    });
-    freeDictionaryErrors();
   }
 
   handleSubmit = () => {
@@ -79,34 +58,36 @@ class DictionaryFormDialog extends React.Component {
           { formatMessage({ id: 'dictionaries.form.title' }) }
         </DialogTitle>
         <DialogContent>
-          <TextField
-            name="title"
-            label={formatMessage({ id: 'dictionaries.form.fields.title' })}
-            value={title}
-            onChange={this.handleChange}
-            margin="normal"
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            select
-            name="language"
-            label={formatMessage({ id: 'dictionaries.form.fields.language' })}
-            value={language}
-            onChange={this.handleChange}
-            helperText={formatMessage({ id: 'dictionaries.form.fields.language.promt' })}
-            margin="normal"
-            variant="outlined"
-            fullWidth
-          >
-            {
-              LANGUAGES.map(option => (
-                <MenuItem key={option} value={option}>
-                  { formatMessage({ id: `dictionaries.languages.${option}`}) }
-                </MenuItem>
-              ))
-            }
-          </TextField>
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              name="title"
+              label={formatMessage({ id: 'dictionaries.form.fields.title' })}
+              value={title}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            />
+            <TextField
+              select
+              name="language"
+              label={formatMessage({ id: 'dictionaries.form.fields.language' })}
+              value={language}
+              onChange={this.handleChange}
+              helperText={formatMessage({ id: 'dictionaries.form.fields.language.promt' })}
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            >
+              {
+                LANGUAGES.map(option => (
+                  <MenuItem key={option} value={option}>
+                    { formatMessage({ id: `dictionaries.languages.${option}`}) }
+                  </MenuItem>
+                ))
+              }
+            </TextField>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">
@@ -125,7 +106,6 @@ DictionaryFormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
   dictionary: PropTypes.shape({
     errors: PropTypes.oneOf({ types: [PropTypes.arrayOf(PropTypes.string), null] }).isRequired,
   }),
@@ -143,10 +123,9 @@ function mapStateToProps({ dictionary: { errors } }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ createDictionary, freeDictionaryErrors }, dispatch)
+    actions: bindActionCreators({ createDictionary }, dispatch)
   };
 }
 
 const DictionaryFormDialogWithIntl = injectIntl(DictionaryFormDialog);
-const DictionaryFormDialogWithSnackbar = withSnackbar(DictionaryFormDialogWithIntl);
-export default connect(mapStateToProps, mapDispatchToProps)(DictionaryFormDialogWithSnackbar);
+export default connect(mapStateToProps, mapDispatchToProps)(DictionaryFormDialogWithIntl);

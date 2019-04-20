@@ -16,10 +16,10 @@ function dictionariesReducer(state = initialState.dictionaries, action) {
       records: action.records,
       loading: false,
     };
-  case types.FREE_DICTIONARIES_ERRORS:
+  case types.FETCH_ALL_DICTIONARIES_FAILURE:
     return {
       ...state,
-      errors: null,
+      loading: false,
     };
   default:
     return state;

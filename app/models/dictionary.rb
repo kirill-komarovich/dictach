@@ -16,7 +16,6 @@ class Dictionary < ApplicationRecord
               case_sensitive: false
             },
             length: {
-              minimum: 1,
               maximum: 255
             },
             presence: true

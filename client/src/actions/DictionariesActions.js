@@ -1,25 +1,6 @@
 import * as types from 'src/actionTypes/dictionaries';
 import DictionariesApi from 'src/api/DictionariesApi';
-
-export function fetchAllDictionariesFailure(errors) {
-  return { type: types.FETCH_ALL_DICTIONARIES_FAILURE, errors };
-}
-
-export function createDictionaryFailure(errors) {
-  return { type: types.CREATE_DICTIONARY_FAILURE, errors };
-}
-
-export function fetchDictionaryFailure(errors) {
-  return { type: types.FETCH_DICTIONARY_FAILURE, errors };
-}
-
-export function updateDictionaryFailure(errors) {
-  return { type: types.UPDATE_DICTIONARY_FAILURE, errors };
-}
-
-export function deleteDictionaryFailure(errors) {
-  return { type: types.DELETE_DICTIONARY_FAILURE, errors };
-}
+import { enqueueErrors } from './NotificationsActions';
 
 export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
   const dictionariesApi = new DictionariesApi();
@@ -34,7 +15,8 @@ export function fetchAllDictionaries(page, rowsPerPage, order, direction) {
         records: response.meta.records,
       });
     } else {
-      dispatch(fetchAllDictionariesFailure(response.errors));
+      dispatch({ type: types.FETCH_ALL_DICTIONARIES_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -50,7 +32,8 @@ export function fetchDictionary(id) {
         dictionary: response,
       });
     } else {
-      dispatch(fetchDictionaryFailure(response.errors));
+      dispatch({ type: types.FETCH_DICTIONARY_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -63,7 +46,8 @@ export function updateDictionary(dictionary) {
     if (!response.errors) {
       dispatch({ type: types.UPDATE_DICTIONARY_SUCCESS, dictionary: response });
     } else {
-      dispatch(updateDictionaryFailure(response.errors));
+      dispatch({ type: types.UPDATE_DICTIONARY_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -76,7 +60,8 @@ export function createDictionary(dictionary) {
     if (!response.errors) {
       dispatch({ type: types.CREATE_DICTIONARY_SUCCESS });
     } else {
-      dispatch(createDictionaryFailure(response.errors));
+      dispatch({ type: types.CREATE_DICTIONARY_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -89,19 +74,8 @@ export function deleteDictionary(id) {
     if (!response.errors) {
       dispatch({ type: types.DELETE_DICTIONARY_SUCCESS, dictionary: response });
     } else {
-      dispatch(deleteDictionaryFailure(response.errors));
+      dispatch({ type: types.DELETE_DICTIONARY_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
-  };
-}
-
-export function freeDictionaryErrors() {
-  return function(dispatch) {
-    dispatch({ type: types.FREE_DICTIONARY_ERRORS });
-  };
-}
-
-export function freeDictionariesErrors() {
-  return function(dispatch) {
-    dispatch({ type: types.FREE_DICTIONARY_ERRORS });
   };
 }

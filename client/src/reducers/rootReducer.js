@@ -5,6 +5,7 @@ import dictionaries from './dictionariesReducer';
 import dictionary from './dictionaryReducer';
 import words from './wordsReducer';
 import locale from './localeReducer';
+import notifications from './notificationsReducer';
 
 const rootReducer = combineReducers({
   session,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   dictionary,
   words,
   locale,
+  notifications,
 });
 
 export default rootReducer;
