@@ -15,7 +15,7 @@ RSpec.describe Word, type: :model do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }
-    it { is_expected.to validate_length_of(:title).is_at_least(3).is_at_most(255) }
+    it { is_expected.to validate_length_of(:title).is_at_most(255) }
     it { is_expected.to validate_uniqueness_of(:title).scoped_to(:dictionary_id) }
     it { is_expected.to allow_value('without_spacing').for(:title) }
     it { is_expected.not_to allow_value('with spacing').for(:title) }

@@ -47,7 +47,7 @@ RSpec.describe Dictionaries::WordsController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: '') }
 
       it 'does not create new dictionary', :aggregate_failures do
         expect do
@@ -94,7 +94,7 @@ RSpec.describe Dictionaries::WordsController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: '') }
 
       it 'does not update dictionary', :aggregate_failures do
         put :update, params: params, format: :json
