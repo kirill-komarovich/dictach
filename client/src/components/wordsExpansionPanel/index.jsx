@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -90,7 +89,7 @@ WordsExpansionPanel.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
       letter: PropTypes.string,
-    })
+    }),
   }),
   words: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -111,4 +110,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WordsExpansionPanel));
+export default connect(mapStateToProps, mapDispatchToProps)(WordsExpansionPanel);
