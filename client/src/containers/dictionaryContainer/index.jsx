@@ -30,7 +30,9 @@ class DictionaryContainer extends React.Component {
     const { actions: { fetchDictionary }, match: { params: { id } } } = this.props;
     const headerHeight = document.getElementsByClassName('header')[0].clientHeight;
     this.setState({ headerHeight });
-    fetchDictionary(id).then(() => this.setState({ loaded: true }));
+    fetchDictionary(id).then(() => {
+      this.setState({ loaded: true });
+    });
   }
 
   updateTitle = (value) => {
@@ -85,7 +87,7 @@ class DictionaryContainer extends React.Component {
                   onSubmit={this.updateTitle}
                 />
               </Grid>
-              <Grid item >
+              <Grid item>
                 <DictionaryMenu />
               </Grid>
             </Grid>
@@ -101,7 +103,7 @@ class DictionaryContainer extends React.Component {
             <TagChips tags={tags} className="dictionary-container__tag-chips"/>
             {
               alphabeth.map((letter) => (
-                <WordsExpansionPanel key={letter} letter={letter}/>
+                <WordsExpansionPanel key={letter} letter={letter} dictionaryId={id} />
               ))
             }
           </Grid>

@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import WordsList from 'components/wordsList';
 import { fetchAllWordsByLetter } from 'src/actions/WordsActions';
+import paths from 'src/paths';
+import history from 'src/history';
 import './index.scss';
 
 const LOADER_SIZE = 50;
@@ -42,6 +44,11 @@ class WordsExpansionPanel extends React.Component {
     this.setState({ expanded });
   }
 
+  handleWordClick = (wordId) => {
+    const { letter, dictionaryId } = this.props;
+    history.push(paths.wordPath(dictionaryId, letter, wordId));
+  }
+
   render() {
     const { letter, words } = this.props;
     const { expanded, loaded, loading } = this.state;
@@ -55,7 +62,7 @@ class WordsExpansionPanel extends React.Component {
             expanded && !loaded || loading ? (
               <CircularProgress className="words-loader" size={LOADER_SIZE} />
             ) : (
-              <WordsList words={words} />
+              <WordsList words={words} onClick={this.handleWordClick} />
             )
           }
         </ExpansionPanelDetails>
@@ -66,6 +73,7 @@ class WordsExpansionPanel extends React.Component {
 
 WordsExpansionPanel.propTypes = {
   letter: PropTypes.string.isRequired,
+  dictionaryId: PropTypes.string.isRequired,
   actions: PropTypes.shape({
     fetchAllWordsByLetter: PropTypes.func.isRequired,
   }),

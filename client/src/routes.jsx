@@ -38,7 +38,13 @@ const Routes = () => {
                       component={DictionariesContainer}
                     />
                     <AuthenticationRoute
+                      exact
                       path={paths.dictionary}
+                      authenticated
+                      component={DictionaryContainer}
+                    />
+                    <AuthenticationRoute
+                      path={paths.word}
                       authenticated
                       component={DictionaryContainer}
                     />
