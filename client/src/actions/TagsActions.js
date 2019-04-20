@@ -1,22 +1,6 @@
-import * as types from '../actionTypes/tags';
-import TagsApi from '../api/TagsApi';
-
-export function fetchAllTagsFailure(errors) {
-  return {type: types.FETCH_ALL_TAGS_FAILURE, errors};
-}
-
-export function updateTagFailure(errors) {
-  return {type: types.UPDATE_TAG_FAILURE, errors};
-}
-
-export function createTagFailure(errors) {
-  return {type: types.CREATE_TAG_FAILURE, errors};
-}
-
-export function deleteTagFailure(errors) {
-  return {type: types.DELETE_TAG_FAILURE, errors};
-}
-
+import * as types from 'src/actionTypes/tags';
+import TagsApi from 'src/api/TagsApi';
+import { enqueueErrors } from './NotificationsActions';
 
 export function fetchAllTags() {
   const tagsApi = new TagsApi();
@@ -27,7 +11,8 @@ export function fetchAllTags() {
       dispatch({ type: types.FETCH_ALL_TAGS_SUCCESS, tags: response });
     }
     else {
-      dispatch(fetchAllTagsFailure(response.errors));
+      dispatch({ type: types.FETCH_ALL_TAGS_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -41,7 +26,8 @@ export function updateTag(tag) {
       dispatch({ type: types.UPDATE_TAG_SUCCESS });
     }
     else {
-      dispatch(updateTagFailure(response.errors));
+      dispatch({ type: types.UPDATE_TAG_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -55,7 +41,8 @@ export function createTag(tag) {
       dispatch({ type: types.CREATE_TAG_SUCCESS });
     }
     else {
-      dispatch(createTagFailure(response.errors));
+      dispatch({ type: types.CREATE_TAG_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
@@ -69,13 +56,8 @@ export function deleteTag(id) {
       dispatch({ type: types.DELETE_TAG_SUCCESS, tag: response });
     }
     else {
-      dispatch(deleteTagFailure(response.errors));
+      dispatch({ type: types.DELETE_TAG_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
-  };
-}
-
-export function freeTagErrors() {
-  return function(dispatch) {
-    dispatch({ type: types.FREE_TAG_ERRORS });
   };
 }

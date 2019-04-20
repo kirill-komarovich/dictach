@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SnackbarProvider } from 'notistack';
 import Header from 'containers/header';
+import Notifier from 'components/notifier';
 import './index.scss';
 
-const containerMaxSnack = 5;
+const CONTAINER_MAX_SNACK = 5;
 
-function DefaultLayout (props) {
+function DefaultLayout ({ children }) {
   return (
     <div className="default-layout">
-      <SnackbarProvider maxSnack={containerMaxSnack}>
-        <div>
-          <Header/>
-          { props.children }
-        </div>
+      <SnackbarProvider maxSnack={CONTAINER_MAX_SNACK}>
+        <React.Fragment>
+          <Notifier />
+          <Header />
+          { children }
+        </React.Fragment>
       </SnackbarProvider>
     </div>
   );

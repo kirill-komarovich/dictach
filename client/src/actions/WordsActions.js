@@ -1,9 +1,6 @@
 import * as types from 'src/actionTypes/words';
 import WordsApi from 'src/api/WordsApi';
-
-export function fetchAllWordsFailure(errors) {
-  return { type: types.FETCH_ALL_BY_LETTER_FAILURE, errors };
-}
+import { enqueueErrors } from './NotificationsActions';
 
 export function fetchAllWordsByLetter(dictionary_id, letter) {
   const wordsApi = new WordsApi();
@@ -17,7 +14,8 @@ export function fetchAllWordsByLetter(dictionary_id, letter) {
         words: response,
       });
     } else {
-      dispatch(fetchAllWordsFailure(response.errors));
+      dispatch({ type: types.FETCH_ALL_BY_LETTER_FAILURE });
+      dispatch(enqueueErrors(response.errors));
     }
   };
 }
