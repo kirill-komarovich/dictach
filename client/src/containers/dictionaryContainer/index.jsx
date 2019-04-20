@@ -6,12 +6,14 @@ import { FormattedMessage } from 'react-intl';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { fetchDictionary, updateDictionary } from 'actions/DictionariesActions';
+import { fetchDictionary, updateDictionary, refreshAlphabeth } from 'actions/DictionariesActions';
+import { fetchAllWordsByLetter } from 'src/actions/WordsActions';
 import TagChips from 'components/tagChips';
 import WordsExpansionPanel from 'components/wordsExpansionPanel';
 import InplaceEditing from 'components/inplaceEditing';
 import DictionaryMenu from 'components/dictionaryMenu';
 import AddWordButton from 'components/addWordButton';
+import WordFormDialog from 'components/wordFormDialog';
 import Breadcrumbs from './breadcrumbs';
 import './index.scss';
 
@@ -21,6 +23,7 @@ class DictionaryContainer extends React.Component {
   state = {
     headerHeight: 0,
     loaded: false,
+    wordFormOpened: false,
   }
 
   componentDidMount() {
@@ -35,9 +38,29 @@ class DictionaryContainer extends React.Component {
     updateDictionary({ title: value, id });
   }
 
+  openWordForm = () => {
+    this.setState({ wordFormOpened: true });
+  }
+
+  closeWordForm = (_event, update, letter ) => {
+    this.setState({ wordFormOpened: false });
+    if (update) {
+      const {
+        dictionary: { id, alphabeth },
+        actions: { refreshAlphabeth, fetchAllWordsByLetter }
+      } = this.props;
+
+      if (alphabeth.includes(letter)) {
+        fetchAllWordsByLetter(id, letter);
+      } else {
+        refreshAlphabeth(id);
+      }
+    }
+  }
+
   render() {
-    const { dictionary: { title, tags, language, alphabeth, loading } } = this.props;
-    const { headerHeight, loaded } = this.state;
+    const { dictionary: { id, title, tags, language, alphabeth, loading } } = this.props;
+    const { headerHeight, loaded, wordFormOpened } = this.state;
     if (!loaded || loading) {
       return (
         <CircularProgress className="screen-loader" size={LOADER_SIZE} />
@@ -82,7 +105,12 @@ class DictionaryContainer extends React.Component {
               ))
             }
           </Grid>
-          <AddWordButton className="dictionary-container__fab" />
+          <AddWordButton className="dictionary-container__fab" onClick={this.openWordForm} />
+          {
+            wordFormOpened && (
+              <WordFormDialog open={wordFormOpened} onClose={this.closeWordForm} dictionaryId={id} />
+            )
+          }
         </Grid>
       );
     }
@@ -96,21 +124,29 @@ DictionaryContainer.propTypes = {
     }),
   }),
   dictionary: PropTypes.shape({
-    alphabeth: PropTypes.arrayOf(PropTypes.string).isRequired,
     id: PropTypes.number.isRequired,
-    language: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     title: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
+    alphabeth: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     loading: PropTypes.bool.isRequired,
   }),
   actions: PropTypes.shape({
     fetchDictionary: PropTypes.func.isRequired,
+    updateDictionary: PropTypes.func.isRequired,
+    refreshAlphabeth: PropTypes.func.isRequired,
+    fetchAllWordsByLetter: PropTypes.func.isRequired,
   }),
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ fetchDictionary, updateDictionary }, dispatch)
+    actions: bindActionCreators({
+      fetchDictionary,
+      updateDictionary,
+      refreshAlphabeth,
+      fetchAllWordsByLetter,
+    }, dispatch)
   };
 }
 

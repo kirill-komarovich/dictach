@@ -36,11 +36,11 @@ class AddWordButton extends React.Component {
   };
 
   render() {
-    const { className } = this.props;
+    const { className, onClick } = this.props;
     const { visible } = this.state;
     return (
       <Slide direction="up" in={visible} mountOnEnter unmountOnExit>
-        <Fab color="primary" aria-label="Add word" className={className} >
+        <Fab color="primary" aria-label="Add word" className={className} onClick={onClick} >
           <AddIcon />
         </Fab>
       </Slide>
@@ -50,6 +50,7 @@ class AddWordButton extends React.Component {
 
 AddWordButton.propTypes = {
   className: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 };
 
 AddWordButton.defaultProps = {
