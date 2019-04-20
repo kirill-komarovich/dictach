@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
@@ -29,7 +30,7 @@ class WordFormDialog extends React.Component {
   }
 
   handleSubmit = (event) => {
-    const { actions: { createWord }, dictionaryId } = this.props;
+    const { actions: { createWord }, match: { params: { id: dictionaryId } } } = this.props;
     const { title } = this.state;
 
     event.preventDefault();
@@ -86,7 +87,11 @@ WordFormDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
-  dictionaryId: PropTypes.number.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    })
+  }),
   word: PropTypes.shape({
     errors: PropTypes.bool.isRequired,
   }),
@@ -108,4 +113,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 const WordFormDialogWithIntl = injectIntl(WordFormDialog);
-export default connect(mapStateToProps, mapDispatchToProps)(WordFormDialogWithIntl);
+const WordFormDialogWithRouter = withRouter(WordFormDialogWithIntl);
+export default connect(mapStateToProps, mapDispatchToProps)(WordFormDialogWithRouter);

@@ -103,14 +103,14 @@ class DictionaryContainer extends React.Component {
             <TagChips tags={tags} className="dictionary-container__tag-chips"/>
             {
               alphabeth.map((letter) => (
-                <WordsExpansionPanel key={letter} letter={letter} dictionaryId={id} />
+                <WordsExpansionPanel key={letter} letter={letter} />
               ))
             }
           </Grid>
           <AddWordButton className="dictionary-container__fab" onClick={this.openWordForm} />
           {
             wordFormOpened && (
-              <WordFormDialog open={wordFormOpened} onClose={this.closeWordForm} dictionaryId={id} />
+              <WordFormDialog open={wordFormOpened} onClose={this.closeWordForm} />
             )
           }
         </Grid>

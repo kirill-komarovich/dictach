@@ -24,6 +24,13 @@ class WordsExpansionPanel extends React.Component {
     loading: false,
   }
 
+  componentDidMount() {
+    const { letter, match: { params: { letter: routeLetter} } } = this.props;
+    if (letter === routeLetter) {
+      this.setState({ expanded: true });
+    }
+  }
+
   componentDidUpdate() {
     const { expanded, loaded, loading } = this.state;
     const {
@@ -45,7 +52,7 @@ class WordsExpansionPanel extends React.Component {
   }
 
   handleWordClick = (wordId) => {
-    const { letter, dictionaryId } = this.props;
+    const { letter, match: { params: { id: dictionaryId } } } = this.props;
     history.push(paths.wordPath(dictionaryId, letter, wordId));
   }
 
@@ -53,7 +60,10 @@ class WordsExpansionPanel extends React.Component {
     const { letter, words } = this.props;
     const { expanded, loaded, loading } = this.state;
     return (
-      <ExpansionPanel expanded={expanded} onChange={this.toggleExpanded}>
+      <ExpansionPanel
+        expanded={expanded}
+        onChange={this.toggleExpanded}
+      >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{letter.toUpperCase()}</Typography>
         </ExpansionPanelSummary>
@@ -73,13 +83,13 @@ class WordsExpansionPanel extends React.Component {
 
 WordsExpansionPanel.propTypes = {
   letter: PropTypes.string.isRequired,
-  dictionaryId: PropTypes.string.isRequired,
   actions: PropTypes.shape({
     fetchAllWordsByLetter: PropTypes.func.isRequired,
   }),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
+      letter: PropTypes.string,
     })
   }),
   words: PropTypes.arrayOf(PropTypes.shape({
