@@ -1,3 +1,5 @@
+import { setLocale } from 'src/locales';
+
 export default {
   session: {
     errors: false,
@@ -38,6 +40,6 @@ export default {
     loading: false,
     errors: false,
   },
-  locale: navigator.language.split(/[-_]/)[0],
+  locale: setLocale(),
   notifications: [],
 };
