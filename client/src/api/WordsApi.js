@@ -41,6 +41,24 @@ class WordsApi {
       return error;
     }
   }
+
+  async fetch(dictionary_id, id) {
+    const request = new Request(urls.word(dictionary_id, id), {
+      method: methods.get,
+      headers: new Headers({
+        ...headers.accept.json,
+      }),
+    });
+
+    try {
+      const response = await fetch(request);
+      return response.json();
+    }
+
+    catch (error) {
+      return error;
+    }
+  }
 }
 
 export default WordsApi;

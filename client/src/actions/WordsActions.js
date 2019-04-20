@@ -36,3 +36,20 @@ export function createWord(dictionaryId, word) {
     }
   };
 }
+
+export function fetchWord(dictionaryId, id) {
+  const wordsApi = new WordsApi();
+  return async function(dispatch) {
+    dispatch({ type: types.FETCH_WORD_BEGIN });
+    const response = await wordsApi.fetch(dictionaryId, id);
+    if (!response.errors) {
+      dispatch({
+        type: types.FETCH_WORD_SUCCESS,
+        word: response,
+      });
+    } else {
+      dispatch({ type: types.FETCH_WORD_FAILURE });
+      dispatch(enqueueErrors(response.errors));
+    }
+  };
+}
