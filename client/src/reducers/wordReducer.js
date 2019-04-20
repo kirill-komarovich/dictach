@@ -1,21 +1,20 @@
-import * as types from 'src/actionTypes/words';
+import * as types from '../actionTypes/words';
 import initialState from './initialState';
 
-function wordsReducer(state = initialState.words, action) {
+function wordReducer(state = initialState.word, action) {
   switch(action.type) {
-  case types.FETCH_ALL_BY_LETTER_BEGIN:
+  case types.CREATE_WORD_BEGIN:
     return {
       ...state,
       errors: false,
       loading: true,
     };
-  case types.FETCH_ALL_BY_LETTER_SUCCESS:
+  case types.CREATE_WORD_SUCCESS:
     return {
       ...state,
-      [action.letter]: action.words,
       loading: false,
     };
-  case types.FETCH_ALL_BY_LETTER_FAILURE:
+  case types.CREATE_WORD_FAILURE:
     return {
       ...state,
       errors: true,
@@ -26,4 +25,4 @@ function wordsReducer(state = initialState.words, action) {
   }
 }
 
-export default wordsReducer;
+export default wordReducer;

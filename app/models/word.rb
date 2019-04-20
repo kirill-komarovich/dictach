@@ -14,7 +14,6 @@ class Word < ApplicationRecord
               case_sensitive: true
             },
             length: {
-              minimum: 3,
               maximum: 255
             },
             presence: true,

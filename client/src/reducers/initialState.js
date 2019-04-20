@@ -30,6 +30,14 @@ export default {
     loading: false,
     errors: null,
   },
+  word: {
+    id: 0,
+    title: '',
+    created_at: '',
+    updated_at: '',
+    loading: false,
+    errors: false,
+  },
   locale: navigator.language.split(/[-_]/)[0],
   notifications: [],
 };

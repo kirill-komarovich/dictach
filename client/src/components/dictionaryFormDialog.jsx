@@ -34,9 +34,11 @@ class DictionaryFormDialog extends React.Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
     const { actions: { createDictionary } } = this.props;
     const { title, language } = this.state;
+
+    event.preventDefault();
     createDictionary({ title, language }).then(() => this.setState({ submited: true }));
   }
 

@@ -79,3 +79,21 @@ export function deleteDictionary(id) {
     }
   };
 }
+
+
+export function refreshAlphabeth(id) {
+  const dictionariesApi = new DictionariesApi();
+  return async function(dispatch) {
+    dispatch({ type: types.REFRESH_DICTIONARY_ALPHABETH_BEGIN });
+    const response = await dictionariesApi.fetch(id);
+    if (!response.errors) {
+      dispatch({
+        type: types.REFRESH_DICTIONARY_ALPHABETH_SUCCESS,
+        dictionary: response,
+      });
+    } else {
+      dispatch({ type: types.REFRESH_DICTIONARY_ALPHABETH_FAILURE });
+      dispatch(enqueueErrors(response.errors));
+    }
+  };
+}

@@ -91,7 +91,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: '') }
 
       it 'returns errors', :aggregate_failures do
         post(
@@ -104,7 +104,7 @@ RSpec.describe 'Words API' do
         expect(body['errors']).to include I18n.t(
           'errors.format',
           attribute: I18n.t('models.word.attributes.title').capitalize,
-          message: I18n.t('errors.messages.too_short', count: 3)
+          message: I18n.t('errors.messages.blank')
         )
       end
     end
@@ -163,7 +163,7 @@ RSpec.describe 'Words API' do
     end
 
     context 'with invalid params' do
-      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: 'a') }
+      let(:word_params) { attributes_for(:word, dictionary: dictionary, title: '') }
 
       it 'returns errors', :aggregate_failures do
         put(
@@ -176,7 +176,7 @@ RSpec.describe 'Words API' do
         expect(body['errors']).to include I18n.t(
           'errors.format',
           attribute: I18n.t('models.word.attributes.title').capitalize,
-          message: I18n.t('errors.messages.too_short', count: 3)
+          message: I18n.t('errors.messages.blank')
         )
       end
     end

@@ -9,21 +9,18 @@ function dictionaryReducer(state = initialState.dictionary, action) {
   case types.CREATE_DICTIONARY_BEGIN:
     return {
       ...state,
+      errors: false,
       loading: true,
     };
   case types.FETCH_DICTIONARY_SUCCESS:
   case types.UPDATE_DICTIONARY_SUCCESS:
+  case types.REFRESH_DICTIONARY_ALPHABETH_SUCCESS:
     return {
       ...state,
       ...action.dictionary,
       loading: false,
     };
   case types.DELETE_DICTIONARY_SUCCESS:
-    return {
-      ...state,
-      ...initialState.dictionary,
-      loading: false,
-    };
   case types.CREATE_DICTIONARY_SUCCESS:
   case types.UPDATE_DICTIONARY_FAILURE:
   case types.DELETE_DICTIONARY_FAILURE:
