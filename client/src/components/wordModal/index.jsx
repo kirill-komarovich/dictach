@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
 import { fetchWord } from 'actions/WordsActions';
 import paths from 'src/paths';
 import history from 'src/history';
@@ -48,7 +49,9 @@ class WordModal extends React.Component {
         open={opened}
         onClose={this.handleClose}
       >
-        <WordModalContainer />
+        <Paper className="word-modal__body">
+          <WordModalContainer onClose={this.handleClose} />
+        </Paper>
       </Modal>
     );
   }

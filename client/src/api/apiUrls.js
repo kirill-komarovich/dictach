@@ -17,15 +17,15 @@ const urls = {
     return `/api/dictionaries/${id}`;
   },
 
-  words(dictionary_id, letter) {
-    const url = `${this.dictionary(dictionary_id)}/words`;
+  words(dictionaryId, letter) {
+    const url = `${this.dictionary(dictionaryId)}/words`;
     if (letter === undefined) {
       return url;
     }
     return this.withQueryParams(url, { letter });
   },
-  word(dictionary_id, id) {
-    return `${this.dictionary(dictionary_id)}/words/${id}`;
+  word(dictionaryId, id) {
+    return `${this.dictionary(dictionaryId)}/words/${id}`;
   },
 
   withQueryParams(originUrl, params) {

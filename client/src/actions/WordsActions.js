@@ -53,3 +53,17 @@ export function fetchWord(dictionaryId, id) {
     }
   };
 }
+
+export function updateWord(dictionaryId, word) {
+  const wordsApi = new WordsApi();
+  return async function(dispatch) {
+    dispatch({ type: types.UPDATE_WORD_BEGIN });
+    const response = await wordsApi.update(dictionaryId, word);
+    if (!response.errors) {
+      dispatch({ type: types.UPDATE_WORD_SUCCESS, word: response });
+    } else {
+      dispatch({ type: types.UPDATE_WORD_FAILURE });
+      dispatch(enqueueErrors(response.errors));
+    }
+  };
+}
