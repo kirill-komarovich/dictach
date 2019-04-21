@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import WordsList from 'components/wordsList';
 import { fetchAllWordsByLetter } from 'src/actions/WordsActions';
+import paths from 'src/paths';
+import history from 'src/history';
 import './index.scss';
 
 const LOADER_SIZE = 50;
@@ -20,6 +21,13 @@ class WordsExpansionPanel extends React.Component {
     expanded: false,
     loaded: false,
     loading: false,
+  }
+
+  componentDidMount() {
+    const { letter, match: { params: { letter: routeLetter} } } = this.props;
+    if (letter === routeLetter) {
+      this.setState({ expanded: true });
+    }
   }
 
   componentDidUpdate() {
@@ -42,11 +50,19 @@ class WordsExpansionPanel extends React.Component {
     this.setState({ expanded });
   }
 
+  handleWordClick = (wordId) => {
+    const { letter, match: { params: { id: dictionaryId } } } = this.props;
+    history.push(paths.wordPath(dictionaryId, letter, wordId));
+  }
+
   render() {
     const { letter, words } = this.props;
     const { expanded, loaded, loading } = this.state;
     return (
-      <ExpansionPanel expanded={expanded} onChange={this.toggleExpanded}>
+      <ExpansionPanel
+        expanded={expanded}
+        onChange={this.toggleExpanded}
+      >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{letter.toUpperCase()}</Typography>
         </ExpansionPanelSummary>
@@ -55,7 +71,7 @@ class WordsExpansionPanel extends React.Component {
             expanded && !loaded || loading ? (
               <CircularProgress className="words-loader" size={LOADER_SIZE} />
             ) : (
-              <WordsList words={words} />
+              <WordsList words={words} onClick={this.handleWordClick} />
             )
           }
         </ExpansionPanelDetails>
@@ -72,7 +88,8 @@ WordsExpansionPanel.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
-    })
+      letter: PropTypes.string,
+    }),
   }),
   words: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -93,4 +110,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WordsExpansionPanel));
+export default connect(mapStateToProps, mapDispatchToProps)(WordsExpansionPanel);

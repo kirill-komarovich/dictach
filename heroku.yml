@@ -4,6 +4,7 @@ build:
 release:
   command:
     - bundle exec rails db:migrate
+    - bundle exec rails tmp:clear
   image: web
 run:
   web: bundle exec rails s

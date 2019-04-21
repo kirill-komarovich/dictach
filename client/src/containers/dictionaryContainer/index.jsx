@@ -14,6 +14,7 @@ import InplaceEditing from 'components/inplaceEditing';
 import DictionaryMenu from 'components/dictionaryMenu';
 import AddWordButton from 'components/addWordButton';
 import WordFormDialog from 'components/wordFormDialog';
+import WordModal from 'components/wordModal';
 import Breadcrumbs from './breadcrumbs';
 import './index.scss';
 
@@ -30,7 +31,9 @@ class DictionaryContainer extends React.Component {
     const { actions: { fetchDictionary }, match: { params: { id } } } = this.props;
     const headerHeight = document.getElementsByClassName('header')[0].clientHeight;
     this.setState({ headerHeight });
-    fetchDictionary(id).then(() => this.setState({ loaded: true }));
+    fetchDictionary(id).then(() => {
+      this.setState({ loaded: true });
+    });
   }
 
   updateTitle = (value) => {
@@ -59,7 +62,7 @@ class DictionaryContainer extends React.Component {
   }
 
   render() {
-    const { dictionary: { id, title, tags, language, alphabeth, loading } } = this.props;
+    const { dictionary: { title, tags, language, alphabeth, loading }, match } = this.props;
     const { headerHeight, loaded, wordFormOpened } = this.state;
     if (!loaded || loading) {
       return (
@@ -85,7 +88,7 @@ class DictionaryContainer extends React.Component {
                   onSubmit={this.updateTitle}
                 />
               </Grid>
-              <Grid item >
+              <Grid item>
                 <DictionaryMenu />
               </Grid>
             </Grid>
@@ -101,16 +104,17 @@ class DictionaryContainer extends React.Component {
             <TagChips tags={tags} className="dictionary-container__tag-chips"/>
             {
               alphabeth.map((letter) => (
-                <WordsExpansionPanel key={letter} letter={letter}/>
+                <WordsExpansionPanel key={letter} letter={letter} match={match} />
               ))
             }
           </Grid>
           <AddWordButton className="dictionary-container__fab" onClick={this.openWordForm} />
           {
             wordFormOpened && (
-              <WordFormDialog open={wordFormOpened} onClose={this.closeWordForm} dictionaryId={id} />
+              <WordFormDialog open={wordFormOpened} onClose={this.closeWordForm} />
             )
           }
+          <WordModal match={match} />
         </Grid>
       );
     }
