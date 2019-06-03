@@ -34,6 +34,6 @@ class Dictionary < ApplicationRecord
   private
 
   def unique_words_first_letters_sql
-    Arel.sql('DISTINCT LEFT(title, 1)')
+    Arel.sql('DISTINCT LOWER(LEFT(title, 1))')
   end
 end
