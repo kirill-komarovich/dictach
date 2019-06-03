@@ -5,7 +5,7 @@ FactoryBot.define do
     body { FFaker::Lorem.paragraph }
     word
     part_of_speech do
-      Description::PARTS_OF_SPEECH[language.to_sym].sample
+      Description::PARTS_OF_SPEECH[:en].sample
     end
   end
 end

@@ -4,6 +4,8 @@ class Word < ApplicationRecord
   belongs_to :dictionary
   has_many :descriptions, dependent: :destroy
 
+  accepts_nested_attributes_for :descriptions, reject_if: :all_blank, allow_destroy: true
+
   scope :starts_with, ->(letter) { where(words[:title].matches("#{letter}%")) }
 
   delegate :language, to: :dictionary

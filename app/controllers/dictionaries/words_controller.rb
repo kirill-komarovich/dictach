@@ -38,7 +38,11 @@ module Dictionaries
     private
 
     def word_params
-      params.require(:word).permit(:title, :dictionary_id)
+      params.require(:word).permit(
+        :title,
+        :dictionary_id,
+        descriptions_attributes: %i[id body part_of_speech _destroy]
+      )
     end
 
     def by_letter_param

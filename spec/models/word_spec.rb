@@ -11,6 +11,7 @@ RSpec.describe Word, type: :model do
     it { is_expected.to belong_to(:dictionary) }
     it { is_expected.to have_many(:descriptions).dependent(:destroy) }
     it { is_expected.to delegate_method(:language).to(:dictionary) }
+    it { is_expected.to accept_nested_attributes_for(:descriptions) }
   end
 
   describe 'validations' do

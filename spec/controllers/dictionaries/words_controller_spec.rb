@@ -58,6 +58,27 @@ RSpec.describe Dictionaries::WordsController, type: :controller do
         expect(response).to render_template 'shared/errors'
       end
     end
+
+    context 'with nested attributes for descriptions' do
+      let(:word_params) do
+        word = attributes_for(:word, dictionary: dictionary)
+        word.merge(
+          descriptions_attributes: {
+            '0' => attributes_for(:description, word: word)
+          }
+        )
+      end
+
+      it 'creates new word with descriptions' do
+        post :create, format: :json, params: params
+
+        new_word = Word.last
+        expect(response).to have_http_status 201
+        expect(response).to render_template :create
+        expect(new_word.title).to eq word_params[:title]
+        expect(new_word.dictionary_id).to eq dictionary.id
+      end
+    end
   end
 
   describe '#show' do
