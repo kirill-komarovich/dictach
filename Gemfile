@@ -43,7 +43,7 @@ group :development do
 end
 
 gem 'cancancan', '~> 2.3'
-gem 'devise', '~> 4.5'
+gem 'devise', '~> 4.7'
 gem 'dotenv-rails', '~> 2.5'
 gem 'enumerize', '~> 2.2', '>= 2.2.2'
 gem 'foreman', '~> 0.82'
